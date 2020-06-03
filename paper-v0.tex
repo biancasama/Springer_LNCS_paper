@@ -1,0 +1,87 @@
+% This is samplepaper.tex, a sample chapter demonstrating the
+% LLNCS macro package for Springer Computer Science proceedings;
+% Version 2.20 of 2017/10/04
+%
+\documentclass[runningheads]{llncs}
+%
+\usepackage{graphicx}
+% Used for displaying a sample figure. If possible, figure files should
+% be included in EPS format.
+%
+% If you use the hyperref package, please uncomment the following line
+% to display URLs in blue roman font according to Springer's eBook style:
+% \renewcommand\UrlFont{\color{blue}\rmfamily}
+
+\begin{document}
+%
+\title{Ants-Review: A Protocol For Open Anonymous Peer-Reviews\thanks{Supported by ETHTurin}}
+%
+%\titlerunning{Abbreviated paper title}
+% If the paper title is too long for the running head, you can set
+% an abbreviated paper title here
+%
+\author{Bianca Trovò\inst{1,2}\orcidID{0000-0002-6776-2304} \and
+Nazzareno Massari\inst{2,3}\orcidID{0000-0002-6638-2174}}
+%
+\authorrunning{B. Trovò et al.}
+% First names are abbreviated in the running head.
+% If there are more than two authors, 'et al.' is used.
+%
+\institute{Sorbonne Université, Faculté des Sciences et Ingénierie, 75005 Paris, France \and
+Neurospin research center, CEA/SAC/DSV/I2BM, 91191 Gif-sur-Yvette, France
+\email{bianca.trovo@alumni.unitn.it}\\
+\url{http://www.springer.com/gp/computer-science/lncs} \and
+Polytechnic of Turin\\
+\email{nazzareno@nazzarenomassari.com}}
+%
+\maketitle              % typeset the header of the contribution
+%
+\begin{abstract}
+Peer-review is a necessary and essential quality control step for scientific publications. However, the process, which is very costly in terms of time investment, not only is not remunerated but it’s also not recognized by the academic community as a relevant scientific output for a researcher. Therefore, scientific dissemination is affected. Here, to solve this issue we propose a blockchain-based incentive protocol that rewards scientists also for their contributions to other scientists’ work and that builds up a reputational system. We designed a basic Bounty-like contract called AntsReview that allows any author to issue a call for peer-reviewing their scientific publication. If requirements are met, peer-reviews will be audited by an external editor and payed by the Issuer. To promote ethical behaviour the system will implement a quadratic funding on AntsReview.
+\keywords{Blockchain  \and Peer-review \and Privacy \and Incentivization.}
+\end{abstract}
+%
+%
+\section{Introduction}
+
+\section{Background}
+\subsection{Peer-review}
+Peer-review is the traditional and necessary process at the heart of quality control in science [9, 12], determining the destinies of articles’ publications and therefore of scientific dissemination. However, the current peer-review system is outdated: in the past, it was effective when scholarly communication happened exclusively through printed paper journals, but nowadays, with the high and fast-paced levels of articles productions, its slow and multistage process doesn’t keep up with the times. Indeed, articles submitted to journals can take from months to years after editors’ first scrutiny, going back and forth several review rounds before acceptance for publications. This is mainly due to the fact that the reviewers that are normally appointed by authors and/or editors are actually full-time researchers themselves, who work on a volunteer basis taking time from their primary research. Though things are changing, and now more and more journals encourage a transparent peer review process with the publication of reviewers names and reports, in most of the cases, to guarantee an unbiased output, journals don’t even get credit researchers for this form of unpaid work. On top of this, author-level metrics that measure the scientific impact and productivity of academics, such as the h-index, and are taken into account by the funding agencies, are purely based on the number of citations per each publications while neglecting the full spectrum of scientific contributions (software, data collection, presentations, reviews…). Therefore, peer-reviewing is an intellectual investment without any external return for researchers’ career. A major consequence of not promoting incentives for the quality (and quantity) of peer-reviews is to either have good research unpublished (because unreviewed) and abandoned in preprint archives or bad science published through sloppy and uncritical reviews [5]. Last but not least, the ‘publish or perish’ culture has been more and more inducing malicious behaviour during the peer-review process, such as attempts of scientific fraud (authors trying to review their own papers) and abuse (reviewers producing extremely harsh reviews to damage competitors by blocking the publication of their ideas). Finally, the current peer-review system is usually not double-blind, thus making its decisional process vulnerable to all forms of biases (gender bias, cultural bias, professional bias, etc...). These trust problems are one of the major issues facing scholarly communication.
+\subsection{Blockchain for science}
+An increasing body of voices in the scientific community has started to speak up for the need of updating current scientific practices with the advances represented by blockchain technology [2, 8]. As an example, we refer to a ‘manifesto’ written by a few anonymous authors, proposing a blockchain based system of academic endorsement (AES) [1]. Indeed, we could say that in general “specific blockchain characteristics meet the requirements of an open science infrastructure” [3-7]: decentralisation, taking out the need of intermediaries, would make useless depending on highly profiting publishing companies for disseminating scientific work and managing the rules of the peer-review process; immutability of the system in which information can only be appended with tamper proof-time stamping,  but not subsequently modified, would secure the intellectual property and a fairer measure of the scientific contribution of the actors at play during the multiple versions of a paper; transparency (meaning that we have a viewable record of all the transactions), would also make editorial decisions (publish or not publish a study) more transparent and democratic. Finally, cryptographic hashing could allow for a double-blind process that reduces human biases in judgement by assigning hashed pseudonymous to universal researcher identifiers. From all these aspects taken together, a more democratic open peer-review  process could rise, in which merit and power (of access to information, of decision…) is more equally redistributed among the stakeholders (researchers, reviewers, taxpayers).
+
+\section{System concept}
+For the above mentioned reasons, we propose an incentive-based protocol called Ants-Review to reward open peer-reviews while preserving the anonymity of the reviewers. The name originates from the idea that the work behind a finished scientific paper resembles a complex organism such as an anthill, which emerges from the sum of many individualities: in it, all contributions (even if ‘micro’) are essential to the whole and are worth recognition.
+This project is intended to be open source and was developed during the ETH Turin 2020 Hackathon and it’s design and attempt of implementation are exposed in the following section. 
+
+\subsection{Design}
+When authors of a paper submit their draft to an open access journal or preprint, they can instantiate a call (bounty issuance) for the paper-review whose fulfillment rules are set in a smart-contract to which any contributor can participate either as a reviewer or as editor. Reviews fulfilling the smart-contract requirements are audited by external editors who validate the content. If the reviews are accepted (bounty fulfillment), reviewers awarded a token, an internal digital currency specific for this bounty, called ‘ANT’. The ideal scenario envisages multiple contributions both from the reviewers actors and the editors actors. To reinforce ethical behaviour and the system will implement on AntsReview a quadratic funding [20].
+
+\subsection{Implementation}
+As an initial Proof of Concept (PoC) we wrote our smart contract with Solidity [19], a contract-oriented, high-level language designed for implementing smart contracts on the Ethereum Virtual Machine (EVM). We relied on tools and pipelines from Truffle Suite [18], a development environment and testing framework for Ethereum, and Ganache [17], its private test blockchain tool for the Ethereum ecosystem.
+We adopted a standard template for smart contracts (Standard Bounties) like that from Bounties-Network [16]. The bounty contains some requirements for fulfillment like: time-stamped deadline, value of the bounty. Within AntsReview access management is granted to three actors: the owner of the deployed smart contract AntsReview.sol, a Pauser, assigned to the owner of the deployed smart contract, able to Pause the functions in case of emergency and the authors of the paper or AntsReview Issuers;   upon which we added four options expressed by the functions: issueAntReview( ), to instantiate a new bounty; fulfillAntReview(), to submit a fulfillment for the given AntReview; acceptFulfillment(): to accept a given fulfillment; cancelAntReview(), to cancel the AntReview and send the funds back to the issuer. Evidence of the fulfillments are tracked via  IPFS hashing.
+For code optimization we used OpenZeppelin Contracts, a library for secure smart contract development. We deployed the contract on an Ethereum Test Network, Rinkeby Testnet [21], a proof-of-authority blockchain.
+The dApp was implemented with an user interface (UI) to interact with the smart contract: for that we used the libraries React.js and RimbleUI.
+
+\subsubsection{Future steps}
+Future integrations that were not contemplated in the above presented PoC /demo but that we plan to cover for the development of the AntsReview bounty include: an ERC20 token, named Ant,  symbol ANT; Proof of Existence (PoE) service; memory storage on IPFS; moreover, since we wanted to anonymize peer-reviews to protect the contributors privacy, we would like to implement on the ANT token a fast, non-interactive type of zero-knowledge privacy protocol to enable private transactions on Ethereum. Zero-knowledge proof is a mathematical cryptographic method that through values permutations allows one party (the prover) to prove to another (the verifier) the veracity of a statement, without having to reveal what the statement is. We will use ZK-SNARKs (which stands for “Zero-Knowledge Succinct Non-Interactive Argument of Knowledge”) via the open source libraries of AZTEC protocol [15]. We will also use Ethereum Name Service (ENS) [14] to allow for human-readable Ethereum addresses; Upgradability Design Patterns [13] via Proxy, to allow the logic to be extended and improved; De-Fi integrations such as Dai, Chai. Finally, we would like to propose for AntsReview Quadratic Funding, a design written by Vitalik Buterin and co [20] and which applies concepts inspired by quadratic voting to funding public goods. 
+
+\section{Conclusion and Discussions}
+In this whitepaper we addressed a central problem within the quality control academic dissemination: the peer-review process. We showed how blockchain technology could provide an efficient and viable solution and open up possibile directions for a change in paradigm in scientific communication. We proposed an incentive mechanism that could solve the problems of lack of acknowledgment and trust during peer-review. We exposed the architecture of our project and our Proof of Concept (PoC) for which we adopted cutting-edge tools from the open source blockchain community.
+
+\section{Supplementary material}
+Our open source code is available at the Github repository. A demo of the project is available at Youtube channel.
+\section{CRediT Authorship Contribution Statement}
+Bianca Trovò: Conceptualization, Investigation, Visualization, Writing - original draft, Writing - review & editing. Nazzareno Massari: Project administration, Methodology, Validation, Software development. Both authors equally contributed and supervised the project.
+\section{Declaration of Competing Interest}
+The authors declare no competing interests.
+
+% ---- Bibliography ----
+%
+% BibTeX users should specify bibliography style 'splncs04'.
+% References will then be sorted and formatted in the correct style.
+%
+\bibliographystyle{splncs04}
+\bibliography{references.bib}
+
+\end{document}
