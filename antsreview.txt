@@ -1,0 +1,66 @@
+% This is samplepaper.tex, a sample chapter demonstrating the
+% LLNCS macro package for Springer Computer Science proceedings;
+% Version 2.20 of 2017/10/04
+%
+\documentclass[runningheads]{llncs}
+%
+\usepackage{graphicx}
+% Used for displaying a sample figure. If possible, figure files should
+% be included in EPS format.
+%
+% If you use the hyperref package, please uncomment the following line
+% to display URLs in blue roman font according to Springer's eBook style:
+% \renewcommand\UrlFont{\color{blue}\rmfamily}
+
+\begin{document}
+%
+\title{Ants-Review: A Protocol For Open Anonymous Peer-Reviews\thanks{Supported by ETHTurin}}
+%
+%\titlerunning{Abbreviated paper title}
+% If the paper title is too long for the running head, you can set
+% an abbreviated paper title here
+%
+\author{Bianca Trovò\inst{1,2}\orcidID{0000-0002-6776-2304} \and
+Nazzareno Massari\inst{2,3}\orcidID{0000-0002-6638-2174}}
+%
+\authorrunning{B. Trovò et al.}
+% First names are abbreviated in the running head.
+% If there are more than two authors, 'et al.' is used.
+%
+\institute{Sorbonne Université, Faculté des Sciences et Ingénierie, 75005 Paris, France \and
+Neurospin research center, CEA/SAC/DSV/I2BM, 91191 Gif-sur-Yvette, France
+\email{bianca.trovo@alumni.unitn.it}\\
+\url{http://www.springer.com/gp/computer-science/lncs} \and
+Polytechnic of Turin\\
+\email{nazzareno@nazzarenomassari.com}}
+%
+\maketitle              % typeset the header of the contribution
+%
+\begin{abstract}
+The abstract should briefly summarize the contents of the paper in
+15--250 words.
+
+\keywords{Blockchain  \and Peer-review \and Privacy \and Incentivization.}
+\end{abstract}
+%
+%
+%
+\section{Introduction}
+%
+\section{Background}
+%
+\section{System concept}
+%
+\section{Implementation}
+%
+\section{Conclusion and Discussions}
+%
+% ---- Bibliography ----
+%
+% BibTeX users should specify bibliography style 'splncs04'.
+% References will then be sorted and formatted in the correct style.
+%
+\bibliographystyle{splncs04}
+\bibliography{references.bib}
+
+\end{document}
