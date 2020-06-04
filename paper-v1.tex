@@ -5,6 +5,7 @@
 \documentclass[runningheads]{llncs}
 %
 \usepackage{graphicx}
+\input{solidity-highlighting.tex}	% copy the file from this repo
 % Used for displaying a sample figure. If possible, figure files should
 % be included in EPS format.
 %
@@ -30,7 +31,7 @@ Nazzareno Massari\inst{2,3}\orcidID{0000-0002-6638-2174}}
 \institute{Sorbonne Université, Faculté des Sciences et Ingénierie, 75005 Paris, France \and
 Neurospin research center, CEA/SAC/DSV/I2BM, 91191 Gif-sur-Yvette, France
 \email{bianca.trovo@alumni.unitn.it}\\
-\url{http://www.springer.com/gp/computer-science/lncs} \and
+\and
 Polytechnic of Turin\\
 \email{nazzareno@nazzarenomassari.com}}
 %
@@ -52,7 +53,7 @@ An increasing body of voices in the scientific community has started to speak up
 
 \section{System concept}
 For the above mentioned reasons, we propose an incentive-based protocol called Ants-Review to reward open peer-reviews while preserving the anonymity of the reviewers. The name originates from the idea that the work behind a finished scientific paper resembles a complex organism such as an anthill, which emerges from the sum of many individualities: in it, all contributions (even if ‘micro’) are essential to the whole and are worth recognition.
-This project is intended to be open source and was developed during the ETH Turin 2020 Hackathon and it’s design and attempt of implementation are exposed in the following section. 
+This project is intended to be open source and was developed during the ETH Turin 2020 Hackathon and it’s design and attempt of implementation are exposed in the following section.
 
 \subsection{Design}
 When authors of a paper submit their draft to an open access journal or preprint, they can instantiate a call (bounty issuance) for the paper-review whose fulfillment rules are set in a smart-contract to which any contributor can participate either as a reviewer or as editor. Reviews fulfilling the smart-contract requirements are audited by external editors who validate the content. If the reviews are accepted (bounty fulfillment), reviewers awarded a token, an internal digital currency specific for this bounty, called ‘ANT’. The ideal scenario envisages multiple contributions both from the reviewers actors and the editors actors. To reinforce ethical behaviour and the system will implement on AntsReview a quadratic funding [20].
@@ -63,8 +64,37 @@ We adopted a standard template for smart contracts (Standard Bounties) like that
 For code optimization we used OpenZeppelin Contracts, a library for secure smart contract development. We deployed the contract on an Ethereum Test Network, Rinkeby Testnet [21], a proof-of-authority blockchain.
 The dApp was implemented with an user interface (UI) to interact with the smart contract: for that we used the libraries React.js and RimbleUI.
 
+\subsubsection{Bounty}
+
+
+\begin{lstlisting}[language=Solidity]
+pragma solidity 0.4.16;
+
+contract TestContract {
+
+	string private myString = "foo";
+
+	function getString() constant returns (string) {
+	    return myString;
+	}
+
+	function setString (string _string) {
+	    myString = _string;
+	}
+}
+\end{lstlisting}
+
+\subsubsection{Token Economics}
+
+\subsubsection{Quadratic Funding}
+
+\subsubsection{Privacy}
+
+\subsubsection{DAO}
+
+
 \subsubsection{Future steps}
-Future integrations that were not contemplated in the above presented PoC /demo but that we plan to cover for the development of the AntsReview bounty include: an ERC20 token, named Ant,  symbol ANT; Proof of Existence (PoE) service; memory storage on IPFS; moreover, since we wanted to anonymize peer-reviews to protect the contributors privacy, we would like to implement on the ANT token a fast, non-interactive type of zero-knowledge privacy protocol to enable private transactions on Ethereum. Zero-knowledge proof is a mathematical cryptographic method that through values permutations allows one party (the prover) to prove to another (the verifier) the veracity of a statement, without having to reveal what the statement is. We will use ZK-SNARKs (which stands for “Zero-Knowledge Succinct Non-Interactive Argument of Knowledge”) via the open source libraries of AZTEC protocol [15]. We will also use Ethereum Name Service (ENS) [14] to allow for human-readable Ethereum addresses; Upgradability Design Patterns [13] via Proxy, to allow the logic to be extended and improved; De-Fi integrations such as Dai, Chai. Finally, we would like to propose for AntsReview Quadratic Funding, a design written by Vitalik Buterin and co [20] and which applies concepts inspired by quadratic voting to funding public goods. 
+Future integrations that were not contemplated in the above presented PoC /demo but that we plan to cover for the development of the AntsReview bounty include: an ERC20 token, named Ant,  symbol ANT; Proof of Existence (PoE) service; memory storage on IPFS; moreover, since we wanted to anonymize peer-reviews to protect the contributors privacy, we would like to implement on the ANT token a fast, non-interactive type of zero-knowledge privacy protocol to enable private transactions on Ethereum. Zero-knowledge proof is a mathematical cryptographic method that through values permutations allows one party (the prover) to prove to another (the verifier) the veracity of a statement, without having to reveal what the statement is. We will use ZK-SNARKs (which stands for “Zero-Knowledge Succinct Non-Interactive Argument of Knowledge”) via the open source libraries of AZTEC protocol [15]. We will also use Ethereum Name Service (ENS) [14] to allow for human-readable Ethereum addresses; Upgradability Design Patterns [13] via Proxy, to allow the logic to be extended and improved; De-Fi integrations such as Dai, Chai. Finally, we would like to propose for AntsReview Quadratic Funding, a design written by Vitalik Buterin and co [20] and which applies concepts inspired by quadratic voting to funding public goods.
 
 \section{Conclusion and Discussions}
 In this whitepaper we addressed a central problem within the quality control academic dissemination: the peer-review process. We showed how blockchain technology could provide an efficient and viable solution and open up possibile directions for a change in paradigm in scientific communication. We proposed an incentive mechanism that could solve the problems of lack of acknowledgment and trust during peer-review. We exposed the architecture of our project and our Proof of Concept (PoC) for which we adopted cutting-edge tools from the open source blockchain community.
