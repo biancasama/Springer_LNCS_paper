@@ -59,10 +59,17 @@ This project is intended to be open source and was developed during the ETH Turi
 When authors of a paper submit their draft to an open access journal or preprint, they can instantiate a call (bounty issuance) for the paper-review whose fulfillment rules are set in a smart-contract to which any contributor can participate either as a reviewer or as editor. Reviews fulfilling the smart-contract requirements are audited by external editors who validate the content. If the reviews are accepted (bounty fulfillment), reviewers awarded a token, an internal digital currency specific for this bounty, called ‘ANT’. The ideal scenario envisages multiple contributions both from the reviewers actors and the editors actors. To reinforce ethical behaviour and the system will implement on AntsReview a quadratic funding [20].
 
 \subsection{Implementation}
-As an initial Proof of Concept (PoC) we wrote our smart contract with Solidity [19], a contract-oriented, high-level language designed for implementing smart contracts on the Ethereum Virtual Machine (EVM). We relied on tools and pipelines from Truffle Suite [18], a development environment and testing framework for Ethereum, and Ganache [17], its private test blockchain tool for the Ethereum ecosystem.
-We adopted a standard template for smart contracts (Standard Bounties) like that from Bounties-Network [16]. The bounty contains some requirements for fulfillment like: time-stamped deadline, value of the bounty. Within AntsReview access management is granted to three actors: the owner of the deployed smart contract AntsReview.sol, a Pauser, assigned to the owner of the deployed smart contract, able to Pause the functions in case of emergency and the authors of the paper or AntsReview Issuers;   upon which we added four options expressed by the functions: issueAntReview( ), to instantiate a new bounty; fulfillAntReview(), to submit a fulfillment for the given AntReview; acceptFulfillment(): to accept a given fulfillment; cancelAntReview(), to cancel the AntReview and send the funds back to the issuer. Evidence of the fulfillments are tracked via  IPFS hashing.
-For code optimization we used OpenZeppelin Contracts, a library for secure smart contract development. We deployed the contract on an Ethereum Test Network, Rinkeby Testnet [21], a proof-of-authority blockchain.
-The dApp was implemented with an user interface (UI) to interact with the smart contract: for that we used the libraries React.js and RimbleUI.
+AntsReview is a destributed peer-review system which synthetizes successfull ideas from previous systems including The Bounty Network, ERC20, AZTEC Protocol, IPFS, Proof of Existence, DAO, ...
+\newline The contribution of AntsReview is simply allowing the peer-review process, as a complex system, to emerge as a self-organised ecosystem of authors and peer-reviewers to enhance the complexity of a paper and its validation.
+\newline AntsReview represent a new platform to issue peer-reviews and validate scientific papers and a new system for anonymous and open contributions with an incentivization mechanism to reach an ideal state of equilibrium and create value.
+\newline The AntsReview Protocol is divided into stack of sub-protocols responsible for different functionality:
+
+\begin{enumerate}}
+  \item \textbf{Bounty} - manage access management and the basic system.
+  \item \textbf{Token Economics} - manage system incentivization mechanism integrating ideas from DeFi and Quadratic Funding.
+  \item \textbf{Privacy} - mantains the anonymity of the system via AZTEC Protocol.
+  \item \textbf{DAO} - manage the governance of the system via DemocracyDAO.
+\end{enumerate}
 
 \subsubsection{Bounty}
 
