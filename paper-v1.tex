@@ -17,14 +17,14 @@
 
 \begin{document}
 %
-\title{Ants-Review: A Protocol For Open Anonymous Peer-Reviews\thanks{Supported by ETHTurin}}
+\title{Ants-Review: A Protocol For Open Anonymous Peer-Reviews\thanks{}}
 %
 %\titlerunning{Abbreviated paper title}
 % If the paper title is too long for the running head, you can set
 % an abbreviated paper title here
 %
 \author{Bianca Trovò\inst{1,2}\orcidID{0000-0002-6776-2304} \and
-Nazzareno Massari\inst{2,3}\orcidID{0000-0002-6638-2174}}
+Nazzareno Massari\inst{3,4}\orcidID{0000-0002-6638-2174}}
 %
 \authorrunning{B. Trovò et N. Massari}
 % First names are abbreviated in the running head.
@@ -34,7 +34,8 @@ Nazzareno Massari\inst{2,3}\orcidID{0000-0002-6638-2174}}
 Neurospin research center, CEA/SAC/DSV/I2BM, 91191 Gif-sur-Yvette, France
 \email{bianca.trovo@alumni.unitn.it}\\
 \and
-Polytechnic of Turin\\
+Alma Mater Politecnico di Torino, 10129 Turin, Italy\and
+Independent blockchain engineer, London, UK \\
 \email{nazzareno@nazzarenomassari.com}}
 %
 \maketitle              % typeset the header of the contribution
@@ -60,15 +61,21 @@ Peer-review is the traditional and necessary process at the heart of quality con
     \item transparent peer review
 \end{itemize}
 
-\subsubsection{Traditional editorial process}
+\subsubsection{Traditional peer-review process}
 \begin{enumerate}
     \item The author submits a manuscript to the journal.
-    \item  An editor is assigned to the manuscript: at this stage the assessment of the paper concerns the requirements of the journal's Author's Guideline (composition, sections...).
-    \item 
+    \item  An editorial team  assesses the paper for what concerns the requirements of the journal's Author's Guideline (composition, sections...).
+    \item An Editor in Chief (EIC) is assigned to the manuscript and checks if the paper meets the scopes of the journal and novelty criteria. If the paper is rejected, it does not go through the consideration process and the editor notifies the author.
+    \item If the editorial decision is to send the manuscript for review, the handling editor looks for potential reviewers. Potential reviewers can be suggested by the authors themselves, but usually it's up to the editor to find researchers in the field who are competent enough but not closely related to the study to review.
+    \item Candidate reviewers receive the journal's invitation and evaluate acceptance based on their own level of expertise, intrinsic conﬂicts of interest and time availability. They then accept or decline. If they decline, they might suggest alternative reviewers. Editors keep searching for reviewers until they find two or three reviewers who agree to review the manuscript.
+    \item When reviewers engage themselves in delivering peer-review report by a certain deadline, the author(s) are notified. The reviewers identity is usually only know to the editor but is hidden to the authors or the other reviewers themselves. 
+    \item Reviewers independently conduct their reviews by exposing in their reports strengths and weaknesses of the manuscript in a point-by-point fashion and submitting a final recommendation to the editor: acceptance, rejection or revision (major or minor).
+    \item the handling editor or the editorial team considers all the submitted reports and makes the final decision.
+    \item If the decision is a major or minor revision, authors are invited to re-submit a corrected or improved version of the manuscript with a letter to the reviewers. The same reviewers might be contacted again and if they want they can follow up the peer-review process. 
+    \item If the decision is a rejection, the editor might indicate another journal where to submit the manuscript. 
     
-    
-    
-\end{enumerate}2. 3. The editorial team decides whether to send the manuscript out to review. If the decision is not to send the manuscript for review, the editor contacts the author with the decision. 4. The editor assigns potential reviewers to the manuscript and the author is notiﬁed. 5. Reviewers agree to review the manuscript. 6. Reviewers submit their reports to the editor. 7. The editorial team discusses the reports and the editor makes the ﬁnal decision. This process may involve further consultation with the reviewers and editor-mediated communications between the reviewers. 8. The editor contacts the author with the decision. 9. If the decision is negative, the author can choose to transfer their manuscript to another journal. If the manuscript was peer reviewed the referee comments are also transferred. Please see our Manuscript Transfer FAQ for more information about this service.
+\end{enumerate}
+
 \subsection{Related work}
 
 Credit for peer review is not a new thing: mostly journals handled it so far with virtual 'badges', certificates of performance, citation in annual editorials but none of these is standardized in a way that has a weight for funders world ranking bodies institutions like imapct factor h-index. 
@@ -89,9 +96,6 @@ The project will develop a protocol where information about peer review activiti
 \section{System concept}
 For the above mentioned reasons, we propose an incentive-based protocol called Ants-Review to reward open peer-reviews while preserving the anonymity of the reviewers. The name originates from the idea that the work behind a finished scientific paper resembles a complex organism such as an anthill, which emerges from the sum of many individualities: in it, all contributions (even if ‘micro’) are essential to the whole and are worth recognition.
 This project is intended to be open source and was developed during the ETH Turin 2020 Hackathon and it’s design and attempt of implementation are exposed in the following section.
-
-\subsection{Design}
-
 Anonymity
 Accountability
 Reputation
@@ -99,11 +103,26 @@ Reward
 Gamification model 
 
 open identities open reports open participation open interaction open platform ('decoupled review')
-Basic architecture 
-When authors of a paper submit their draft to an open access journal or preprint, they can instantiate a call (bounty issuance) for the paper-review whose fulfillment rules are set in a smart-contract to which any contributor can participate either as a reviewer or as editor. Reviews fulfilling the smart-contract requirements are audited by external editors who validate the content. If the reviews are accepted (bounty fulfillment), reviewers awarded a token, an internal digital currency specific for this bounty, called ‘ANT’. The ideal scenario envisages multiple contributions both from the reviewers actors and the editors actors. To reinforce ethical behaviour and the system will implement on AntsReview a quadratic funding [20].
-Scenario 1 (journal-dependent)
-Scenario 2 (community-driven): peer-review is decoupled from journal
 
+\subsection{Design}
+
+\subsubsection{AnstReview process: scenario 1  (journal-dependent)}\\
+
+
+
+\begin{enumerate}
+    \item The author submits a manuscript to the journal.
+    \item If the papers passes stage 2-3 of editorial decision (appropriateness of style and coherence with the journal's scope)
+    \item the editor issues a bounty (\emph{bounty issuance}) for the paper review. Fulfillment rules are set in a smart-contract.
+    \item (footnote?) the bounty prize could correspond to part of the article submission fees and article publication fees requested to the authors by the journal.
+    \item Reviews fulfilling the smart-contract requirements are validated by the journal editors.
+    \item When the reviews are accepted (\emph{bounty fulfillment}), reviewers awarded a token called \emph{ANT}.
+    \item Not all reviews will have the same quality and depth. However, each of them might bring up one or more relevant contribution for the sake of improving the manuscript. In order to redistribute the bounty in a fair manner across reviewers, reviews will be voted by the editors with Quadratic Voting. 
+\end{enumerate}
+When authors of a paper submit their draft to an open access journal or pre-print, they can instantiate a call (bounty issuance) for the paper-review whose fulfillment rules are set in a smart-contract to which any contributor can participate either as a reviewer or as editor. Reviews fulfilling the smart-contract requirements are audited by external editors who validate the content. If the reviews are accepted (bounty fulfillment), reviewers awarded a token, an internal digital currency specific for this bounty, called ‘ANT’. The ideal scenario envisages multiple contributions both from the reviewers actors and the editors actors. To reinforce ethical behaviour and the system will implement on AntsReview a quadratic funding [20].
+
+Scenario 2 (community-driven): peer-review is decoupled from journal
+or to the pre-print service or to an hypothetical AntsReview platform).
 \subsection{Implementation}
 AntsReview is a destributed peer-review system which synthetizes successfull ideas from previous systems including The Bounty Network, ERC20, AZTEC Protocol, IPFS, Proof of Existence, DAO, ...
 \newline The contribution of AntsReview is simply allowing the peer-review process, as a complex system, to emerge as a self-organised ecosystem of authors and peer-reviewers to enhance the complexity of a paper and its validation.
@@ -112,7 +131,7 @@ AntsReview is a destributed peer-review system which synthetizes successfull ide
 
 \includegraphics[scale=0.28]{AntsReview}
 
-\begin{enumerate}}
+\begin{enumerate}
   \item \textbf{Bounty} - manage access management and the basic system.
   \item \textbf{Token Economics} - manage system incentivization mechanism integrating ideas from DeFi and Quadratic Funding.
   \item \textbf{Privacy} - mantains the anonymity of the system via AZTEC Protocol.
