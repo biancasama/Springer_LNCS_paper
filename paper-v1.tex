@@ -61,42 +61,64 @@ This project is intended to be open source and was developed during the ETH Turi
 When authors of a paper submit their draft to an open access journal or preprint, they can instantiate a call (bounty issuance) for the paper-review whose fulfillment rules are set in a smart-contract to which any contributor can participate either as a reviewer or as editor. Reviews fulfilling the smart-contract requirements are audited by external editors who validate the content. If the reviews are accepted (bounty fulfillment), reviewers awarded a token, an internal digital currency specific for this bounty, called ‘ANT’. The ideal scenario envisages multiple contributions both from the reviewers actors and the editors actors. To reinforce ethical behaviour and the system will implement on AntsReview a quadratic funding [20].
 
 \subsection{Implementation}
-AntsReview is a destributed peer-review system which synthetizes successfull ideas from previous systems including The Bounty Network, ERC20, AZTEC Protocol, IPFS, Proof of Existence, DAO, ...
+AntsReview is a destributed peer-review system which synthetizes successfull ideas from previous systems including The Bounty Network[ref], ERC20[ref], AZTEC Protocol[ref], IPFS[ref], Proof of Existence[ref], ...
 \newline The contribution of AntsReview is simply allowing the peer-review process, as a complex system, to emerge as a self-organised ecosystem of authors and peer-reviewers to enhance the complexity of a paper and its validation.
 \newline AntsReview represent a new platform to issue peer-reviews and validate scientific papers and a new system for anonymous and open contributions with an incentivization mechanism to reach an ideal state of equilibrium and create value.
 \newline The AntsReview Protocol is divided into stack of sub-protocols responsible for different functionality:
 
 \includegraphics[scale=0.28]{AntsReview}
 
-\begin{enumerate}}
+\begin{enumerate}
   \item \textbf{Bounty} - manage access management and the basic system.
   \item \textbf{Token Economics} - manage system incentivization mechanism integrating ideas from DeFi and Quadratic Funding.
   \item \textbf{Privacy} - mantains the anonymity of the system via AZTEC Protocol.
 \end{enumerate}
 
 \subsubsection{Bounty}
+AntsReview is the core of the smart contracts deployed on Ethereum Rinkeby's Testnet as shown in the flow-chart[img].
+\newline It implements a Bounty-like system where an issuer (author) is asked a serious of actions, to ensure transparency and robustness, regarding the AntReview that he's creating:
+\begin{itemize}
+  \item to upload the file containing the requirements of the peer-review and the paper into IPFS.
+  \item to speficy a deadline in the form of a unix timestamp after wich the fulfillment will no longer be accepted.
+  \item to send the amount of ether for the reward.
+\end{itemize}
 
-
-
-
-
+AntsReviewRoles, to ensure integrity of the system, implements an access management, leveraging on AccessControl.sol by OpenZeppelin Library, through the creation of the Roles Issuer and Peer-Reviewer[code].
 
 \begin{lstlisting}[language=Solidity]
-pragma solidity 0.4.16;
 
-contract TestContract {
+pragma solidity 0.6.8;
 
-	string private myString = "foo";
+import "@openzeppelin/contracts/access/AccessControl.sol";
 
-	function getString() constant returns (string) {
-	    return myString;
-	}
+contract AntsReviewRoles is AccessControl {
 
-	function setString (string _string) {
-	    myString = _string;
-	}
+/// Roles
+bytes32 public constant ISSUER_ROLE = keccak256("ISSUER_ROLE");
+bytes32 public constant PEER_REVIEWER_ROLE = keccak256("PEER_REVIEWER_ROLE");
+
 }
 \end{lstlisting}
+
+In this way, only the Issuer (author) can create a new AntReview.
+\newline Once created, an AntReview is available to be fulfilled by Peer-Reviewers, uploading the peer-review on IPFS before the deadline.
+\newline The AntReview after being validated is then accepted by the Issuer and paid equally between Peer-Reviewers.
+\newline Also, the Issuer can cancel the AntReview at any time and withdraw the amount of ether staked.
+One of the key aspects of the protocol is the concept of Proof of Existence, introduced by Stuart Haber & W. Scott Stornetta with the paper "How to time-stamp a digital document".
+\newline As the pioneer of blockchain an cited by Bitcoin whitepaper, they were in a mission to solve the problem of immutability of digital records that became reality with Bitcoin and Blockchain.
+\newline In Ethereum the concept of immutablity is achieved via the blockchain and proof of work consesus algorithm by a chain of timestamped block hashes that are secured by miners competing computations.
+\newline AntsReview is evaluating the advantages of storing the hashes of the peer-reviews into a Merkle Tree to achieve immutability.
+
+
+
+
+
+
+
+
+
+
+
 
 \subsubsection{Token Economics}
 
