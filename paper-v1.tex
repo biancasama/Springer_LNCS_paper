@@ -84,6 +84,7 @@ AntsReview is the core of the smart contracts deployed on Ethereum Rinkeby's Tes
 \end{itemize}
 
 AntsReviewRoles, to ensure integrity of the system, implements an access management, leveraging on AccessControl.sol by OpenZeppelin Library, through the creation of the Roles Issuer and Peer-Reviewer[code].
+\newline It also integrates a circuit breaker deisgn pattern via Pausable.sol by OpenZeppelin to allow the Pauser Role, that by default is the Owner of the Smart Contracts, to pause (or unpause) the functions in case of emergency.
 
 \begin{lstlisting}[language=Solidity]
 
@@ -104,29 +105,37 @@ In this way, only the Issuer (author) can create a new AntReview.
 \newline Once created, an AntReview is available to be fulfilled by Peer-Reviewers, uploading the peer-review on IPFS before the deadline.
 \newline The AntReview after being validated is then accepted by the Issuer and paid equally between Peer-Reviewers.
 \newline Also, the Issuer can cancel the AntReview at any time and withdraw the amount of ether staked.
-\newline One of the key aspects of the protocol is the concept of Proof of Existence, introduced by Stuart Haber & W. Scott Stornetta with the paper "How to time-stamp a digital document".
+\newline One of the key aspects of the protocol is the concept of Proof of Existence, introduced by Stuart Haber & W. Scott Stornetta with the paper "How to time-stamp a digital document"[cit.].
 \newline As the pioneer of blockchain an cited by Bitcoin whitepaper, they were in a mission to solve the problem of immutability of digital records that became reality with the Blockchain and Bitcoin as its first application.
 \newline In Ethereum the concept of immutablity is achieved via the blockchain and proof of work consesus algorithm by a chain of timestamped block hashes that are secured by miners competing computations.
 \newline AntsReview is evaluating the advantages of storing the hashes of the peer-reviews into a Merkle Tree to achieve immutability.
 
-
-
-
-
-
-
-
-
-
-
-
 \subsubsection{Token Economics}
+AntsReview, to incintivize the system integrates a native ERC20 Token called Ant that is used in the protocol to pay for AntReview and also wrapped into zkAnt to allow anonymous payments.
 
-\subsubsection{Quadratic Funding}
+The code below show the implementation of Ant Token via ERC20PresetMinterPauser.sol inherited from OpenZeppelin Library, a preset of ERc20 inlcuding an access management and a circuit breaker pattern.
+
+\begin{lstlisting}[language=Solidity]
+
+pragma solidity 0.6.8;
+
+import "@openzeppelin/contracts/presets/ERC20PresetMinterPauser.sol";
+
+contract Ant is ERC20PresetMinterPauser {
+
+  constructor()
+  ERC20PresetMinterPauser("Ant", "ANT")
+  public {
+
+  }
+}
+\end{lstlisting}
+
+\newline
+
 
 \subsubsection{Privacy}
 
-\subsubsection{DAO}
 
 
 \subsubsection{Future steps}
@@ -141,6 +150,353 @@ Our open source code is available at the Github repository. A demo of the projec
 Bianca Trovò: Conceptualization, Investigation, Visualization, Writing - original draft, Writing - review \& editing. Nazzareno Massari: Project administration, Methodology, Validation, Software development. Both authors equally contributed and supervised the project.
 \section{Declaration of Competing Interest}
 The authors declare no competing interests.
+
+\newpage
+
+\section{Appendix}
+
+\appendix
+
+\section{AntsReviewRoles.sol}
+
+\begin{lstlisting}[language=Solidity]
+
+  /// SPDX-License-Identifier: GPL-3.0
+  pragma solidity 0.6.8;
+
+  ///@title AntsReview
+  ///@author Nazzareno Massari
+  ///@notice AntsReviewRoles Access Management for Issuer and Peer-Reviewer
+  ///@dev All function calls are currently implemented without side effecs through TDD approach
+  ///@dev OpenZeppelin library is used for secure contract development
+
+  import "@openzeppelin/contracts/access/Ownable.sol";
+  import "@openzeppelin/contracts/access/AccessControl.sol";
+  import "@openzeppelin/contracts/utils/Pausable.sol";
+
+  contract AntsReviewRoles is Ownable, AccessControl, Pausable {
+
+    /// Roles
+    bytes32 public constant ISSUER_ROLE = keccak256("ISSUER_ROLE");
+    bytes32 public constant PEER_REVIEWER_ROLE = keccak256("PEER_REVIEWER_ROLE");
+    bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
+
+
+    constructor() public {
+            _setupRole(DEFAULT_ADMIN_ROLE, owner());
+            _setupRole(PAUSER_ROLE, owner());
+    }
+
+      /// Modifiers
+      modifier onlyAdmin() {
+          require(isAdmin(msg.sender), "Caller is not an admin");
+          _;
+        }
+
+      modifier onlyIssuer() {
+          require(isIssuer(msg.sender), "Caller is not an issuer");
+          _;
+      }
+
+      modifier onlyPeerReviewer() {
+          require(isPeerReviewer(msg.sender), "Caller is not a peer-reviewer");
+          _;
+      }
+
+      /// Functions
+
+      function isAdmin(address account) public view returns (bool) {
+        return hasRole(DEFAULT_ADMIN_ROLE, account);
+      }
+
+      function isIssuer(address account ) public view returns (bool) {
+        return hasRole(ISSUER_ROLE, account);
+      }
+
+      function isPeerReviewer(address account ) public view returns (bool) {
+        return hasRole(PEER_REVIEWER_ROLE, account);
+      }
+
+      function addIssuer(address account) public onlyAdmin returns (bool) {
+        require(!isIssuer(account), "Account is already an issuer");
+        grantRole(ISSUER_ROLE, account);
+        return true;
+      }
+
+      function addPeerReviewer(address account) public onlyAdmin returns (bool) {
+        require(!isPeerReviewer(account), "Account is already a peer-reviewer");
+        grantRole(PEER_REVIEWER_ROLE, account);
+        return true;
+      }
+
+      function removeIssuer(address account) public onlyAdmin returns (bool) {
+        require(isIssuer(account), "Account is not an issuer");
+        revokeRole(ISSUER_ROLE, account);
+        return true;
+      }
+
+      function removePeerReviewer(address account) public onlyAdmin returns (bool) {
+        require(isPeerReviewer(account), "Account is not a peer-reviewer");
+        revokeRole(PEER_REVIEWER_ROLE, account);
+        return true;
+      }
+
+      /// @notice Pause all the functions
+      /// @dev the caller must have the 'PAUSER_ROLE'
+      function pause() public {
+        require(hasRole(PAUSER_ROLE, msg.sender), "BadgeFactory: must have pauser role to pause");
+        _pause();
+      }
+
+      /// @notice Unpause all the functions
+      /// @dev the caller must have the 'PAUSER_ROLE'
+      function unpause() public {
+            require(hasRole(PAUSER_ROLE, msg.sender), "BadgeFactory: must have pauser role to unpause");
+            _unpause();
+      }
+  }
+
+\end{lstlisting}
+
+\newpage
+\section{AntsReview.sol}
+
+\begin{lstlisting}[language=Solidity]
+  /// SPDX-License-Identifier: GPL-3.0
+  pragma solidity 0.6.8;
+
+  ///@title AntsReview
+  ///@author Nazzareno Massari
+  ///@notice AntsReview to allows issuer to issue an antReview which peer-reviewers can fulfill
+  ///@dev All function calls are currently implemented without side effecs through TDD approach
+  ///@dev OpenZeppelin library is used for secure contract development
+
+  import "./AntsReviewRoles.sol";
+  import "@openzeppelin/contracts/math/SafeMath.sol";
+  import "@openzeppelin/contracts/utils/Address.sol";
+  import "@openzeppelin/contracts/utils/Counters.sol";
+
+  interface AntToken {
+    function transfer(address reciptient, uint amount) external returns (bool);
+    function balanceOf(address account) external view returns (uint);
+  }
+
+  contract AntsReview is AntsReviewRoles {
+
+    using SafeMath for uint256;
+    using Address for address payable;
+    using Counters for Counters.Counter;
+
+    /// Enums
+    enum AntReviewStatus { CREATED, ACCEPTED, CANCELLED }
+
+    /// Token
+    AntToken internal ant;
+
+    /// Counter
+    Counters.Counter private _antReviewIdTracker;
+
+    /// Storage
+    AntReview[] public antreviews;
+
+    mapping(uint256 => Peer_Review[]) peer_reviews;
+
+    /// Structs
+    struct AntReview {
+        address payable issuer;
+        uint256 deadline;
+        string ipfs_hash;
+        AntReviewStatus status;
+        uint256 amount; //in wei
+    }
+
+    struct Peer_Review {
+        bool accepted;
+        address payable peer_reviewer;
+        string ipfs_hash;
+    }
+
+
+    /// Events
+
+    event AntReviewIssued(address issuer, uint256 amount, string ipfsHash);
+    event AntReviewFulfilled(uint256 antReviewId, address peer_reviewer, uint256 peerReviewId, string ipfsHash);
+    event AntReviewAccepted(uint256 antReviewId, address issuer, address peer_reviewer, uint256 indexed peerReviewId, uint256 amount);
+    event AntReviewCancelled(uint256 indexed antReviewId, address indexed issuer, uint256 amount);
+
+    constructor(address ant_) public {
+      ant = AntToken(ant_);
+    }
+
+    /// Fallback
+
+    fallback() external payable {
+      revert();
+    }
+
+    receive() external payable {
+      revert();
+    }
+
+    /// Modifiers
+
+    modifier hasValue() {
+        require(msg.value > 0);
+        _;
+    }
+
+    modifier antReviewExists(uint256 _antReviewId){
+      require(_antReviewId < antreviews.length);
+      _;
+    }
+
+    modifier peerReviewExists(uint256 _antReviewId, uint256 _peerReviewId){
+      require(_peerReviewId < peer_reviews[_antReviewId].length);
+      _;
+    }
+
+    modifier hasStatus(uint256 _antReviewId, AntReviewStatus _desiredStatus) {
+      require(antreviews[_antReviewId].status == _desiredStatus);
+      _;
+    }
+
+    modifier peerReviewNotYetAccepted(uint256 _antReviewId, uint256 _peerReviewId) {
+      require(peer_reviews[_antReviewId][_peerReviewId].accepted == false);
+      _;
+    }
+
+    modifier validateDeadline(uint256 _newDeadline) {
+        require(_newDeadline > now);
+        _;
+    }
+
+    modifier isBeforeDeadline(uint256 _antReviewId) {
+      require(now < antreviews[_antReviewId].deadline);
+      _;
+    }
+
+
+    ///@notice Instantiates a new AntReview
+    ///@dev Access restricted to Issuer
+    ///@param _deadline The unix timestamp after which fulfillments will no longer be accepted
+    ///@param _ipfsHash The IPFS Hash of the Scientific Paper
+    ///@return True If the antReview is successfully issued
+    function issueAntReview(
+        string calldata _ipfsHash,
+        uint64 _deadline
+    )
+        external
+        payable
+        hasValue()
+        validateDeadline(_deadline)
+        onlyIssuer()
+        whenNotPaused()
+        returns (bool)
+    {
+        _antReviewIdTracker.increment();
+        antreviews.push(AntReview(msg.sender, _deadline, _ipfsHash, AntReviewStatus.CREATED, msg.value));
+        emit AntReviewIssued(msg.sender, msg.value, _ipfsHash);
+        return true;
+    }
+
+
+    ///@notice Submit a fulfillment for the given antReview
+    ///@dev Access restricted to Peer-Reviewer
+    ///@param _antReviewId The index of the antReview to be fufilled
+    ///@param _ipfsHash The IPFS Hash which contains evidence of the fufillment
+    ///@return True If the AntReview is successfully fulfilled
+    function fulfillAntReview(uint256 _antReviewId, string memory _ipfsHash)
+      public
+      antReviewExists(_antReviewId)
+      onlyPeerReviewer()
+      hasStatus(_antReviewId, AntReviewStatus.CREATED)
+      isBeforeDeadline(_antReviewId)
+      whenNotPaused()
+      returns (bool)
+    {
+      peer_reviews[_antReviewId].push(Peer_Review(false, msg.sender, _ipfsHash));
+      emit AntReviewFulfilled(_antReviewId, msg.sender, (peer_reviews[_antReviewId].length.sub(1)),_ipfsHash);
+      return true;
+    }
+
+
+    ///@notice Accept a given Peer-Review
+    ///@dev Access restricted to Issuer
+    ///@param _antReviewId the index of the antReview
+    ///@param _peerReviewId the index of the fulfillment being accepted
+    ///@return True If the AntReview is successfully being accepted
+    function acceptAntReview(uint256 _antReviewId, uint256 _peerReviewId)
+        public
+        antReviewExists(_antReviewId)
+        peerReviewExists(_antReviewId,_peerReviewId)
+        onlyIssuer()
+        hasStatus(_antReviewId, AntReviewStatus.CREATED)
+        peerReviewNotYetAccepted(_antReviewId, _peerReviewId)
+        whenNotPaused()
+        returns (bool)
+    {
+        peer_reviews[_antReviewId][_peerReviewId].accepted = true;
+        antreviews[_antReviewId].status = AntReviewStatus.ACCEPTED;
+        peer_reviews[_antReviewId][_peerReviewId].peer_reviewer.sendValue(antreviews[_antReviewId].amount);
+        emit AntReviewAccepted(
+          _antReviewId,
+          antreviews[_antReviewId].issuer,
+          peer_reviews[_antReviewId][_peerReviewId].peer_reviewer,
+          _peerReviewId, antreviews[_antReviewId].amount
+        );
+        return true;
+    }
+
+
+    ///@notice Cancels the antReview and send the funds back to the issuer
+    ///@dev Access restricted to Issuer
+    ///@param _antReviewId the index of the antReview
+    ///@return True If the AntReview is successfully cancelled
+    function cancelAntReview(uint256 _antReviewId)
+        public
+        antReviewExists(_antReviewId)
+        onlyIssuer()
+        hasStatus(_antReviewId, AntReviewStatus.CREATED)
+        whenNotPaused()
+        returns (bool)
+    {
+        antreviews[_antReviewId].status = AntReviewStatus.CANCELLED;
+        antreviews[_antReviewId].issuer.sendValue(antreviews[_antReviewId].amount);
+        emit AntReviewCancelled(_antReviewId, msg.sender, antreviews[_antReviewId].amount);
+        return true;
+    }
+
+  }
+
+\end{lstlisting}
+
+\newpage
+\section{Ant.sol}
+
+\begin{lstlisting}[language=Solidity]
+  /// SPDX-License-Identifier: GPL-3.0
+  pragma solidity 0.6.8;
+
+  ///@title AntsReview
+  ///@author Nazzareno Massari
+  ///@notice Ant ERC20 Token
+  ///@dev All function calls are currently implemented without side effecs through TDD approach
+  ///@dev OpenZeppelin library is used for secure contract development
+
+  import "@openzeppelin/contracts/presets/ERC20PresetMinterPauser.sol";
+
+
+  contract Ant is ERC20PresetMinterPauser {
+
+    constructor()
+    ERC20PresetMinterPauser("Ant", "ANT")
+    public {
+
+    }
+
+  }
+\end{lstlisting}
+
 
 % ---- Bibliography ----
 %
