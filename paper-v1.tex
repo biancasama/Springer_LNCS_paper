@@ -104,16 +104,18 @@ Rubriq provides independent and standardized peer review that can be accepted an
 \section{System concept}
 For the above mentioned reasons, we propose an incentive-based protocol called Ants-Review to reward open peer-reviews while preserving the anonymity of the reviewers. The name originates from the idea that the work behind a finished scientific paper resembles a complex organism such as an anthill, which emerges from the sum of many individualities: in it, all contributions (even if ‘micro’) are essential to the whole and are worth recognition.
 This project is intended to be open source and was developed during the ETH Turin 2020 Hackathon and it’s design and attempt of implementation are exposed in the following section.
-\paragraph{Anonymity} zSNARK
-\paragraph{Accountability} hash
-\paragraph{Reward} bounty
 
+\subsubsection{Accountability} hash
+\subsubsection{Reward} bounty
+\subsubsection{Quadratic Voting} I don't see the point of introducing QF here. Is it already implemented or it's just in the idea?
+
+\subsubsection{Privacy/anonymity}. To protect the contributors privacy, we would like to implement on the ANT token a fast, non-interactive type of zero-knowledge privacy protocol to enable private transactions on Ethereum. Zero-knowledge proof is a mathematical cryptographic method that through values permutations allows one party (the prover) to prove to another (the verifier) the veracity of a statement, without having to reveal what the statement is. We will use ZK-SNARKs (which stands for “Zero-Knowledge Succinct Non-Interactive Argument of Knowledge”) via the open source libraries of AZTEC protocol. AZTEC, now TURBOPLONK bla bla (faster?) combines the confidentiality of the transactions (the value of the transaction is hidden, the amount of token (?) is not revealed thus preventing biases in the peer-review quadratic voting process = "I want to bet on this review because I want to win the bounty") with general-purpose computation (it's a Turing-complete Virtual Machine): this means transaction are not limited just to the local cryptocurrency (in our case ANT) but cross-asset trades are allowed (I can exchange ANT tokesn with other crypto-currencies). 
 
 
 
 \subsection{Design}
 
-\subsubsection{AnstReview process: scenario 1  (journal-dependent)}
+\subsubsection{AnstReview process: scenario 1 (journal-dependent)}
 
 \begin{enumerate}
     \item The author submits a manuscript to the journal.
@@ -126,7 +128,7 @@ This project is intended to be open source and was developed during the ETH Turi
     
 \end{enumerate}
 
-\subsubsection{AnstReview process: scenario 2  (community-driven)}: 
+\subsubsection{AnstReview process: scenario 2 (community-driven)}: 
 
 \begin{enumerate}
     \item The author submits a manuscript to the pre-print service or to an hypothetical AntsReview platform).
@@ -145,6 +147,7 @@ or
 
 
 \subsection{Implementation}
+\subsubsection{Back-end} ??
 AntsReview is a destributed peer-review system which synthetizes successfull ideas from previous systems including The Bounty Network[ref], ERC20[ref], AZTEC Protocol[ref], IPFS[ref], Proof of Existence[ref], ...
 \newline The contribution of AntsReview is simply allowing the peer-review process, as a complex system, to emerge as a self-organised ecosystem of authors and peer-reviewers to enhance the complexity of a paper and its validation.
 \newline AntsReview represent a new platform to issue peer-reviews and validate scientific papers and a new system for anonymous and open contributions with an incentivization mechanism to reach an ideal state of equilibrium and create value.
@@ -204,20 +207,12 @@ In this way, only the Issuer (author) can create a new AntReview.
 
 
 
-\subsubsection{Token Economics}
+\subsubsection{Token Economics} what is this?
 
-\subsubsection{Quadratic Voting} I don't see the point of introducing QF here. Is it already implemented or it's just in the idea?
-
-\subsubsection{Privacy}. AZTEC protocol is a cryptographic protocol combines the confidentiality of the transactions (the value of the transaction is hidden, the amount of token (?) is not revealed thus preventing biases in the peer-review quadratic voting process = "I want to bet on this review because I want to win the bounty") with general-purpose computation (it's a Turing-complete Virtual Machine): this means transaction are not limited just to the local cryptocurrency (in our case ANT) but cross-asset trades are allowed (I can exchange ANT tokesn with other crypto-currencies). 
-
-\subsubsection{DAO}
-
-
-\subsubsection{Future steps}
-Future integrations that were not contemplated in the above presented PoC /demo but that we plan to cover for the development of the AntsReview bounty include: an ERC20 token, named Ant,  symbol ANT; Proof of Existence (PoE) service; memory storage on IPFS; moreover, since we wanted to anonymize peer-reviews to protect the contributors privacy, we would like to implement on the ANT token a fast, non-interactive type of zero-knowledge privacy protocol to enable private transactions on Ethereum. Zero-knowledge proof is a mathematical cryptographic method that through values permutations allows one party (the prover) to prove to another (the verifier) the veracity of a statement, without having to reveal what the statement is. We will use ZK-SNARKs (which stands for “Zero-Knowledge Succinct Non-Interactive Argument of Knowledge”) via the open source libraries of AZTEC protocol [15]. We will also use Ethereum Name Service (ENS) [14] to allow for human-readable Ethereum addresses; Upgradability Design Patterns [13] via Proxy, to allow the logic to be extended and improved; De-Fi integrations such as Dai, Chai. Finally, we would like to propose for AntsReview Quadratic Funding, a design written by Vitalik Buterin and co [20] and which applies concepts inspired by quadratic voting to funding public goods.
+\subsubsection{Front-end} 
 
 \section{Discussions}
-
+\subsection{A new community-driven standard?}
 - a change is already happening: specially new born publishers are opening up review process (BioMed Central, ELife, Frontiers, PeerJ, F1000 Research) -- from 2020 also Nature declaired that will do the same. 
 
 - new business model? at some point pre-print platforms (dissemination) might want to integrate peer-review (validation) into their platforms - dissociation of initial scientific dissemination and scientific validation will force publishing industry to adapt: how will they justify their added value? as Tennant points out: branding archiving 
@@ -233,6 +228,8 @@ future of quality control and moderation: open participation model, community-dr
 -value of peer review as 'academic capital' recognized by research funders and hiring committees
 
 -a bit off topic but: automated peer review (services such as StatReviewers) might fasten the formal aspects of the job allowing reviewers to focus on the content.
+
+\subsubsection{Perspectives for a Decentralized Autonomours Organization (DAO)}
 
 \section{Conclusion}
 In this paper we addressed a central problem within the quality control academic dissemination: the peer-review process. We showed how blockchain technology could provide an efficient and viable solution and open up possibile directions for a change in paradigm in scientific communication. We proposed an incentive mechanism that could solve the problems of lack of acknowledgment and trust during peer-review. We exposed the architecture of our project and our Proof of Concept (PoC) for which we adopted cutting-edge tools from the open source blockchain community.
