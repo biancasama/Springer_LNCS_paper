@@ -35,7 +35,7 @@ Neurospin research center, CEA/SAC/DSV/I2BM, 91191 Gif-sur-Yvette, France
 \email{bianca.trovo@alumni.unitn.it}\\
 \and
 Alma Mater Politecnico di Torino, 10129 Turin, Italy\and
-Independent blockchain engineer, London, UK \\
+Independent Blockchain Engineer, London, UK \\
 \email{nazzareno@nazzarenomassari.com}}
 %
 \maketitle              % typeset the header of the contribution
@@ -147,8 +147,7 @@ or
 
 
 \subsection{Implementation}
-\subsubsection{Back-end} ?? BETTER HERE SAY WHAT WE HAVE ALREADY DONE, PRESENTED 
-AntsReview is a destributed peer-review system which synthetizes successfull ideas from previous systems including The Bounty Network[ref], ERC20[ref], AZTEC Protocol[ref], IPFS[ref], Proof of Existence[ref], ...
+AntsReview is a distributed peer-review system which synthesizes successful ideas from previous systems including The Bounty Network[ref], ERC20[ref], AZTEC Protocol[ref], IPFS[ref], Proof of Existence[ref], ...
 \newline The contribution of AntsReview is simply allowing the peer-review process, as a complex system, to emerge as a self-organised ecosystem of authors and peer-reviewers to enhance the complexity of a paper and its validation.
 \newline AntsReview represent a new platform to issue peer-reviews and validate scientific papers and a new system for anonymous and open contributions with an incentivization mechanism to reach an ideal state of equilibrium and create value.
 \newline The AntsReview Protocol is divided into stack of sub-protocols responsible for different functionality:
@@ -158,15 +157,15 @@ AntsReview is a destributed peer-review system which synthetizes successfull ide
 \begin{enumerate}
   \item \textbf{Bounty} - manage access management and the basic system.
   \item \textbf{Token Economics} - manage system incentivization mechanism integrating ideas from DeFi and Quadratic Funding.
-  \item \textbf{Privacy} - mantains the anonymity of the system via AZTEC Protocol.
+  \item \textbf{Privacy} - maintains the anonymity of the system via AZTEC Protocol.
 \end{enumerate}
 
-\subsubsection{Token economy and Bounty}
+\subsubsection{Bounty}
 AntsReview is the core of the smart contracts deployed on Ethereum Rinkeby's Testnet as shown in the flow-chart[img].
-\newline It implements a Bounty-like system where an issuer (author) is asked a serious of actions, to ensure transparency and robustness, regarding the AntReview that he's creating:
+\newline It implements a Bounty-like system where an issuer (author) is asked a series of actions, to ensure transparency and robustness, regarding the AntReview that he's creating:
 \begin{itemize}
   \item to upload the file containing the requirements of the peer-review and the paper into IPFS.
-  \item to speficy a deadline in the form of a unix timestamp after wich the fulfillment will no longer be accepted.
+  \item to specify a deadline in the form of a unix timestamp after which the fulfillment will no longer be accepted.
   \item to send the amount of ether for the reward.
 \end{itemize}
 
@@ -191,16 +190,18 @@ In this way, only the Issuer (author) can create a new AntReview.
 \newline Once created, an AntReview is available to be fulfilled by Peer-Reviewers, uploading the peer-review on IPFS before the deadline.
 \newline The AntReview after being validated is then accepted by the Issuer and paid equally between Peer-Reviewers.
 \newline Also, the Issuer can cancel the AntReview at any time and withdraw the amount of ether staked.
-\newline One of the key aspects of the protocol is the concept of Proof of Existence, introduced by Stuart Haber & W. Scott Stornetta with the paper "How to time-stamp a digital document".
-\newline As the pioneer of blockchain an cited by Bitcoin whitepaper, they were in a mission to solve the problem of immutability of digital records that became reality with the Blockchain and Bitcoin as its first application.
-\newline In Ethereum the concept of immutablity is achieved via the blockchain and proof of work consesus algorithm by a chain of timestamped block hashes that are secured by miners competing computations.
+\newline One of the key aspects of the protocol is the concept of Proof of Existence, introduced by Stuart Haber \& W. Scott Stornetta with the paper "How to time-stamp a digital document".
+\newline As the pioneers of blockchain an cited by Bitcoin whitepaper, they were in a mission to solve the problem of immutability of digital records that became reality with the Blockchain and Bitcoin as its first application.
+\newline In Ethereum the concept of immutability is achieved via the blockchain and proof of work consesus algorithm by a chain of timestamped block hashes that are secured by miners competing computations.
 \newline AntsReview is evaluating the advantages of storing the hashes of the peer-reviews into a Merkle Tree to achieve immutability.
 
-\subsubsection{Front-end} 
+\subsubsection{Token Economics}
+
+\subsubsection{Privacy}
 
 \section{Discussions}
 \subsection{A new community-driven standard?}
-- a change is already happening: specially new born publishers are opening up review process (BioMed Central, ELife, Frontiers, PeerJ, F1000 Research) -- from 2020 also Nature declaired that will do the same. 
+- a change is already happening: specially new born publishers are opening up review process (BioMed Central, ELife, Frontiers, PeerJ, F1000 Research) -- from 2020 also Nature declared that will do the same. 
 
 - new business model? at some point pre-print platforms (dissemination) might want to integrate peer-review (validation) into their platforms - dissociation of initial scientific dissemination and scientific validation will force publishing industry to adapt: how will they justify their added value? as Tennant points out: branding archiving 
 
