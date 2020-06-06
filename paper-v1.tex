@@ -147,12 +147,18 @@ or
 
 
 \subsection{Implementation}
-AntsReview is a distributed peer-review system which synthesizes successful ideas from previous systems including The Bounty Network[ref], ERC20[ref], AZTEC Protocol[ref], IPFS[ref], Proof of Existence[ref], ...
+\begin{figure}
+\centering
+\includegraphics[scale=0.28]{AntsReview}
+\caption{AntsReview Smart Contracts}
+\label{fig:contracts}
+\end{figure}
+
+
+AntsReview [Fig.\ref{fig:contracts}] is a distributed peer-review system which synthesizes successful ideas from previous systems including The Bounty Network[ref], ERC20[ref], AZTEC Protocol[ref], IPFS[ref], Proof of Existence[ref], ...
 \newline The contribution of AntsReview is simply allowing the peer-review process, as a complex system, to emerge as a self-organised ecosystem of authors and peer-reviewers to enhance the complexity of a paper and its validation.
 \newline AntsReview represent a new platform to issue peer-reviews and validate scientific papers and a new system for anonymous and open contributions with an incentivization mechanism to reach an ideal state of equilibrium and create value.
 \newline The AntsReview Protocol is divided into stack of sub-protocols responsible for different functionality:
-
-\includegraphics[scale=0.28]{AntsReview}
 
 \begin{enumerate}
   \item \textbf{Bounty} - manage access management and the basic system.
@@ -161,7 +167,7 @@ AntsReview is a distributed peer-review system which synthesizes successful idea
 \end{enumerate}
 
 \subsubsection{Bounty}
-AntsReview is the core of the smart contracts deployed on Ethereum Rinkeby's Testnet as shown in the flow-chart[img].
+AntsReview [\ref{appendix:b}] is the core of the smart contracts deployed on Ethereum Rinkeby's Testnet as shown in the flow-chart[img].
 \newline It implements a Bounty-like system where an issuer (author) is asked a series of actions, to ensure transparency and robustness, regarding the AntReview that he's creating:
 \begin{itemize}
   \item to upload the file containing the requirements of the peer-review and the paper into IPFS.
@@ -225,6 +231,7 @@ The authors declare no competing interests.
 \appendix
 
 \section{AntsReviewRoles.sol}
+\label{appendix:a}
 
 \begin{lstlisting}[language=Solidity]
 
@@ -327,6 +334,7 @@ The authors declare no competing interests.
 
 \newpage
 \section{AntsReview.sol}
+\label{appendix:b}
 
 \begin{lstlisting}[language=Solidity]
   /// SPDX-License-Identifier: GPL-3.0
@@ -539,6 +547,7 @@ The authors declare no competing interests.
 
 \newpage
 \section{Ant.sol}
+\label{appendix:c}
 
 \begin{lstlisting}[language=Solidity]
   /// SPDX-License-Identifier: GPL-3.0
