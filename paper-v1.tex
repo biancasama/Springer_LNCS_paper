@@ -168,6 +168,7 @@ AntsReview [Fig.\ref{fig:contracts}] is a distributed peer-review system which s
 \end{enumerate}
 
 \subsubsection{Bounty}
+
 AntsReview [\ref{appendix:b}] is the core of the smart contracts deployed on Ethereum Rinkeby's Testnet as shown in the flow-chart[img].
 \newline It implements a Bounty-like system where an issuer (author) is asked a series of actions, to ensure transparency and robustness, regarding the AntReview that he's creating:
 \begin{itemize}
@@ -188,9 +189,10 @@ AntsReviewRoles[appendix A], to ensure integrity of the system, implements an ac
 \newline AntsReview is evaluating the advantages of storing the hashes of the peer-reviews into a Merkle Tree to achieve immutability and efficiency in verifying the data with a complexity of O(logn) for searching through the tree.
 \newline A Merkle tree is a particular type of binary tree, formed by a set of nodes with a large set of leaf nodes at the bottom of the tree containing representing the hash of the original data, a set of intermediate nodes where each node is the sum of the two children hashes, ending with a single root hash.
 \newline In order to verify if a spefic hash is included into a Markle Tree, leveraging on MerkleProof.sol by OpenZeppelin Library, we need to provide a proof, generated from the leaf of interest, that rapresent the remification derived from the leaf, the root hash and finally the leaf we want to verify.
-\newline On the Front-End the file will be included into a Merkle Tree by hashing the data using keccak256, a cryptographic hashing algorithm available in Solidiy, an object-oriented programming language for writing smart contracts that run on the Ethereum Virtual Machine (EVM).
+\newline The paper and peer-review documents will be included into a Merkle Tree by hashing the data using keccak256, a cryptographic hashing algorithm available in Solidiy, an object-oriented programming language for writing smart contracts that run on the Ethereum Virtual Machine (EVM).
 
 \subsubsection{Tokenomics}
+
 AntsReview has few tokens, each of which plays an integral role in the functioning and anonymity of the decentralized protocol.
 \newline \textbf{Ant}, is the primary protocol token and can be staked into an AntReview if you wish to provide the protocol with an additional security promise.
 \newline Ant [\ref{appendix:c}] is implemented by inheriting ERC20PresetMinterPauser.sol from OpenZeppelin Library with name: \textbf{\emph{Ant}} ans symbol: \textbf{\emph{ANT}}.
@@ -200,22 +202,26 @@ AntsReview has few tokens, each of which plays an integral role in the functioni
 \newline This token doesn't need to be locked in the network and it can be traded, sold, or held as the Anter desires.
 \newline Hive will be implemented using a similar approach to Ant and Chai, a token that accures interest from MakerDAO's DSR (Dai Saving Rate), with name: \textbf{\emph{Hive}} and symbol: \textbf{\emph{HIVE}}
 \newline Ideally, but is still under investigation, after the deadline of the AntReview is reached, the Hive token will be burned for Ant and wraped into zkAnt to allow anonymity and send equally to the peer-reviewers that fulfilled the AntReview.
-\newline \textbf{zkAnt}, is token wrapped into AZTEC Protocol zkSNARKs, that will be extended to PLONK Proof to collapse the gas costs of private transactions on mainnet.
+\newline \textbf{zkAnt}, is an Ant token wrapped into AZTEC Protocol ZK-SNARKs, that will be extended to PLONK Proof to collapse the gas costs of private transactions on mainnet.
 \newline zkAnt will be implemented via AZTEC 2.0 that will allow to securily wrap the Ant Token into zkAnt, allowing private transactions on mainnet and preserving the anonymity of Peer Reviewers.
 \newline Finally, another concept under investigation is Quadratic Funding, used by Gitcoin to match donations for Grants. This will allow to incentives prolific Peer-Reviewers and improve the stability of the system together with ideally a reward system to rank best Peer-Reviewers.
+
 \subsubsection{Privacy}
 
 The Anonymity of an agent in the system is achieved in two ways:
 
 \begin{itemize}
   \item PseudoAnonimity granted by an Etherum's Externally Owned Accounts (EOA) address that can pseudo-obscure the identity of the agent.
-  \item Private Transactions thanks to AZTEC Protocol security layer via zkAnt. Future developments will allow to leverage on PLONK Proofs to reduce gas costs and improve scalability.
+  \item Private Transactions allowed by AZTEC Protocol security layer via zkAnt. Future developments will allow to leverage on PLONK Proofs to reduce gas costs and improve scalability.
 \end{itemize}
 
 \newline Externally Owned Accounts (EOA) in Ethereum are controlled by private keys, are 20 bytes long and have no code. An user can send messages from an externally owned account by creating and signing a transaction.
-\newline
-
-\newline AZTEC Protocol
+\newline The limitation of such solution regarding the Privacy of the Protocol is due to the fact that blockchain and transactions are public so anyone can see the details of a transaction, browsing a block explorer like Etherscan, and also they're subjected to data mining to extract value and identify users in the blockchain.
+\newline To avoid that, AntsReview will implement zkAnt, an Ant token wrapped into AZTEC Protocol, where leveraging on zkSNARKS, and PLONK in the future, will allow private transactions in the system to maintain the privacy and anonimiy of Peer-Reviewers.
+\newline The AZTEC Protocol was conceived to enable privacy on public blockchains. It uses ZK-SNARKS to validate encrypted transactions.
+\newline ZK-SNARKs (Zero-Knowledge Succinct Non-Interactive Argument of Knowledge) refers to a proof construction where one can prove possession of certain information, like a secret key, without revealing that information, and without any interaction between prover and verifier.
+\newline Zero-Knowledge proofs allow an actor (prover) to prove to another (verifier) that a statement is true, without revealing any information apart from the validity of the statement itself.
+\newline Future developements will investigate viable solutions, for scaling the system, like ZK-Rollups by AZTEC Protocol, one of the options being developed for a type of layer 2 construction that runs on top of Ethereum to improve scalability. This will enable to run smart contracts at scale with quasi-instant transactions while still being secured by Ethereum.
 
 \section{Discussions}
 \subsection{A new community-driven standard?}
