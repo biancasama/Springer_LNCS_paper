@@ -14,6 +14,7 @@
 % If you use the hyperref package, please uncomment the following line
 % to display URLs in blue roman font according to Springer's eBook style:
 % \renewcommand\UrlFont{\color{blue}\rmfamily}
+\usepackage[nottoc]{tocbibind}
 
 \begin{document}
 %
@@ -41,18 +42,18 @@ Independent Blockchain Engineer, London, UK \\
 \maketitle              % typeset the header of the contribution
 %
 \begin{abstract}
-Peer-review is a necessary and essential quality control step for scientific publications. However, the process, which is very costly in terms of time investment, not only is not remunerated but it’s also not recognized by the academic community as a relevant scientific output for a researcher. Therefore, scientific dissemination is affected. Here, to solve this issue we propose a blockchain-based incentive protocol that rewards scientists also for their contributions to other scientists’ work and that builds up a reputational system. We designed a basic Bounty-like contract called AntsReview that allows any author to issue a call for peer-reviewing their scientific publication. If requirements are met, peer-reviews will be audited by an external editor and payed by the Issuer. To promote ethical behaviour the system will implement a quadratic funding on AntsReview.
+Peer-review is a necessary and essential quality control step for scientific publications. However, the process, which is very costly in terms of time investment, not only is not remunerated but it’s also not recognized by the academic community as a relevant scientific output for a researcher. Therefore, scientific dissemination is affected. Here, to solve this issue we propose a blockchain based privacy-preserving incentive protocol that rewards scientists also for their contributions to other scientists’ work and that builds up a reputational system. We designed a Protocol of smart contracts called AntsReview that allows any author to issue a call for peer-reviewing their scientific publication. If requirements are met, peer-reviews will be accepted and payed by the Issuer. To promote ethical behaviour the system will ideally implement a quadratic funding on AntsReview.
 \keywords{Blockchain  \and Peer-review \and Privacy \and Incentivization.}
 \end{abstract}
 %
 %
 \section{Introduction}
-blockchain for science here and application to open science and to peer review as a specific case
+Blockchain for science here and application to open science and to peer review as a specific case.
 
 An increasing body of voices in the scientific community has started to speak up for the need of updating current scientific practices with the advances represented by blockchain technology [2, 8]. As an example, we refer to a ‘manifesto’ written by a few anonymous authors, proposing a blockchain based system of academic endorsement (AES) [1]. Indeed, we could say that in general “specific blockchain characteristics meet the requirements of an open science infrastructure” [3-7]:
 \paragraph{Decentralisation}Taking out the need of intermediaries, would make useless depending on highly profiting publishing companies for disseminating scientific work and managing the rules of the peer-review process;
 \paragraph{Immutability} of the system in which information can only be appended with tamper proof-time stamping,  but not subsequently modified, would secure the intellectual property and a fairer measure of the scientific contribution of the actors at play during the multiple versions of a paper;
-\paragraph{Transparency} (meaning that we have a viewable record of all the transactions), would also make editorial decisions (publish or not publish a study) more transparent and democratic. Finally, cryptographic hashing could allow for a double-blind process that reduces human biases in judgement by assigning hashed pseudonymous to universal researcher identifiers. From all these aspects taken together, a more democratic open peer-review  process could rise, in which merit and power (of access to information, of decision…) is more equally redistributed among the stakeholders (researchers, reviewers, taxpayers).
+\paragraph{Transparency} (meaning that we have a viewable record of all the papers and peer-reviews), would also make editorial decisions (publish or not publish a study) more transparent and democratic. Finally, cryptographic hashing could allow for a double-blind process that reduces human biases in judgement by assigning hashed pseudonymous to universal researcher identifiers. From all these aspects taken together, a more democratic open peer-review  process could rise, in which merit and power (of access to information, of decision…) is more equally redistributed among the stakeholders (researchers, reviewers, taxpayers).
 
 \section{Background}
 \subsection{Peer-review: a flawed and outdated system}
@@ -197,7 +198,7 @@ AntsReview has few tokens, each of which plays an integral role in the functioni
 \newline This token doesn't need to be locked in the network and it can be traded, sold, or held as the Anter desires.
 \newline Hive will be implemented using a similar approach to Ant and Chai, a token that accures interest from MakerDAO's DSR (Dai Saving Rate)
 \newline Ideally, but is still under investigation, after the deadline of the AntReview is reached, the Hive token will be burned for Ant and wraped into zkAnt to allow anonymity and send equally to the peer-reviewers that fulfilled the AntReview.
-\newline zkAnt, is token wraped into AZTEC Protocol zkSNARKs, that will be extended to PLONK Proof to collapse the gas costs of private transactions on mainnet.
+\newline zkAnt, is token wrapped into AZTEC Protocol zkSNARKs, that will be extended to PLONK Proof to collapse the gas costs of private transactions on mainnet.
 \newline zkAnt will be implemented via AZTEC 2.0 that will allow to securily wrap the Ant Token into zkAnt, allowing private transactions on mainnet and preserving the anonymity of Peer Reviewers.
 \newline Finally, another concept under investigation is Quadratic Funding, used by Gitcoin to match donations for Grants. This will allow to incentives prolific Peer-Reviewers and improve the stability of the system together with ideally a reward system to rank best Peer-Reviewers.
 \subsubsection{Privacy}
@@ -242,7 +243,7 @@ TDB
 The authors declare no competing interests.
 
 \subsubsection{Acknowledgements} We would like to thank Matteo A. Tambussi and Keno Budde for internal review and useful comments.
-
+Important citations are here \cite{10.1016/j.respol.2012.04.014,10.1038/s41467-018-08250-2,10.12688/f1000research.11369.2} and here \cite{undefined}. \cite{patentiimages}
 \newpage
 
 \section{Appendix}
@@ -599,6 +600,7 @@ The authors declare no competing interests.
 % References will then be sorted and formatted in the correct style.
 %
 \bibliographystyle{splncs04}
-\bibliography{references.bib}
+\bibliography{ourreferences.bib}
+
 
 \end{document}
