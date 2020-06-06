@@ -147,6 +147,7 @@ or
 
 
 \subsection{Implementation}
+
 \begin{figure}
 \centering
 \includegraphics[scale=0.28]{AntsReview}
@@ -162,7 +163,7 @@ AntsReview [Fig.\ref{fig:contracts}] is a distributed peer-review system which s
 
 \begin{enumerate}
   \item \textbf{Bounty} - manage access management and the basic system.
-  \item \textbf{Token Economics} - manage system incentivization mechanism integrating ideas from DeFi and Quadratic Funding.
+  \item \textbf{Tokenomics} - manage system incentivization mechanism integrating ideas from DeFi and Quadratic Funding.
   \item \textbf{Privacy} - maintains the anonymity of the system via AZTEC Protocol.
 \end{enumerate}
 
@@ -186,7 +187,18 @@ AntsReviewRoles[appendix A], to ensure integrity of the system, implements an ac
 \newline In Ethereum the concept of immutability is achieved via the blockchain and proof of work consesus algorithm by a chain of timestamped block hashes that are secured by miners competing computations.
 \newline AntsReview is evaluating the advantages of storing the hashes of the peer-reviews into a Merkle Tree to achieve immutability.
 
-\subsubsection{Token Economics}
+\subsubsection{Tokenomics}
+AntsReview has few tokens, each of which plays an integral role in the functioning and anonymity of the decentralized protocol.
+\newline Ant, is the primary protocol token and can be staked into an AntReview if you wish to provide the protocol with an additional security promise.
+\newline Ant [\ref{appendix:c}] is implemented by inheriting ERC20PresetMinterPauser.sol from OpenZeppelin Library with name: Ant ans symbol: ANT.
+\newline An AntReview, issued by an author will be seen as a poll where Anters (members of the AntsReview Community) can stake ether or tokens from DeFi services including Dai, Chai, ... with the possibity to accrue interest for the duration of an AntReview (1 year on average), via MakerDAO DSR or Compound to cite a few.
+\newline An AntsReview DAO will be formed in the future to allow Ant stakers the ability to participates in a Decentralized Autonomous Organization which will be used to govern important aspects of the decentralized protocol, from smart contracts upgrades to more minor changes in settings accross the protocol.
+\newline Hive, When a Anter deposits into an AntReview, they will instantly receive the Hive token which represents their deposit and the accrued interest it gains over time in the AntReview.
+\newline This token doesn't need to be locked in the network and it can be traded, sold, or held as the Anter desires.
+\newline Hive will be implemented using a similar approach to Ant and Chai, a token that accures interest from MakerDAO's DSR (Dai Saving Rate)
+\newline Ideally, but is still under investigation, after the deadline of the AntReview is reached, the Hive token will be burned for Ant and wraped into zkAnt to allow anonymity and send equally to the peer-reviewers that fulfilled the AntReview.
+\newline zkAnt, is token wraped into AZTEC Protocol zkSNARKs, that will be extended to PLONK Proof to collapse the gas costs of private transactions on mainnet.
+\newline zkAnt will be implemented via AZTEC 2.0 that will allow to securily wrap the Ant Token into zkAnt, allowing private transactions on mainnet and preserving the anonymity of Peer Reviewers.
 
 \subsubsection{Privacy}
 
