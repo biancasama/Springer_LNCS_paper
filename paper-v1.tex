@@ -17,13 +17,13 @@
 
 \begin{document}
 %
-\title{Ants-Review: A Protocol For Open Anonymous Peer-Reviews\thanks{}}
+\title{Ants-Review: A Protocol For Open Anonymous Peer-Reviews}
 %
 %\titlerunning{Abbreviated paper title}
 % If the paper title is too long for the running head, you can set
 % an abbreviated paper title here
 %
-\author{Bianca Trovò\inst{1,2}\orcidID{0000-0002-6776-2304} \and
+\author{Bianca Trovò\inst{1,2}\orcidID{0000-0002-6776-2304}\thanks{Correspondent author} \and
 Nazzareno Massari\inst{3,4}\orcidID{0000-0002-6638-2174}}
 %
 \authorrunning{B. Trovò et N. Massari}
@@ -48,20 +48,17 @@ Peer-review is a necessary and essential quality control step for scientific pub
 %
 \section{Introduction}
 blockchain for science here and application to open science and to peer review as a specific case
-An increasing body of voices in the scientific community has started to speak up for the need of updating current scientific practices with the advances represented by blockchain technology [2, 8]. As an example, we refer to a ‘manifesto’ written by a few anonymous authors, proposing a blockchain based system of academic endorsement (AES) [1]. Indeed, we could say that in general “specific blockchain characteristics meet the requirements of an open science infrastructure” [3-7]: decentralisation, taking out the need of intermediaries, would make useless depending on highly profiting publishing companies for disseminating scientific work and managing the rules of the peer-review process; immutability of the system in which information can only be appended with tamper proof-time stamping,  but not subsequently modified, would secure the intellectual property and a fairer measure of the scientific contribution of the actors at play during the multiple versions of a paper; transparency (meaning that we have a viewable record of all the transactions), would also make editorial decisions (publish or not publish a study) more transparent and democratic. Finally, cryptographic hashing could allow for a double-blind process that reduces human biases in judgement by assigning hashed pseudonymous to universal researcher identifiers. From all these aspects taken together, a more democratic open peer-review  process could rise, in which merit and power (of access to information, of decision…) is more equally redistributed among the stakeholders (researchers, reviewers, taxpayers).
+
+An increasing body of voices in the scientific community has started to speak up for the need of updating current scientific practices with the advances represented by blockchain technology [2, 8]. As an example, we refer to a ‘manifesto’ written by a few anonymous authors, proposing a blockchain based system of academic endorsement (AES) [1]. Indeed, we could say that in general “specific blockchain characteristics meet the requirements of an open science infrastructure” [3-7]: 
+\paragraph{Decentralisation}Taking out the need of intermediaries, would make useless depending on highly profiting publishing companies for disseminating scientific work and managing the rules of the peer-review process; 
+\paragraph{Immutability} of the system in which information can only be appended with tamper proof-time stamping,  but not subsequently modified, would secure the intellectual property and a fairer measure of the scientific contribution of the actors at play during the multiple versions of a paper;
+\paragraph{Transparency} (meaning that we have a viewable record of all the transactions), would also make editorial decisions (publish or not publish a study) more transparent and democratic. Finally, cryptographic hashing could allow for a double-blind process that reduces human biases in judgement by assigning hashed pseudonymous to universal researcher identifiers. From all these aspects taken together, a more democratic open peer-review  process could rise, in which merit and power (of access to information, of decision…) is more equally redistributed among the stakeholders (researchers, reviewers, taxpayers).
 
 \section{Background}
-\subsection{Peer-review: problem}
-Peer-review is the traditional and necessary process at the heart of quality control in science [9, 12], determining the destinies of articles’ publications and therefore of scientific dissemination. However, the current peer-review system is outdated: in the past, it was effective when scholarly communication happened exclusively through printed paper journals, but nowadays, with the high and fast-paced levels of articles productions, its slow and multistage process doesn’t keep up with the times. Indeed, articles submitted to journals can take from months to years after editors’ first scrutiny, going back and forth several review rounds before acceptance for publications. This is mainly due to the fact that the reviewers that are normally appointed by authors and/or editors are actually full-time researchers themselves, who work on a volunteer basis taking time from their primary research. Though things are changing, and now more and more journals encourage a transparent peer review process with the publication of reviewers names and reports, in most of the cases, to guarantee an unbiased output, journals don’t even get credit researchers for this form of unpaid work. On top of this, author-level metrics that measure the scientific impact and productivity of academics, such as the h-index, and are taken into account by the funding agencies, are purely based on the number of citations per each publications while neglecting the full spectrum of scientific contributions (software, data collection, presentations, reviews…). Therefore, peer-reviewing is an intellectual investment without any external return for researchers’ career. A major consequence of not promoting incentives for the quality (and quantity) of peer-reviews is to either have good research unpublished (because unreviewed) and abandoned in preprint archives or bad science published through sloppy and uncritical reviews [5]. Last but not least, the ‘publish or perish’ culture has been more and more inducing malicious behaviour during the peer-review process, such as attempts of scientific fraud (authors trying to review their own papers) and abuse (reviewers producing extremely harsh reviews to damage competitors by blocking the publication of their ideas). Finally, the current peer-review system is usually not double-blind, thus making its decisional process vulnerable to all forms of biases (gender bias, cultural bias, professional bias, etc...). These trust problems are one of the major issues facing scholarly communication.
-
-\subsubsection{Types of peer-review}
-\begin{itemize}
-    \item single-blind peer review
-    \item double-blind peer review
-    \item transparent peer review
-\end{itemize}
-
-\subsubsection{Traditional peer-review process}
+\subsection{Peer-review: a flawed and outdated system}
+Peer-review is the traditional and necessary process at the heart of quality control in science [9, 12], determining the destinies of articles’ publications and therefore of scientific dissemination. However, the current peer-review system is outdated: in the past, it was effective when scholarly communication happened exclusively through printed paper journals, but nowadays, with the high and fast-paced levels of articles productions, its slow and multistage process doesn’t keep up with the times. 
+\subsubsection{It's a slow multi-stage process.} Indeed, articles submitted to journals can take from months to years after editors’ first scrutiny, going back and forth several review rounds before acceptance for publications. 
+\paragraph{Traditional peer-review process}
 \begin{enumerate}
     \item The author submits a manuscript to the journal.
     \item  An editorial team  assesses the paper for what concerns the requirements of the journal's Author's Guideline (composition, sections...).
@@ -75,34 +72,44 @@ Peer-review is the traditional and necessary process at the heart of quality con
     \item If the decision is a rejection, the editor might indicate another journal where to submit the manuscript. 
     
 \end{enumerate}
+\subsubsection{It's unaccredited and unpaid.} This is mainly due to the fact that the reviewers that are normally appointed by authors and/or editors are actually full-time researchers themselves, who work on a volunteer basis taking time from their primary research. Though things are changing, and now more and more journals encourage a transparent peer review process with the publication of reviewers names and reports, in most of the cases, to guarantee an unbiased output, journals don’t even get credit researchers for this form of unpaid work. On top of this, author-level metrics that measure the scientific impact and productivity of academics, such as the h-index, and are taken into account by the funding agencies, are purely based on the number of citations per each publications while neglecting the full spectrum of scientific contributions (software, data collection, presentations, reviews…). Therefore, peer-reviewing is an intellectual investment without any external return for researchers’ career. A major consequence of not promoting incentives for the quality (and quantity) of peer-reviews is to either have good research unpublished (because unreviewed) and abandoned in preprint archives or bad science published through sloppy and uncritical reviews [5]. 
+\subsubsection{It's vulnerable to bias and fraud.} Last but not least, the ‘publish or perish’ culture has been more and more inducing malicious behaviour during the peer-review process, such as attempts of scientific fraud (authors trying to review their own papers) and abuse (reviewers producing extremely harsh reviews to damage competitors by blocking the publication of their ideas). Finally, the current peer-review system is usually not double-blind, thus making its decisional process vulnerable to all forms of biases (gender bias, cultural bias, professional bias, etc...). These trust problems are one of the major issues facing scholarly communication.
+
+\subsubsection{Types of peer-review}
+\begin{itemize}
+    \item single-blind peer review
+    \item double-blind peer review
+    \item transparent peer review
+    open identities open reports open participation open interaction open platform ('decoupled review')
+\end{itemize}
+
+
 
 \subsection{Related work}
-
 Credit for peer review is not a new thing: mostly journals handled it so far with virtual 'badges', certificates of performance, citation in annual editorials but none of these is standardized in a way that has a weight for funders world ranking bodies institutions like imapct factor h-index. 
-
-Crossref primary DOI provider, announced that review reports could be now registered as part of their services
-Publons provides a way to keep track of the reviews records and integrate them into academic profiles such as ORCID
+In relation to security issues \emph{CryptSubmit} \emph{MaRSChain}
+\emph{Crossref} primary DOI provider, announced that review reports could be now registered as part of their services
+\emph{Publons} provides a way to keep track of the reviews records and integrate them into academic profiles such as ORCID
 ScienceOpen
-DEIP
+\emph{DEIP}
 Rubriq provides independent and standardized peer review that can be accepted and shared across all types of journals and distribution systems. Now absorbed by Research Square.
-Peerage of Science that provides a journal-independent free service for scientific peer review and publishing. The interesting feature is that it provides also a peer-review of the reviews. 
-Blockchain for Peer Review, pilot project sponsored by Digital Science and Katalysis, aims at developing a protocol for storing peer reviews submitted by publishers on a blockchain such that review process can be independently verified and review info is fed to ORCID researcher profiles []
+\emph{Peerage of Science} that provides a journal-independent free service for scientific peer review and publishing. The interesting feature is that it provides also a peer-review of the reviews. 
+\emph{Blockchain for Peer Review,}pilot project sponsored by Digital Science and Katalysis, aims at developing a protocol for storing peer reviews submitted by publishers on a blockchain such that review process can be independently verified and review info is fed to ORCID researcher profiles []
+\emph{ReviewCoin}
+\emph{I8X Platform}
 
-The project will develop a protocol where information about peer review activities (submitted by publishers) are stored on a blockchain. This will allow the review process to be independently validated, and data to be fed to relevant vehicles to ensure recognition and validation for reviewers.  By sharing peer review information, while adhering to laws on privacy, data protection and confidentiality, we will foster innovation and increase interoperability.
 
-
-
+\subsection{Blockchain solution}
 
 \section{System concept}
 For the above mentioned reasons, we propose an incentive-based protocol called Ants-Review to reward open peer-reviews while preserving the anonymity of the reviewers. The name originates from the idea that the work behind a finished scientific paper resembles a complex organism such as an anthill, which emerges from the sum of many individualities: in it, all contributions (even if ‘micro’) are essential to the whole and are worth recognition.
 This project is intended to be open source and was developed during the ETH Turin 2020 Hackathon and it’s design and attempt of implementation are exposed in the following section.
-Anonymity
-Accountability
-Reputation
-Reward
-Gamification model 
+\paragraph{Anonymity} zSNARK
+\paragraph{Accountability} hash
+\paragraph{Reward} bounty
 
-open identities open reports open participation open interaction open platform ('decoupled review')
+
+
 
 \subsection{Design}
 
@@ -119,10 +126,24 @@ open identities open reports open participation open interaction open platform (
     
 \end{enumerate}
 
-\subsubsection{AnstReview process: scenario 2  (community-driven): 
+\subsubsection{AnstReview process: scenario 2  (community-driven)}: 
 
+\begin{enumerate}
+    \item The author submits a manuscript to the pre-print service or to an hypothetical AntsReview platform).
+    \item The paper is accepted by the community for revision in its whatever format.
+    \item The author issues a bounty (\emph{bounty issuance}) for the paper review. Fulfillment rules are set in a smart-contract.
+    \item (footnote?) the bounty prize could come by a community stake that participates in the peer-review process either as a reviewer or as a reviewer checker.
+    \item Reviews fulfilling the smart-contract requirements are validated by the AntsReview community/contributors.
+    \item When the reviews are accepted (\emph{bounty fulfillment}), reviewers awarded a token called \emph{ANT}.
+    \item Not all reviews will have the same quality and depth. However, each of them might bring up one or more relevant contribution for the sake of improving the manuscript. In order to redistribute the bounty in a fair manner across reviewers, reviews will be voted by the community with Quadratic Voting.
+    \item In order to incentive 'fair play' also the review checkers who vote for the best quality reviews will share the final prize from the bounty. Since it's in their own interest to 'bet' on a good review, this gamed system will discourage internal dynamics prompt to favour specific members of the community beyond real personal merit. It will also fuel ethical behaviour. 
+    
+    \end{enumerate}
+    
 peer-review is decoupled from journal
-or to the pre-print service or to an hypothetical AntsReview platform).
+or 
+
+
 \subsection{Implementation}
 AntsReview is a destributed peer-review system which synthetizes successfull ideas from previous systems including The Bounty Network[ref], ERC20[ref], AZTEC Protocol[ref], IPFS[ref], Proof of Existence[ref], ...
 \newline The contribution of AntsReview is simply allowing the peer-review process, as a complex system, to emerge as a self-organised ecosystem of authors and peer-reviewers to enhance the complexity of a paper and its validation.
@@ -185,9 +206,9 @@ In this way, only the Issuer (author) can create a new AntReview.
 
 \subsubsection{Token Economics}
 
-\subsubsection{Quadratic Funding}
+\subsubsection{Quadratic Voting} I don't see the point of introducing QF here. Is it already implemented or it's just in the idea?
 
-\subsubsection{Privacy}
+\subsubsection{Privacy}. AZTEC protocol is a cryptographic protocol combines the confidentiality of the transactions (the value of the transaction is hidden, the amount of token (?) is not revealed thus preventing biases in the peer-review quadratic voting process = "I want to bet on this review because I want to win the bounty") with general-purpose computation (it's a Turing-complete Virtual Machine): this means transaction are not limited just to the local cryptocurrency (in our case ANT) but cross-asset trades are allowed (I can exchange ANT tokesn with other crypto-currencies). 
 
 \subsubsection{DAO}
 
@@ -223,7 +244,7 @@ Our open source code is available at the Github repository. A demo of the projec
 TDB
 
 \subsubsection{Declaration of Competing Interest}
-The authors declare no competing interests.
+The authors declare no competing interests. 
 
 \subsubsection{Acknowledgements} We would like to thank Matteo A. Tambussi for his comments and edits.
 
