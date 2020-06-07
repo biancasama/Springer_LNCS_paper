@@ -42,12 +42,13 @@ Independent Blockchain Engineer, London, UK \\
 %
 \begin{abstract}
 Peer-review is a necessary and essential quality control step for scientific publications. However, the process, which is very costly in terms of time investment, not only is not remunerated but it’s also not recognized by the academic community as a relevant scientific output for a researcher. Therefore, scientific dissemination is affected. Here, to solve this issue we propose a blockchain-based incentive protocol that rewards scientists also for their contributions to other scientists’ work and that builds up a reputational system. We designed a basic Bounty-like contract called AntsReview that allows any author to issue a call for peer-reviewing their scientific publication. If requirements are met, peer-reviews will be audited by an external editor and payed by the Issuer. To promote ethical behaviour the system will implement a quadratic funding on AntsReview.
-\keywords{Blockchain  \and Peer-review \and Privacy \and Incentivization.}
+\keywords{Blockchain  \and Open Science \and Peer-review \and Incentivization.}
 \end{abstract}
 %
 %
 \section{Introduction}
-From its birth in 2008 as a distributed ledger for the cryptocurrency bitcoin \cite{Bitcoin}, blockchain technology has  
+From its birth in 2008 as a distributed ledger for the peer-to-peer electronic cash system 'bitcoin' \cite{Bitcoin}, blockchain technology has spread way beyond the sole cryptocurrency domain, in particular after the implementation of the smart contract functionality introduced by Ethereum. 
+Besides a growing number of applications ranging from business, healthcare, music industry, government, to cite a few, blockchain technology has recently started to catalyse the attention of the scientific community as well \cite{Bitcoin-Nature-focus,vanRossum2017-DigSci}.
 
 The paper is structured as follows. Sections 2 presents research background and related works. Section 3 explains the proposed Ethereum-based protocol illustrating the system architecture and the current status of implementation. In Sect. 4 we discuss the implication of our work. Section 5 contains the conclusions. Appendixes present the smart contracts. 
 
@@ -186,7 +187,7 @@ AntsReviewRoles[\ref{appendix:a}], to ensure integrity of the system, implements
 \newline One of the key aspects of the protocol is the concept of Proof of Existence, introduced by Stuart Haber \& W. Scott Stornetta with the paper "How to time-stamp a digital document"\cite{TimeStamp-Haber}
 \newline As the pioneers of blockchain an cited by Bitcoin whitepaper, they were in a mission to solve the problem of immutability of digital records that became reality with the Blockchain and Bitcoin\cite{Bitcoin} as its first application.
 \newline In Ethereum \cite{Ethereum} the concept of immutability is achieved via the blockchain and proof of work consesus algorithm by a chain of timestamped block hashes that are secured by miners competing computations.
-\newline AntsReview is evaluating the advantages of storing the hashes of the peer-reviews into a Merkle Tree to achieve immutability and efficiency in verifying the data with a complexity of O(logn) for searching through the tree.
+\newline AntsReview is evaluating the advantages of storing the hashes of the peer-reviews into a Merkle Tree \cite{BayerHaber1992} to achieve immutability and efficiency in verifying the data with a complexity of O(logn) for searching through the tree.
 \newline A Merkle tree is a particular type of binary tree, formed by a set of nodes with a large set of leaf nodes at the bottom of the tree containing representing the hash of the original data, a set of intermediate nodes where each node is the sum of the two children hashes, ending with a single root hash.
 \newline In order to verify if a specific hash is included into a Merkle Tree, leveraging on MerkleProof.sol by OpenZeppelin Library, we need to provide a proof, generated from the leaf of interest, that represent the remification derived from the leaf, the root hash and finally the leaf we want to verify.
 \newline The paper and peer-review documents will be included into a Merkle Tree by hashing the data using keccak256, a cryptographic hashing algorithm available in Solidity \cite{Solidity}, an object-oriented programming language for writing smart contracts that run on the Ethereum Virtual Machine (EVM).
@@ -196,15 +197,15 @@ AntsReviewRoles[\ref{appendix:a}], to ensure integrity of the system, implements
 AntsReview has few tokens, each of which plays an integral role in the functioning and anonymity of the decentralized protocol.
 \newline \textbf{Ant}, is the primary protocol token and can be staked into an AntReview if you wish to provide the protocol with an additional security promise.
 \newline Ant [\ref{appendix:c}] is implemented by inheriting ERC20PresetMinterPauser.sol from OpenZeppelin Library with name: \textbf{\emph{Ant}} ans symbol: \textbf{\emph{ANT}}.
-\newline An AntReview, issued by an author will be seen as a poll where Anters (members of the AntsReview Community) can stake ether or tokens from DeFi services including Dai \cite{Dai}, Chai \cite{Chai}, ... with the possibility to accrue interest for the duration of an AntReview (1 year on average), via MakerDAO DSR \cite{DSR} or Compound to cite a few.
+\newline An AntReview, issued by an author will be seen as a poll where Anters (members of the AntsReview Community) can stake ether or tokens from DeFi services including Dai \cite{Dai}, Chai \cite{Chai}, ... with the possibility to accrue interest for the duration of an AntReview (1 year on average), via MakerDAO DSR (Dai Saving Rate) \cite{DSR} or Compound \cite{Compound} to cite a few.
 \newline An \textbf{AntsReview DAO} will be formed in the future to allow Ant stakers the ability to participates in a Decentralized Autonomous Organization which will be used to govern important aspects of the decentralized protocol, from smart contracts upgrades to more minor changes in settings across the protocol.
 \newline \textbf{Hive}. When an Anter deposits into an AntReview, they will instantly receive the Hive token which represents their deposit and the accrued interest it gains over time in the AntReview.
 \newline This token doesn't need to be locked in the network and it can be traded, sold, or held as the Anter desires.
-\newline Hive will be implemented using a similar approach to Ant and Chai, a token that accrues interest from MakerDAO's DSR (Dai Saving Rate), with name: \textbf{\emph{Hive}} and symbol: \textbf{\emph{HIVE}}
-\newline Ideally, but is still under investigation, after the deadline of the AntReview is reached, the Hive token will be burned for Ant and wrapped into zkAnt to allow anonymity and send equally to the peer-reviewers that fulfilled the AntReview.
-\newline \textbf{zkAnt}, is an Ant token wrapped into AZTEC Protocol ZK-SNARKs, that will be extended to PLONK Proof to collapse the gas costs of private transactions on mainnet.
-\newline zkAnt will be implemented via AZTEC 2.0 that will allow to securely wrap the Ant Token into zkAnt, allowing private transactions on mainnet and preserving the anonymity of Peer Reviewers.
-\newline Finally, another concept under investigation is Quadratic Funding, used by Gitcoin to match donations for Grants. This will allow to incentives prolific Peer-Reviewers and improve the stability of the system together with ideally a reward system to rank best Peer-Reviewers.
+\newline Hive will be implemented using a similar approach to Ant and Chai, a token that accrues interest from MakerDAO's DSR or Compound, with name: \textbf{\emph{Hive}} and symbol: \textbf{\emph{HIVE}}
+\newline Ideally, but is still under investigation, after the deadline of the AntReview is reached, the Hive token will be burned for Ant and wrapped into zkAnt to promote anonymity and sent equally to the peer-reviewers that fulfilled the AntReview.
+\newline \textbf{zkAnt}, is an Ant token wrapped into AZTEC Protocol \cite{AZTEC} ZK-SNARKs, that will be extended to PLONK \cite{PLONK} Proof to collapse the gas costs of private transactions on mainnet.
+\newline zkAnt will be implemented via AZTEC 2.0 (still in development) that will allow to securely wrap the Ant Token into zkAnt, allowing private transactions on mainnet and preserving the anonymity of Peer Reviewers.
+\newline Finally, another concept under investigation is Quadratic Funding \cite{QuadraticFunding}, used by Gitcoin to match donations for Grants. This will allow to incentives prolific Peer-Reviewers and improve the stability of the system together with ideally a reward system to rank best Peer-Reviewers.
 
 \subsubsection{Privacy}
 
