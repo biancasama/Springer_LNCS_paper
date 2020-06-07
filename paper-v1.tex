@@ -23,7 +23,7 @@
 % If the paper title is too long for the running head, you can set
 % an abbreviated paper title here
 %
-\author{Bianca Trovò\inst{1,2}\orcidID{0000-0002-6776-2304}\thanks{Correspondent author} \and
+\author{Bianca Trovò\inst{1,2}\orcidID{0000-0002-6776-2304}\thanks{Correspondent author: bianca.trovo@alumni.unitn.it} \and
 Nazzareno Massari\inst{3,4}\orcidID{0000-0002-6638-2174}}
 %
 \authorrunning{B. Trovò et N. Massari}
@@ -48,7 +48,7 @@ Peer-review is a necessary and essential quality control step for scientific pub
 %
 \section{Introduction}
 From its birth in 2008 as a distributed ledger for the peer-to-peer electronic cash system 'bitcoin' \cite{Bitcoin}, blockchain technology has spread way beyond the sole cryptocurrency domain, in particular after the implementation of the smart contract functionality introduced by Ethereum. 
-Besides a growing number of applications ranging from business, healthcare, music industry, government, to cite a few, blockchain technology has recently started to catalyse the attention of the scientific community as well \cite{Bitcoin-Nature-focus,vanRossum2017-DigSci}.
+Besides a growing number of applications ranging from business, healthcare, music industry, government, to cite a few, blockchain technology has recently started to catalyse the attention of the scientific community as well \cite{Bitcoin-Nature-focus,vanRossum2017-DigSci} with promising potential of repairing broken scientific practices
 
 The paper is structured as follows. Sections 2 presents research background and related works. Section 3 explains the proposed Ethereum-based protocol illustrating the system architecture and the current status of implementation. In Sect. 4 we discuss the implication of our work. Section 5 contains the conclusions. Appendixes present the smart contracts. 
 
@@ -205,7 +205,7 @@ AntsReview has few tokens, each of which plays an integral role in the functioni
 \newline Ideally, but is still under investigation, after the deadline of the AntReview is reached, the Hive token will be burned for Ant and wrapped into zkAnt to promote anonymity and sent equally to the peer-reviewers that fulfilled the AntReview.
 \newline \textbf{zkAnt}, is an Ant token wrapped into AZTEC Protocol \cite{AZTEC} ZK-SNARKs, that will be extended to PLONK \cite{PLONK} Proof to collapse the gas costs of private transactions on mainnet.
 \newline zkAnt will be implemented via AZTEC 2.0 (still in development) that will allow to securely wrap the Ant Token into zkAnt, allowing private transactions on mainnet and preserving the anonymity of Peer Reviewers.
-\newline Finally, another concept under investigation is Quadratic Funding \cite{QuadraticFunding}, used by Gitcoin to match donations for Grants. This will allow to incentives prolific Peer-Reviewers and improve the stability of the system together with ideally a reward system to rank best Peer-Reviewers.
+\newline Finally, another concept under investigation is Quadratic Funding, used by Gitcoin \cite{Gitcoin} to match donations for Grants. This will allow to incentives prolific Peer-Reviewers and improve the stability of the system together with ideally a reward system to rank best Peer-Reviewers.
 
 \subsubsection{Privacy}
 
