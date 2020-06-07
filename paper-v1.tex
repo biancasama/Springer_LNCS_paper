@@ -47,11 +47,11 @@ Peer-review is a necessary and essential quality control step for scientific pub
 %
 %
 \section{Introduction}
-From its birth in 2008 as a distributed ledger for the peer-to-peer electronic cash system 'bitcoin' \cite{Bitcoin}, blockchain technology has spread far beyond the sole cryptocurrency domain, in particular after the implementation of the smart contract functionality introduced by Ethereum. 
-Besides a growing number of applications ranging from business, healthcare, music industry, government, to cite a few, blockchain technology has recently started to catalyse the attention of the scientific community as well \cite{Bitcoin-Nature-focus,vanRossum2017-DigSci} with the promising potential of being a 'game changer' in outdated and broken scientific practices. In particular, a 'blockchainefied science'\cite{BlockchainforScience} could 'increase value and reduce waste’\cite{ReducingWaste-Lancet}, by disclosing the research cycle to scientific assessment way before the final publication step and therefore help fixing the current reproducibility crisis in science.
-"blockchain would make much larger parts of the research cycle open to scientific self-correction. This bears the potential to be a new approach to the current reproducibility crisis in science, and could ‘reduce waste and make more research results true’. Beyond that, blockchain could be used to reduce overhead and accelerate the scientific process and incentivise true innovation."
+From its birth in 2008 as a distributed ledger for the peer-to-peer electronic cash system 'Bitcoin' \cite{Bitcoin}, blockchain technology has spread far beyond the sole cryptocurrency domain, in particular after the implementation of a general purpose smart contract functionality introduced by Ethereum. 
+Besides a growing number of applications ranging from business, healthcare, music industry, government, identity to cite but a few, blockchain technology has recently started to catalyse the attention of the scientific community as well \cite{Bitcoin-Nature-focus,vanRossum2017-DigSci} with the promising potential of being a 'game changer' in outdated and broken scientific practices and leading towards Open Science \cite{AES}. In particular, a 'blockchainified science'\cite{BlockchainforScience} could 'reduce waste'\cite{ReducingWaste-Lancet}, by disclosing each step the research cycle to 'scientific self-correction' way before the final publication step and therefore help fixing the current reproducibility crisis in science. Scholars have pointed out how the intrinsic characteristics of blockchain technology (decentralization, for which there are no trusted third parties; cryptographic hashing, that creates a digital footprint able to keep a 'trail of research';  
+to prevent vs publication bias (reporting only positive results) or p-hacking or ex-post-facto hypothesizing (changing the hypothesis after having looked into the data)
 
- 
+
 
 
 The paper is structured as follows. Sections 2 presents research background and related works. Section 3 explains the proposed Ethereum-based protocol illustrating the system architecture and the current status of implementation. In Sect. 4 we discuss the implication of our work. Section 5 contains the conclusions. Appendixes present the smart contracts. 
@@ -59,7 +59,7 @@ The paper is structured as follows. Sections 2 presents research background and 
 \section{Background}
 \subsection{Peer-review: a flawed and outdated system}
 
-"Peer review In recent years a lot of attention has been given to fundamental problems associated with the peer review process which lies at the heart of scholarly communication5,6,7.The perceived problems are multiple.There is a lack of visibility and recognition for reviewers, with their review work remaining largely unnoticed.Together, the increased number of manuscripts submitted to journals, and a subsequent need for more reviewers, leads to an increasing difficulty in finding suitable reviewers.Additionally, there is a perceived bias against women in the review process8.There are also cases of review manipulation, sometimes involving identity fraud which forced publishers to retract articles9. Overall, the review process is considered opaque and expensive, slowing down the speed of scientific discovery and progress."
+"Peer review In recent years a lot of attention has been given to fundamental problems associated with the peer review process which lies at the heart of scholarly communication5,6,7.The perceived problems are multiple.There is a lack of visibility and recognition for reviewers, with their review work remaining largely unnoticed.Together, the increased number of manuscripts submitted to journals, and a subsequent need for more reviewers, leads to an increasing difficulty in finding suitable reviewers. Additionally, there is a perceived bias against women in the review process8.There are also cases of review manipulation, sometimes involving identity fraud which forced publishers to retract articles9. Overall, the review process is considered opaque and expensive, slowing down the speed of scientific discovery and progress."
 
 Peer-review is the traditional and necessary process at the heart of quality control in science [9, 12], determining the destinies of articles’ publications and therefore of scientific dissemination. However, the current peer-review system is outdated: in the past, it was effective when scholarly communication happened exclusively through printed paper journals, but nowadays, with the high and fast-paced levels of articles productions, its slow and multistage process doesn’t keep up with the times.
 \subsubsection{It's a slow multi-stage process.} Indeed, articles submitted to journals can take from months to years after editors’ first scrutiny, going back and forth several review rounds before acceptance for publications.
@@ -91,7 +91,7 @@ Peer-review is the traditional and necessary process at the heart of quality con
 
 
 \subsection{Related work}
-Credit for peer review is not a new thing: mostly journals handled it so far with virtual 'badges', certificates of performance, citation in annual editorials but none of these is standardized in a way that has a weight for funders world ranking bodies institutions like imapct factor h-index.
+Credit for peer review is not a new thing: mostly journals handled it so far with virtual 'badges', certificates of performance, citation in annual editorials but none of these is standardized in a way that has a weight for funders world ranking bodies institutions like impact factor h-index.
 In relation to security issues \emph{CryptSubmit} \emph{MaRSChain}
 \emph{Crossref} primary DOI provider, announced that review reports could be now registered as part of their services
 \emph{Publons} provides a way to keep track of the reviews records and integrate them into academic profiles such as ORCID
@@ -109,19 +109,19 @@ The startup Matryx.ai13 aims to transform the nature of research collaboration i
 \subsection{Ideas here}
 
 \section{System concept}
-In this paper we propose Ants-Review, a new incentivisation mechanism built on a distributed platform that issues open peer-reviews to validate scientific papers while preserving the anonymity of its contributors and that . We imagine a final paper originating from the peer-review process as a complex system that emerges from the product of interactions between the authors and the reviewers, a whole that is more than the sum of its parts. Therefore, the name hints at the ant colony as a model of self-organization in which all micro-contributions of the individuals add up to complex behaviour.
+In this paper we propose Ants-Review, a new incentivisation mechanism built on a distributed platform that issues open peer-reviews to validate scientific papers while preserving the anonymity of its contributors. We imagine a final paper originating from the peer-review process as a complex system that emerges from the interactions between the authors and the reviewers, a whole that is more than the sum of its parts. Therefore, the name evokes an ant colony as a self-organising organism in which all micro-contributions of the individuals emerge into complex behaviour.
 A previous version of this paper can be found here \cite{AntsReview}, as a proposal submitted for the ETH Turin 2020 Hackathon.
-and it’s design and attempt of implementation are exposed in the following section.
-Here I expose the main traits/features of AR
+and its design and attempt of implementation are exposed in the following section.
+Here we expose the main traits/features of AR
 \begin{itemize}
 \item accountability: both for recognition and for security vs fraud abuse etc we need to be able to track back the identities of the contributors to a peer-review to make sure there are no conflict of interest. this means the platform acts like a version control system where commit are permanent and hashed 
 \item transparency of the records: all reviews should be open access to the community to prevent waste of knowledge and disrupt the secretive system of black boxes of peer reviews in journals that centralize all the reports 
-\item incentivisation: via symbolic and material recognition of the performed work. tokens and bounty
+\item incentivisation: via symbolic and material recognition of the performed work. reputation and bounties
 \item inclusiveness via gamification: all the community is involved in the process - no selection process feeling of belonging -- quadratic voting and share of the stake
 \end{itemize}
 crowdfunding schemes leveraged by blockchain technology
-In the following sessions we describe the architecture of the system and its building blocks
-AntsReview [Fig.\ref{fig:contracts}] is a distributed peer-review system which synthesizes successful ideas from previous systems including The Bounty Network[ref], ERC20[ref], AZTEC Protocol[ref], IPFS[ref], Proof of Existence[ref], ...
+In the following sections we describe the architecture of the system and its building blocks
+AntsReview [Fig.\ref{fig:contracts}] is a distributed peer-review system which synthesizes successful ideas from previous systems including The Bounty Network \cite{Bounty}, ERC-20 \cite{ERC20}, AZTEC Protocol \cite{AZTEC}, IPFS \cite{IPFS}, Proof of Existence \cite{TimeStamp-Haber}, ...
 
 \subsection{Design}
 
@@ -149,7 +149,7 @@ There are two possible scenarios depending if we save the role of the editor and
     \item (footnote?) the bounty prize could come by a community stake that participates in the peer-review process either as a reviewer or as a reviewer checker.
     \item Reviews fulfilling the smart-contract requirements are validated by the AntsReview community/contributors.
     \item When the reviews are accepted (\emph{bounty fulfillment}), reviewers awarded a token called \emph{ANT}.
-    \item Not all reviews will have the same quality and depth. However, each of them might bring up one or more relevant contribution for the sake of improving the manuscript. In order to redistribute the bounty in a fair manner across reviewers, reviews will be voted by the community with Quadratic Voting.
+    \item Not all reviews will have the same quality and depth. However, each of them might bring up one or more relevant contribution for the sake of improving the manuscript. In order to redistribute the bounty in a fair manner across reviewers, reviews will be voted by the community via Quadratic Voting.
     \item In order to incentive 'fair play' also the review checkers who vote for the best quality reviews will share the final prize from the bounty. Since it's in their own interest to 'bet' on a good review, this gamed system will discourage internal dynamics prompt to favour specific members of the community beyond real personal merit. It will also fuel ethical behaviour.
 
  \end{enumerate}
@@ -236,7 +236,7 @@ The Anonymity of an agent in the system is achieved in two ways:
 
 - peer reviews requires a standard: building smart-contracts for peer-reviews might set a first step in this direction
 
-- community-organized peer  reviews: peer reviews will be more and more out of the hands of publishers, researchers will be the ones seeking the papers to review (like in Rubriq).
+- community-organized peer reviews: peer reviews will be more and more out of the hands of publishers, researchers will be the ones seeking the papers to review (like in Rubriq).
 
 future of quality control and moderation: open participation model, community-driven | certification and reputation: expansion of reviewer pool with fewer barriers to enter and more inclusion of young scientists, reputation build within community and not journals
 
@@ -249,7 +249,7 @@ future of quality control and moderation: open participation model, community-dr
 \subsubsection{Perspectives for a Decentralized Autonomours Organization (DAO)}
 
 \section{Conclusion}
-In this paper we addressed a crucial problem within scholarly academic communication: the peer-review process. We showed how blockchain technology could provide an efficient and viable solution and open up possibile directions for a change in paradigm in scientific communication. We proposed an incentive mechanism that could solve the problems of lack of acknowledgment and trust during peer-review. We exposed the architecture of our project and our Proof of Concept (PoC) for which we adopted cutting-edge tools from the open source blockchain community.
+In this paper we addressed a crucial problem within scholarly academic communication: the peer-review process. We showed how blockchain technology could provide an efficient and viable solution and open up possible directions for a change in paradigm in scientific communication. We proposed an incentive mechanism that could solve the problems of lack of acknowledgment and trust during peer-review. We exposed the architecture of our project and our Proof of Concept (PoC) for which we adopted cutting-edge tools from the open source blockchain community.
 
 \subsubsection{Supplementary material}
 TBD
