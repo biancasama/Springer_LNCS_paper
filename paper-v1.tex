@@ -43,7 +43,7 @@ Independent Blockchain Engineer, London, UK \\
 \maketitle              % typeset the header of the contribution
 %
 \begin{abstract}
-Peer-review is a necessary and essential quality control step for scientific publications. However, the process, which is very costly in terms of time investment, not only is not remunerated but it’s also not recognized by the academic community as a relevant scientific output for a researcher. Therefore, scientific dissemination is affected. Here, to solve this issue, we propose a blockchain-based incentive protocol that rewards scientists also for their contributions to other scientists’ work and that builds up a reputational system. We designed a Protocol of smart contracts called AntsReview that allows any author to issue a call for peer-reviewing their scientific publication. If requirements are met, peer-reviews will be accepted and payed by the Issuer. To promote ethical behaviour the system will implement an incentive mechanism on AntsReview.
+Peer-review is a necessary and essential quality control step for scientific publications. However, the process, which is very costly in terms of time investment, not only is not remunerated but it’s also not recognized by the academic community as a relevant scientific output for a researcher. Therefore, scientific dissemination is affected. Here, to solve this issue, we propose a blockchain-based incentive protocol that rewards scientists also for their contributions to other scientists’ work and that builds up a reputational system. We designed a Protocol of smart contracts called Ants-Review that allows any author to issue a call for peer-reviewing their scientific publication. If requirements are met, peer-reviews will be accepted and payed by the Issuer. To promote ethical behaviour the system will implement an incentive mechanism on AntsReview.
 \keywords{Blockchain  \and Open Science \and Privacy \and Peer-review \and Incentivization.}
 \end{abstract}
 %
@@ -51,8 +51,9 @@ Peer-review is a necessary and essential quality control step for scientific pub
 \section{Introduction}
 From its birth in 2008 as a distributed ledger for the peer-to-peer electronic cash system Bitcoin \cite{Bitcoin}, blockchain technologies (BCTs) have spread far beyond the sole cryptocurrency domain, in particular after the implementation of a general purpose smart contract functionality introduced by Ethereum \cite{Ethereum-Wood}.
 Besides a growing number of applications ranging from business, healthcare, music industry, government, identity to cite but a few, blockchain technology has recently started to catalyse the attention of the scientific community as well \cite{Bitcoin-Nature-focus,vanRossum2017-DigSci} with the promising potential of being a 'game changer' in outdated and broken scientific practices and leading towards Open Science \cite{AES}. In particular, a 'blockchainified science'\cite{BlockchainforScience} could 'reduce waste'\cite{ReducingWaste-Lancet}, by disclosing each step the research cycle to 'scientific self-correction' way before the final publication step and therefore help fixing the current reproducibility crisis in science. Finally, scholars have pointed out how the intrinsic characteristics of blockchain technology (decentralization, for which there are no trusted third parties; cryptographic hashing and timestamping, that create a digital footprint able to keep a traceable chronological record of research objects; immutability or append-only, for which data cannot be altered or retrieved) set the basis for a open science infrastructure \cite{ReviewBlockchain2019} where decisional processes are transparent and therefore more democratically accessible to all the stakeholders (researchers, reviewers, funders, taxpayers).
-A thorny issue in the academic system that can be tackled by blockchain concerns the status and accreditation of peer-review, the core process of scientific validation currently facing a crisis \cite{Gropp-PeerRevStress}. In this paper we propose a solution to the problem of reviewers recognition based on the principles of token economy and in line with the values of Open Science.
-The paper is structured as follows. Sections 2 presents research background and related works. Section 3 explains the proposed Ethereum-based protocol illustrating the system architecture and the current status of implementation. In Sect. 4 we discuss the implication of our work. Section 5 contains the conclusions. Appendixes present the smart contracts. 
+A thorny issue in the academic system that can be tackled by blockchain concerns the status and accreditation of peer-review, the core process of scientific validation currently facing a crisis \cite{Gropp-PeerRevStress}. 
+In this paper we propose a solution to the problem of reviewers recognition based on the principles of token economy and in line with the values of Open Science.
+\newline The paper is structured as follows. Sections 2 presents research background and related works. Section 3 explains the proposed Ethereum-based protocol illustrating the system architecture and the current status of implementation. In Sect. 4 we discuss the implication of our work. Section 5 contains the conclusions. Appendixes present the smart contracts. 
 
 \section{Background}
 \subsection{Peer-review: a flawed and outdated system}
@@ -74,6 +75,9 @@ Moreover, some journal editors who have thought about or experimented with provi
 \cite{Kendall-peerrev}
 His study, done for Nature, found no evidence for lengthening delays2: the median review time — the time between submission and acceptance of a paper — has hovered at around 100 days for more than 30 years (see ‘Paper wait’)
 An analysis of all papers in PubMed up to 2015 with listed submission and acceptance dates suggests that the median time from submission to acceptance has hovered at around 100 days, although it has gone up at some journals.
+
+\cite{tragedy-reviewers} overburdened reviewer pool,we observe a progressive increase in journals without an increase in the number of reviewers.
+suggestions for improvements are lost
 
 An analysis of PubMed papers published in 2013 suggests that journals with the lowest and highest impact factors have the longest review times.
 
@@ -186,7 +190,7 @@ AntsReviewRoles, to ensure integrity of the system, implements an access managem
 \subsubsection{Tokenomics}
 
 AntsReview has few tokens, each of which plays an integral role in the functioning and anonymity of the decentralized protocol.
-\newline Ant \ref{code:Ant, is the primary protocol token and can be staked into an AntReview if you wish to provide the protocol with an additional security promise.
+\newline Ant, is the primary protocol token and can be staked into an AntReview if you wish to provide the protocol with an additional security promise.
 \newline Ant is implemented by inheriting ERC20PresetMinterPauser.sol from OpenZeppelin Library with name: \emph{Ant} ans symbol: \emph{ANT}.
 \newline An AntReview, issued by an author will be seen as a poll where Anters (members of the AntsReview Community) can stake ether or tokens from DeFi services including Dai \cite{Dai}, Chai \cite{Chai}, ... with the possibility to accrue interest for the duration of an AntReview (1 year on average), via MakerDAO DSR (Dai Saving Rate) \cite{DSR} or Compound \cite{Compound} to cite a few.
 \newline An AntsReview DAO will be formed in the future to allow Ant stakers the ability to participates in a Decentralized Autonomous Organization which will be used to govern important aspects of the decentralized protocol, from smart contracts upgrades to more minor changes in settings across the protocol.
@@ -261,7 +265,7 @@ future of quality control and moderation: open participation model, community-dr
 \subsubsection{Perspectives for a Decentralized Autonomours Organization (DAO)}
 
 \section{Conclusion}
-In this paper we addressed a crucial problem within scholarly academic communication: the peer-review process. We showed how blockchain technology could provide an efficient and viable solution and open up possible directions for a change in paradigm in scientific communication. We proposed an incentive mechanism that could solve the problems of lack of acknowledgment and trust during peer-review. We exposed the architecture of our project and our Proof of Concept (PoC) for which we adopted cutting-edge tools from the open source blockchain community.
+In this paper we addressed a crucial problem within scholarly academic communication: the peer-review process. We showed how blockchain technology could provide an efficient and viable solution and open up possible directions for a paradigm shift in scientific communication. We proposed an incentive mechanism that could solve the problems of lack of acknowledgment and trust during peer-review. We exposed the architecture of our project and our for which we adopted cutting-edge tools from the open source blockchain ecosystem.
 
 \subsubsection{Supplementary material}
 TBD
