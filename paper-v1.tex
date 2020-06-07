@@ -7,7 +7,9 @@
 \usepackage{graphicx}
 \graphicspath{ {./img/} }
 
-\input{solidity-highlighting.tex}	% copy the file from this repo
+\input{solidity-highlighting.tex}
+
+% copy the file from this repo
 % Used for displaying a sample figure. If possible, figure files should
 % be included in EPS format.
 %
@@ -41,49 +43,41 @@ Independent Blockchain Engineer, London, UK \\
 \maketitle              % typeset the header of the contribution
 %
 \begin{abstract}
-Peer-review is a necessary and essential quality control step for scientific publications. However, the process, which is very costly in terms of time investment, not only is not remunerated but it’s also not recognized by the academic community as a relevant scientific output for a researcher. Therefore, scientific dissemination is affected. Here, to solve this issue we propose a blockchain-based incentive protocol that rewards scientists also for their contributions to other scientists’ work and that builds up a reputational system. We designed a basic Bounty-like contract called AntsReview that allows any author to issue a call for peer-reviewing their scientific publication. If requirements are met, peer-reviews will be audited by an external editor and payed by the Issuer. To promote ethical behaviour the system will implement a quadratic funding on AntsReview.
-\keywords{Blockchain  \and Open Science \and Peer-review \and Incentivization.}
+Peer-review is a necessary and essential quality control step for scientific publications. However, the process, which is very costly in terms of time investment, not only is not remunerated but it’s also not recognized by the academic community as a relevant scientific output for a researcher. Therefore, scientific dissemination is affected. Here, to solve this issue, we propose a blockchain-based incentive protocol that rewards scientists also for their contributions to other scientists’ work and that builds up a reputational system. We designed a Protocol of smart contracts called AntsReview that allows any author to issue a call for peer-reviewing their scientific publication. If requirements are met, peer-reviews will be accepted and payed by the Issuer. To promote ethical behaviour the system will implement an incentive mechanism on AntsReview.
+\keywords{Blockchain  \and Open Science \and Privacy \and Peer-review \and Incentivization.}
 \end{abstract}
 %
 %
 \section{Introduction}
 From its birth in 2008 as a distributed ledger for the peer-to-peer electronic cash system Bitcoin \cite{Bitcoin}, blockchain technologies (BCTs) have spread far beyond the sole cryptocurrency domain, in particular after the implementation of a general purpose smart contract functionality introduced by Ethereum \cite{Ethereum-Wood}.
 Besides a growing number of applications ranging from business, healthcare, music industry, government, identity to cite but a few, blockchain technology has recently started to catalyse the attention of the scientific community as well \cite{Bitcoin-Nature-focus,vanRossum2017-DigSci} with the promising potential of being a 'game changer' in outdated and broken scientific practices and leading towards Open Science \cite{AES}. In particular, a 'blockchainified science'\cite{BlockchainforScience} could 'reduce waste'\cite{ReducingWaste-Lancet}, by disclosing each step the research cycle to 'scientific self-correction' way before the final publication step and therefore help fixing the current reproducibility crisis in science. Finally, scholars have pointed out how the intrinsic characteristics of blockchain technology (decentralization, for which there are no trusted third parties; cryptographic hashing and timestamping, that create a digital footprint able to keep a traceable chronological record of research objects; immutability or append-only, for which data cannot be altered or retrieved) set the basis for a open science infrastructure \cite{ReviewBlockchain2019} where decisional processes are transparent and therefore more democratically accessible to all the stakeholders (researchers, reviewers, funders, taxpayers).
-A thorny issue in the academic system that can be tackled by blockchain concerns the status and accreditation of peer-review, the core process of scientific validation currently facing a crisis. In this paper we propose a solution to the problem of reviewers recognition based on the principles of token economy.
+A thorny issue in the academic system that can be tackled by blockchain concerns the status and accreditation of peer-review, the core process of scientific validation currently facing a crisis \cite{Gropp-PeerRevStress}. In this paper we propose a solution to the problem of reviewers recognition based on the principles of token economy and in line with the values of Open Science.
 The paper is structured as follows. Sections 2 presents research background and related works. Section 3 explains the proposed Ethereum-based protocol illustrating the system architecture and the current status of implementation. In Sect. 4 we discuss the implication of our work. Section 5 contains the conclusions. Appendixes present the smart contracts. 
 
 \section{Background}
 \subsection{Peer-review: a flawed and outdated system}
+peer review is a ﬂawed process,\cite{Smith2006}
 
-"Peer review In recent years a lot of attention has been given to fundamental problems associated with the peer review process which lies at the heart of scholarly communication5,6,7.The perceived problems are multiple.There is a lack of visibility and recognition for reviewers, with their review work remaining largely unnoticed.Together, the increased number of manuscripts submitted to journals, and a subsequent need for more reviewers, leads to an increasing difficulty in finding suitable reviewers. Additionally, there is a perceived bias against women in the review process8.There are also cases of review manipulation, sometimes involving identity fraud which forced publishers to retract articles9. Overall, the review process is considered opaque and expensive, slowing down the speed of scientific discovery and progress."
+a study to evaluate the feasibility of an open peer review system.
+\cite{Walsh200-openpeerrev} Of  the  referees  approached,  76%agreed to sign their name. This figure com-agreed to sign their name.
+\cite{PeerRev-NatComm}
+open peer review does not compromise the process, at least when referees are able to protect their anonymity. However, it is worth noting that unlike recent survey results14, here only 8.1 of referees agreed to reveal their identity. Although certain beneﬁts of open science and open evaluation are incontrovertible21,22, our ﬁndings suggest that the veil of anonymity is key also for open peer review. It is probable that this reﬂects the need for protection from possible retaliation or other unforeseen implications of open peer review, p
 
-Peer-review is the traditional and necessary process at the heart of quality control in science [9, 12], determining the destinies of articles’ publications and therefore of scientific dissemination. However, the current peer-review system is outdated: in the past, it was effective when scholarly communication happened exclusively through printed paper journals, but nowadays, with the high and fast-paced levels of articles productions, its slow and multistage process doesn’t keep up with the times.
-\subsubsection{It's a slow multi-stage process.} Indeed, articles submitted to journals can take from months to years after editors’ first scrutiny, going back and forth several review rounds before acceptance for publications.
-\paragraph{Traditional peer-review process} This section takes inspiration from the editorial processes at \emph{Nature Methods} and \emph{Wiley}.
-\begin{enumerate}
-    \item The author submits a manuscript to the journal.
-    \item  An editorial team  assesses the paper for what concerns the requirements of the journal's Author's Guideline (composition, sections...).
-    \item An Editor in Chief (EIC) is assigned to the manuscript and checks if the paper meets the scopes of the journal and novelty criteria. If the paper is rejected, it does not go through the consideration process and the editor notifies the author.
-    \item If the editorial decision is to send the manuscript for review, the handling editor looks for potential reviewers. Potential reviewers can be suggested by the authors themselves, but usually it's up to the editor to find researchers in the field who are competent enough but not closely related to the study to review.
-    \item Candidate reviewers receive the journal's invitation and evaluate acceptance based on their own level of expertise, intrinsic conﬂicts of interest and time availability. They then accept or decline. If they decline, they might suggest alternative reviewers. Editors keep searching for reviewers until they find two or three reviewers who agree to review the manuscript.
-    \item When reviewers engage themselves in delivering peer-review report by a certain deadline, the author(s) are notified. The reviewers identity is usually only know to the editor but is hidden to the authors or the other reviewers themselves.
-    \item Reviewers independently conduct their reviews by exposing in their reports strengths and weaknesses of the manuscript in a point-by-point fashion and submitting a final recommendation to the editor: acceptance, rejection or revision (major or minor).
-    \item the handling editor or the editorial team considers all the submitted reports and makes the final decision.
-    \item If the decision is a major or minor revision, authors are invited to re-submit a corrected or improved version of the manuscript with a letter to the reviewers. The same reviewers might be contacted again and if they want they can follow up the peer-review process.
-    \item If the decision is a rejection, the editor might indicate another journal where to submit the manuscript.
+\cite{Gropp-PeerRevStress}
+authors have consistently reported that the purpose of peer review is for improving the quality of the published paper, determining the originality of the manuscript, determining the importance of the findings, detecting fraud, and detecting plagiarism.
 
-\end{enumerate}
-\subsubsection{It's unaccredited and unpaid.} This is mainly due to the fact that the reviewers that are normally appointed by authors and/or editors are actually full-time researchers themselves, who work on a volunteer basis taking time from their primary research. Though things are changing, and now more and more journals encourage a transparent peer review process with the publication of reviewers names and reports, in most of the cases, to guarantee an unbiased output, journals don’t even get credit researchers for this form of unpaid work. On top of this, author-level metrics that measure the scientific impact and productivity of academics, such as the h-index, and are taken into account by the funding agencies, are purely based on the number of citations per each publications while neglecting the full spectrum of scientific contributions (software, data collection, presentations, reviews…). Therefore, peer-reviewing is an intellectual investment without any external return for researchers’ career. A major consequence of not promoting incentives for the quality (and quantity) of peer-reviews is to either have good research unpublished (because unreviewed) and abandoned in preprint archives or bad science published through sloppy and uncritical reviews [5].
-\subsubsection{It's vulnerable to bias and fraud.} Last but not least, the ‘publish or perish’ culture has been more and more inducing malicious behaviour during the peer-review process, such as attempts of scientific fraud (authors trying to review their own papers) and abuse (reviewers producing extremely harsh reviews to damage competitors by blocking the publication of their ideas). Finally, the current peer-review system is usually not double-blind, thus making its decisional process vulnerable to all forms of biases (gender bias, cultural bias, professional bias, etc...). These trust problems are one of the major issues facing scholarly communication.
+The idea of financially compensating individuals for reviewing manuscripts was suggested, but individuals who have experimented with this model urged caution, noting that it is expensive and does not necessarily produce the desired outcome.
 
-\subsubsection{Types of peer-review}
-\begin{itemize}
-    \item single-blind peer review
-    \item double-blind peer review
-    \item transparent peer review
-    open identities open reports open participation open interaction open platform ('decoupled review')
-\end{itemize}
+The question of how  or whether to incentivize reviews for articles or proposals is challenging. Budgets are tight and not expected to grow in the near term. Therefore, financial incentives come at the cost of either funding or publishing more research.
+Moreover, some journal editors who have thought about or experimented with providing financial rewards to reviewers urged caution because the efforts were expensive and did not seem to provide an adequate incentive to encourage individuals to review manuscripts.
 
+\cite{Kendall-peerrev}
+His study, done for Nature, found no evidence for lengthening delays2: the median review time — the time between submission and acceptance of a paper — has hovered at around 100 days for more than 30 years (see ‘Paper wait’)
+An analysis of all papers in PubMed up to 2015 with listed submission and acceptance dates suggests that the median time from submission to acceptance has hovered at around 100 days, although it has gone up at some journals.
+
+An analysis of PubMed papers published in 2013 suggests that journals with the lowest and highest impact factors have the longest review times.
+
+He found that the mean review time had roughly doubled in the past decade, from 50–130 days to 150–250 days, depending on the journa
 
 
 \subsection{Related work}
@@ -167,7 +161,7 @@ The AntsReview Protocol is divided into different modules responsible for the fo
 
 \subsubsection{AntsReview}
 
-AntsReview [\ref{appendix:b}] is the core of the smart contracts deployed on Ethereum Rinkeby's Testnet \cite{Rinkeby}
+AntsReview \cite{Ant} is the core of the smart contracts deployed on Ethereum Rinkeby's Testnet \cite{Rinkeby}
 \newline It implements a Bounty-like system where an issuer (author) is asked a series of actions, to ensure transparency and robustness, regarding the AntReview that he's creating:
 \begin{itemize}
   \item to upload the file containing the requirements of the peer-review and the paper into IPFS\cite{IPFS}.
@@ -175,7 +169,7 @@ AntsReview [\ref{appendix:b}] is the core of the smart contracts deployed on Eth
   \item to send the amount of ether for the reward.
 \end{itemize}
 
-AntsReviewRoles[\ref{appendix:a}], to ensure integrity of the system, implements an access management, leveraging on AccessControl.sol by OpenZeppelin Library \cite{OZ}, through the creation of the Roles Issuer and Peer-Reviewer.
+AntsReviewRoles, to ensure integrity of the system, implements an access management, leveraging on AccessControl.sol by OpenZeppelin Library \cite{OZ}, through the creation of the Roles Issuer and Peer-Reviewer.
 \newline It also integrates a circuit breaker design pattern via Pausable.sol by OpenZeppelin to allow the Pauser Role, that by default is the Owner of the Smart Contracts, to pause (or unpause) the functions in case of emergency.
 \newline In this way, only the Issuer (author) can create a new AntReview.
 \newline Once created, an AntReview is available to be fulfilled by Peer-Reviewers, uploading the peer-review on IPFS before the deadline.
@@ -186,23 +180,48 @@ AntsReviewRoles[\ref{appendix:a}], to ensure integrity of the system, implements
 \newline In Ethereum \cite{Ethereum} the concept of immutability is achieved via the blockchain and proof of work consesus algorithm by a chain of timestamped block hashes that are secured by miners competing computations.
 \newline AntsReview is evaluating the advantages of storing the hashes of the peer-reviews into a Merkle Tree \cite{BayerHaber1992} to achieve immutability and efficiency in verifying the data with a complexity of O(logn) for searching through the tree.
 \newline A Merkle tree is a particular type of binary tree, formed by a set of nodes with a large set of leaf nodes at the bottom of the tree containing representing the hash of the original data, a set of intermediate nodes where each node is the sum of the two children hashes, ending with a single root hash.
-\newline In order to verify if a specific hash is included into a Merkle Tree, leveraging on MerkleProof.sol by OpenZeppelin Library, we need to provide a proof, generated from the leaf of interest, that represent the remification derived from the leaf, the root hash and finally the leaf we want to verify.
+\newline In order to verify if a specific hash is included into a Merkle Tree, leveraging on MerkleProof.sol by OpenZeppelin Library, we need to provide a proof, generated from the leaf of interest, that represent the ramification derived from the leaf, the root hash and finally the leaf we want to verify.
 \newline The paper and peer-review documents will be included into a Merkle Tree by hashing the data using keccak256, a cryptographic hashing algorithm available in Solidity \cite{Solidity}, an object-oriented programming language for writing smart contracts that run on the Ethereum Virtual Machine (EVM).
 
 \subsubsection{Tokenomics}
 
 AntsReview has few tokens, each of which plays an integral role in the functioning and anonymity of the decentralized protocol.
-\newline \textbf{Ant}, is the primary protocol token and can be staked into an AntReview if you wish to provide the protocol with an additional security promise.
-\newline Ant [\ref{appendix:c}] is implemented by inheriting ERC20PresetMinterPauser.sol from OpenZeppelin Library with name: \textbf{\emph{Ant}} ans symbol: \textbf{\emph{ANT}}.
+\newline Ant \ref{code:Ant, is the primary protocol token and can be staked into an AntReview if you wish to provide the protocol with an additional security promise.
+\newline Ant is implemented by inheriting ERC20PresetMinterPauser.sol from OpenZeppelin Library with name: \emph{Ant} ans symbol: \emph{ANT}.
 \newline An AntReview, issued by an author will be seen as a poll where Anters (members of the AntsReview Community) can stake ether or tokens from DeFi services including Dai \cite{Dai}, Chai \cite{Chai}, ... with the possibility to accrue interest for the duration of an AntReview (1 year on average), via MakerDAO DSR (Dai Saving Rate) \cite{DSR} or Compound \cite{Compound} to cite a few.
-\newline An \textbf{AntsReview DAO} will be formed in the future to allow Ant stakers the ability to participates in a Decentralized Autonomous Organization which will be used to govern important aspects of the decentralized protocol, from smart contracts upgrades to more minor changes in settings across the protocol.
-\newline \textbf{Hive}. When an Anter deposits into an AntReview, they will instantly receive the Hive token which represents their deposit and the accrued interest it gains over time in the AntReview.
+\newline An AntsReview DAO will be formed in the future to allow Ant stakers the ability to participates in a Decentralized Autonomous Organization which will be used to govern important aspects of the decentralized protocol, from smart contracts upgrades to more minor changes in settings across the protocol.
+\newline Hive. When an Anter deposits into an AntReview, they will instantly receive the Hive token which represents their deposit and the accrued interest it gains over time in the AntReview.
 \newline This token doesn't need to be locked in the network and it can be traded, sold, or held as the Anter desires.
-\newline Hive will be implemented using a similar approach to Ant and Chai, a token that accrues interest from MakerDAO's DSR or Compound, with name: \textbf{\emph{Hive}} and symbol: \textbf{\emph{HIVE}}
+\newline Hive will be implemented using a similar approach to Ant and Chai, a token that accrues interest from MakerDAO's DSR or Compound, with name: \emph{Hive} and symbol: \emph{HIVE}
 \newline Ideally, but is still under investigation, after the deadline of the AntReview is reached, the Hive token will be burned for Ant and wrapped into zkAnt to promote anonymity and sent equally to the peer-reviewers that fulfilled the AntReview.
-\newline \textbf{zkAnt}, is an Ant token wrapped into AZTEC Protocol \cite{AZTEC} ZK-SNARKs, that will be extended to PLONK \cite{PLONK} Proof to collapse the gas costs of private transactions on mainnet.
+\newline zkAnt, is an Ant token wrapped into AZTEC Protocol \cite{AZTEC} ZK-SNARKs, that will be extended to PLONK \cite{PLONK} Proof to collapse the gas costs of private transactions on mainnet.
 \newline zkAnt will be implemented via AZTEC 2.0 (still in development) that will allow to securely wrap the Ant Token into zkAnt, allowing private transactions on mainnet and preserving the anonymity of Peer Reviewers.
 \newline Finally, another concept under investigation is Quadratic Funding \cite{LiberalRadicalism}, used by Gitcoin \cite{Gitcoin} to match donations for Grants. This will allow to incentives prolific Peer-Reviewers and improve the stability of the system together with ideally a reward system to rank best Peer-Reviewers.
+
+\begin{lstlisting}[language=Solidity]
+/// SPDX-License-Identifier: GPL-3.0
+pragma solidity 0.6.8;
+
+///@title AntsReview
+///@author Nazzareno Massari
+///@notice Ant ERC20 Token
+///@dev All function calls are currently implemented without side effecs through TDD approach
+///@dev OpenZeppelin library is used for secure contract development
+
+import "@openzeppelin/contracts/presets/ERC20PresetMinterPauser.sol";
+
+
+contract Ant is ERC20PresetMinterPauser {
+
+  constructor()
+  ERC20PresetMinterPauser("Ant", "ANT")
+  public {
+
+  }
+
+}
+\end{lstlisting}
+
 
 \subsubsection{Privacy}
 
@@ -254,357 +273,6 @@ TDB
 The authors declare no competing interests.
 
 \subsubsection{Acknowledgements} We would like to thank Matteo A. Tambussi and Keno Budde for internal review and useful comments.
-
-\newpage
-
-\section{Appendix}
-
-\appendix
-
-\section{AntsReviewRoles.sol}
-
-\label{appendix:a}
-
-\begin{lstlisting}[language=Solidity]
-
-  /// SPDX-License-Identifier: GPL-3.0
-  pragma solidity 0.6.8;
-
-  ///@title AntsReview
-  ///@author Nazzareno Massari
-  ///@notice AntsReviewRoles Access Management for Issuer and Peer-Reviewer
-  ///@dev All function calls are currently implemented without side effecs through TDD approach
-  ///@dev OpenZeppelin library is used for secure contract development
-
-  import "@openzeppelin/contracts/access/Ownable.sol";
-  import "@openzeppelin/contracts/access/AccessControl.sol";
-  import "@openzeppelin/contracts/utils/Pausable.sol";
-
-  contract AntsReviewRoles is Ownable, AccessControl, Pausable {
-
-    /// Roles
-    bytes32 public constant ISSUER_ROLE = keccak256("ISSUER_ROLE");
-    bytes32 public constant PEER_REVIEWER_ROLE = keccak256("PEER_REVIEWER_ROLE");
-    bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
-
-
-    constructor() public {
-            _setupRole(DEFAULT_ADMIN_ROLE, owner());
-            _setupRole(PAUSER_ROLE, owner());
-    }
-
-      /// Modifiers
-      modifier onlyAdmin() {
-          require(isAdmin(msg.sender), "Caller is not an admin");
-          _;
-        }
-
-      modifier onlyIssuer() {
-          require(isIssuer(msg.sender), "Caller is not an issuer");
-          _;
-      }
-
-      modifier onlyPeerReviewer() {
-          require(isPeerReviewer(msg.sender), "Caller is not a peer-reviewer");
-          _;
-      }
-
-      /// Functions
-
-      function isAdmin(address account) public view returns (bool) {
-        return hasRole(DEFAULT_ADMIN_ROLE, account);
-      }
-
-      function isIssuer(address account ) public view returns (bool) {
-        return hasRole(ISSUER_ROLE, account);
-      }
-
-      function isPeerReviewer(address account ) public view returns (bool) {
-        return hasRole(PEER_REVIEWER_ROLE, account);
-      }
-
-      function addIssuer(address account) public onlyAdmin returns (bool) {
-        require(!isIssuer(account), "Account is already an issuer");
-        grantRole(ISSUER_ROLE, account);
-        return true;
-      }
-
-      function addPeerReviewer(address account) public onlyAdmin returns (bool) {
-        require(!isPeerReviewer(account), "Account is already a peer-reviewer");
-        grantRole(PEER_REVIEWER_ROLE, account);
-        return true;
-      }
-
-      function removeIssuer(address account) public onlyAdmin returns (bool) {
-        require(isIssuer(account), "Account is not an issuer");
-        revokeRole(ISSUER_ROLE, account);
-        return true;
-      }
-
-      function removePeerReviewer(address account) public onlyAdmin returns (bool) {
-        require(isPeerReviewer(account), "Account is not a peer-reviewer");
-        revokeRole(PEER_REVIEWER_ROLE, account);
-        return true;
-      }
-
-      /// @notice Pause all the functions
-      /// @dev the caller must have the 'PAUSER_ROLE'
-      function pause() public {
-        require(hasRole(PAUSER_ROLE, msg.sender), "BadgeFactory: must have pauser role to pause");
-        _pause();
-      }
-
-      /// @notice Unpause all the functions
-      /// @dev the caller must have the 'PAUSER_ROLE'
-      function unpause() public {
-            require(hasRole(PAUSER_ROLE, msg.sender), "BadgeFactory: must have pauser role to unpause");
-            _unpause();
-      }
-  }
-
-\end{lstlisting}
-
-\newpage
-\section{AntsReview.sol}
-
-\label{appendix:b}
-
-\begin{lstlisting}[language=Solidity]
-  /// SPDX-License-Identifier: GPL-3.0
-  pragma solidity 0.6.8;
-
-  ///@title AntsReview
-  ///@author Nazzareno Massari
-  ///@notice AntsReview to allows issuer to issue an antReview which peer-reviewers can fulfill
-  ///@dev All function calls are currently implemented without side effecs through TDD approach
-  ///@dev OpenZeppelin library is used for secure contract development
-
-  import "./AntsReviewRoles.sol";
-  import "@openzeppelin/contracts/math/SafeMath.sol";
-  import "@openzeppelin/contracts/utils/Address.sol";
-  import "@openzeppelin/contracts/utils/Counters.sol";
-
-  interface AntToken {
-    function transfer(address reciptient, uint amount) external returns (bool);
-    function balanceOf(address account) external view returns (uint);
-  }
-
-  contract AntsReview is AntsReviewRoles {
-
-    using SafeMath for uint256;
-    using Address for address payable;
-    using Counters for Counters.Counter;
-
-    /// Enums
-    enum AntReviewStatus { CREATED, ACCEPTED, CANCELLED }
-
-    /// Token
-    AntToken internal ant;
-
-    /// Counter
-    Counters.Counter private _antReviewIdTracker;
-
-    /// Storage
-    AntReview[] public antreviews;
-
-    mapping(uint256 => Peer_Review[]) peer_reviews;
-
-    /// Structs
-    struct AntReview {
-        address payable issuer;
-        uint256 deadline;
-        string ipfs_hash;
-        AntReviewStatus status;
-        uint256 amount; //in wei
-    }
-
-    struct Peer_Review {
-        bool accepted;
-        address payable peer_reviewer;
-        string ipfs_hash;
-    }
-
-
-    /// Events
-
-    event AntReviewIssued(address issuer, uint256 amount, string ipfsHash);
-    event AntReviewFulfilled(uint256 antReviewId, address peer_reviewer, uint256 peerReviewId, string ipfsHash);
-    event AntReviewAccepted(uint256 antReviewId, address issuer, address peer_reviewer, uint256 indexed peerReviewId, uint256 amount);
-    event AntReviewCancelled(uint256 indexed antReviewId, address indexed issuer, uint256 amount);
-
-    constructor(address ant_) public {
-      ant = AntToken(ant_);
-    }
-
-    /// Fallback
-
-    fallback() external payable {
-      revert();
-    }
-
-    receive() external payable {
-      revert();
-    }
-
-    /// Modifiers
-
-    modifier hasValue() {
-        require(msg.value > 0);
-        _;
-    }
-
-    modifier antReviewExists(uint256 _antReviewId){
-      require(_antReviewId < antreviews.length);
-      _;
-    }
-
-    modifier peerReviewExists(uint256 _antReviewId, uint256 _peerReviewId){
-      require(_peerReviewId < peer_reviews[_antReviewId].length);
-      _;
-    }
-
-    modifier hasStatus(uint256 _antReviewId, AntReviewStatus _desiredStatus) {
-      require(antreviews[_antReviewId].status == _desiredStatus);
-      _;
-    }
-
-    modifier peerReviewNotYetAccepted(uint256 _antReviewId, uint256 _peerReviewId) {
-      require(peer_reviews[_antReviewId][_peerReviewId].accepted == false);
-      _;
-    }
-
-    modifier validateDeadline(uint256 _newDeadline) {
-        require(_newDeadline > now);
-        _;
-    }
-
-    modifier isBeforeDeadline(uint256 _antReviewId) {
-      require(now < antreviews[_antReviewId].deadline);
-      _;
-    }
-
-
-    ///@notice Instantiates a new AntReview
-    ///@dev Access restricted to Issuer
-    ///@param _deadline The unix timestamp after which fulfillments will no longer be accepted
-    ///@param _ipfsHash The IPFS Hash of the Scientific Paper
-    ///@return True If the antReview is successfully issued
-    function issueAntReview(
-        string calldata _ipfsHash,
-        uint64 _deadline
-    )
-        external
-        payable
-        hasValue()
-        validateDeadline(_deadline)
-        onlyIssuer()
-        whenNotPaused()
-        returns (bool)
-    {
-        _antReviewIdTracker.increment();
-        antreviews.push(AntReview(msg.sender, _deadline, _ipfsHash, AntReviewStatus.CREATED, msg.value));
-        emit AntReviewIssued(msg.sender, msg.value, _ipfsHash);
-        return true;
-    }
-
-
-    ///@notice Submit a fulfillment for the given antReview
-    ///@dev Access restricted to Peer-Reviewer
-    ///@param _antReviewId The index of the antReview to be fufilled
-    ///@param _ipfsHash The IPFS Hash which contains evidence of the fufillment
-    ///@return True If the AntReview is successfully fulfilled
-    function fulfillAntReview(uint256 _antReviewId, string memory _ipfsHash)
-      public
-      antReviewExists(_antReviewId)
-      onlyPeerReviewer()
-      hasStatus(_antReviewId, AntReviewStatus.CREATED)
-      isBeforeDeadline(_antReviewId)
-      whenNotPaused()
-      returns (bool)
-    {
-      peer_reviews[_antReviewId].push(Peer_Review(false, msg.sender, _ipfsHash));
-      emit AntReviewFulfilled(_antReviewId, msg.sender, (peer_reviews[_antReviewId].length.sub(1)),_ipfsHash);
-      return true;
-    }
-
-
-    ///@notice Accept a given Peer-Review
-    ///@dev Access restricted to Issuer
-    ///@param _antReviewId the index of the antReview
-    ///@param _peerReviewId the index of the fulfillment being accepted
-    ///@return True If the AntReview is successfully being accepted
-    function acceptAntReview(uint256 _antReviewId, uint256 _peerReviewId)
-        public
-        antReviewExists(_antReviewId)
-        peerReviewExists(_antReviewId,_peerReviewId)
-        onlyIssuer()
-        hasStatus(_antReviewId, AntReviewStatus.CREATED)
-        peerReviewNotYetAccepted(_antReviewId, _peerReviewId)
-        whenNotPaused()
-        returns (bool)
-    {
-        peer_reviews[_antReviewId][_peerReviewId].accepted = true;
-        antreviews[_antReviewId].status = AntReviewStatus.ACCEPTED;
-        peer_reviews[_antReviewId][_peerReviewId].peer_reviewer.sendValue(antreviews[_antReviewId].amount);
-        emit AntReviewAccepted(
-          _antReviewId,
-          antreviews[_antReviewId].issuer,
-          peer_reviews[_antReviewId][_peerReviewId].peer_reviewer,
-          _peerReviewId, antreviews[_antReviewId].amount
-        );
-        return true;
-    }
-
-
-    ///@notice Cancels the antReview and send the funds back to the issuer
-    ///@dev Access restricted to Issuer
-    ///@param _antReviewId the index of the antReview
-    ///@return True If the AntReview is successfully cancelled
-    function cancelAntReview(uint256 _antReviewId)
-        public
-        antReviewExists(_antReviewId)
-        onlyIssuer()
-        hasStatus(_antReviewId, AntReviewStatus.CREATED)
-        whenNotPaused()
-        returns (bool)
-    {
-        antreviews[_antReviewId].status = AntReviewStatus.CANCELLED;
-        antreviews[_antReviewId].issuer.sendValue(antreviews[_antReviewId].amount);
-        emit AntReviewCancelled(_antReviewId, msg.sender, antreviews[_antReviewId].amount);
-        return true;
-    }
-
-  }
-
-\end{lstlisting}
-
-\newpage
-\section{Ant.sol}
-\label{appendix:c}
-
-\begin{lstlisting}[language=Solidity]
-  /// SPDX-License-Identifier: GPL-3.0
-  pragma solidity 0.6.8;
-
-  ///@title AntsReview
-  ///@author Nazzareno Massari
-  ///@notice Ant ERC20 Token
-  ///@dev All function calls are currently implemented without side effecs through TDD approach
-  ///@dev OpenZeppelin library is used for secure contract development
-
-  import "@openzeppelin/contracts/presets/ERC20PresetMinterPauser.sol";
-
-
-  contract Ant is ERC20PresetMinterPauser {
-
-    constructor()
-    ERC20PresetMinterPauser("Ant", "ANT")
-    public {
-
-    }
-
-  }
-\end{lstlisting}
 
 \newpage
 
