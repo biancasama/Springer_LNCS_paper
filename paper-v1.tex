@@ -204,17 +204,17 @@ There are two possible scenarios depending if we save the role of the editor and
 \end{figure}
 In this section we provide an overview of how we implemented the system by focusing on its components.
 
-\newline The AntsReview Protocol is divided into stack of sub-protocols responsible for different functionality:
+\newline The AntsReview Protocol is divided into different modules responsible for the following functionalities as shown in the flow-chart [Fig. \ref{fig:contracts}]:
 
-\begin{enumerate}
-  \item \textbf{Bounty} - manage access management and the basic system.
-  \item \textbf{Tokenomics} - manage system incentivization mechanism integrating ideas from DeFi and Quadratic Funding.
-  \item \textbf{Privacy} - maintains the anonymity of the system via AZTEC Protocol.
-\end{enumerate}
+\begin{itemize}
+\item AntsReview - manage access management and the basic system.
+\item Tokenomics - manage system incentivization mechanism integrating ideas from DeFi and Quadratic Funding.
+\item Privacy - maintains the anonymity of the system via AZTEC Protocol.
+\end{itemize}
 
-\subsubsection{Bounty}
+\subsubsection{AntsReview}
 
-AntsReview [\ref{appendix:b}] is the core of the smart contracts deployed on Ethereum Rinkeby's Testnet as shown in the flow-chart [Fig. \ref{fig:contracts}].
+AntsReview [\ref{appendix:b}] is the core of the smart contracts deployed on Ethereum Rinkeby's Testnet \cite{Rinkeby}
 \newline It implements a Bounty-like system where an issuer (author) is asked a series of actions, to ensure transparency and robustness, regarding the AntReview that he's creating:
 \begin{itemize}
   \item to upload the file containing the requirements of the peer-review and the paper into IPFS.
