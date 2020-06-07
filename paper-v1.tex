@@ -47,8 +47,12 @@ Peer-review is a necessary and essential quality control step for scientific pub
 %
 %
 \section{Introduction}
-From its birth in 2008 as a distributed ledger for the peer-to-peer electronic cash system 'bitcoin' \cite{Bitcoin}, blockchain technology has spread way beyond the sole cryptocurrency domain, in particular after the implementation of the smart contract functionality introduced by Ethereum. 
-Besides a growing number of applications ranging from business, healthcare, music industry, government, to cite a few, blockchain technology has recently started to catalyse the attention of the scientific community as well \cite{Bitcoin-Nature-focus,vanRossum2017-DigSci} with the promising potential of being a 'game changer' in outdated and broken scientific practices.
+From its birth in 2008 as a distributed ledger for the peer-to-peer electronic cash system 'bitcoin' \cite{Bitcoin}, blockchain technology has spread far beyond the sole cryptocurrency domain, in particular after the implementation of the smart contract functionality introduced by Ethereum. 
+Besides a growing number of applications ranging from business, healthcare, music industry, government, to cite a few, blockchain technology has recently started to catalyse the attention of the scientific community as well \cite{Bitcoin-Nature-focus,vanRossum2017-DigSci} with the promising potential of being a 'game changer' in outdated and broken scientific practices. In particular, a 'blockchainefied science'\cite{BlockchainforScience} could 'increase value and reduce waste’\cite{ReducingWaste-Lancet}, by disclosing the research cycle to scientific assessment way before the final publication step and therefore help fixing the current reproducibility crisis in science.
+"blockchain would make much larger parts of the research cycle open to scientific self-correction. This bears the potential to be a new approach to the current reproducibility crisis in science, and could ‘reduce waste and make more research results true’. Beyond that, blockchain could be used to reduce overhead and accelerate the scientific process and incentivise true innovation."
+
+ 
+
 
 The paper is structured as follows. Sections 2 presents research background and related works. Section 3 explains the proposed Ethereum-based protocol illustrating the system architecture and the current status of implementation. In Sect. 4 we discuss the implication of our work. Section 5 contains the conclusions. Appendixes present the smart contracts. 
 
@@ -205,7 +209,7 @@ AntsReview has few tokens, each of which plays an integral role in the functioni
 \newline Ideally, but is still under investigation, after the deadline of the AntReview is reached, the Hive token will be burned for Ant and wrapped into zkAnt to promote anonymity and sent equally to the peer-reviewers that fulfilled the AntReview.
 \newline \textbf{zkAnt}, is an Ant token wrapped into AZTEC Protocol \cite{AZTEC} ZK-SNARKs, that will be extended to PLONK \cite{PLONK} Proof to collapse the gas costs of private transactions on mainnet.
 \newline zkAnt will be implemented via AZTEC 2.0 (still in development) that will allow to securely wrap the Ant Token into zkAnt, allowing private transactions on mainnet and preserving the anonymity of Peer Reviewers.
-\newline Finally, another concept under investigation is Quadratic Funding, used by Gitcoin \cite{Gitcoin} to match donations for Grants. This will allow to incentives prolific Peer-Reviewers and improve the stability of the system together with ideally a reward system to rank best Peer-Reviewers.
+\newline Finally, another concept under investigation is Quadratic Funding \cite{LiberalRadicalism}, used by Gitcoin \cite{Gitcoin} to match donations for Grants. This will allow to incentives prolific Peer-Reviewers and improve the stability of the system together with ideally a reward system to rank best Peer-Reviewers.
 
 \subsubsection{Privacy}
 
@@ -218,10 +222,10 @@ The Anonymity of an agent in the system is achieved in two ways:
 
  Externally Owned Accounts (EOA) in Ethereum are controlled by private keys, are 20 bytes long and have no code. An user can send messages from an externally owned account by creating and signing a transaction.
 \newline The limitation of such solution regarding the Privacy of the Protocol is due to the fact that blockchain and transactions are public so anyone can see the details of a transaction, browsing a block explorer like Etherscan, and also they're subjected to data mining to extract value and identify users in the blockchain.
-\newline To avoid that, AntsReview will implement zkAnt, an Ant token wrapped into AZTEC Protocol, where leveraging on zkSNARKS, and PLONK in the future, will allow private transactions in the system to maintain the privacy and anonimiy of Peer-Reviewers.
+\newline To avoid that, AntsReview will implement zkAnt, an Ant token wrapped into AZTEC Protocol, where leveraging on zkSNARKS, and PLONK in the future, will allow private transactions in the system to maintain the privacy and anonimity of Peer-Reviewers.
 \newline The AZTEC Protocol was conceived to enable privacy on public blockchains. It uses ZK-SNARKS to validate encrypted transactions.
-\newline ZK-SNARKs (Zero-Knowledge Succinct Non-Interactive Argument of Knowledge) refers to a proof construction where one can prove possession of certain information, like a secret key, without revealing that information, and without any interaction between prover and verifier.
-\newline Zero-Knowledge proofs allow an actor (prover) to prove to another (verifier) that a statement is true, without revealing any information apart from the validity of the statement itself.
+\newline ZK-SNARKs (Zero-Knowledge Succinct Non-Interactive Argument of Knowledge) \cite{ZKSNARKs} refers to a proof construction where one can prove possession of certain information, like a secret key, without revealing that information, and without any interaction between prover and verifier.
+\newline Zero-Knowledge \cite{ZeroKnoledge} proofs allow an actor (prover) to prove to another (verifier) that a statement is true, without revealing any information apart from the validity of the statement itself.
 \newline Future developments will investigate viable solutions, for scaling the system, like ZK-Rollups by AZTEC Protocol, one of the options being developed for a type of layer 2 construction that runs on top of Ethereum to improve scalability. This will enable to run smart contracts at scale with quasi-instant transactions while still being secured by Ethereum.
 \subsubsection{Privacy/anonymity}. To enhance the peer-reviewer's privacy, we would like to implement zkANT, an ERC20 token, Ant, wrapped into AZTEC Protocol ZK-SNARKs, a non-interactive type of zero-knowledge privacy protocol to enable private transactions on Ethereum. Zero-knowledge proof is a mathematical cryptographic method that through values permutations allows one party (the prover) to prove to another (the verifier) the veracity of a statement, without having to reveal what the statement is. We will use ZK-SNARKs (which stands for “Zero-Knowledge Succinct Non-Interactive Argument of Knowledge”) via the open source libraries of AZTEC protocol. AZTEC, now TURBOPLONK bla bla (faster?) combines the confidentiality of the transactions (the value of the transaction is hidden, the amount of token (?) is not revealed thus preventing biases in the peer-review quadratic voting process = "I want to bet on this review because I want to win the bounty") with general-purpose computation (it's a Turing-complete Virtual Machine): this means transaction are not limited just to the local cryptocurrency (in our case ANT) but cross-asset trades are allowed (I can exchange ANT tokesn with other crypto-currencies).
 \section{Discussions}
@@ -609,6 +613,7 @@ The authors declare no competing interests.
   }
 \end{lstlisting}
 
+\newpage
 
 % ---- Bibliography ----
 %
