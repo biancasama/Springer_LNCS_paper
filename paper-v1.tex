@@ -100,22 +100,25 @@ Rubriq provides independent and standardized peer review that can be accepted an
 \emph{I8X Platform}
 
 
-\subsection{Blockchain solution}
+\subsection{Ideas here}
 
 \section{System concept}
 In this paper we propose Ants-Review, a new incentivisation mechanism built on a distributed platform that issues open peer-reviews to validate scientific papers while preserving the anonymity of its contributors and that . We imagine a final paper originating from the peer-review process as a complex system that emerges from the product of interactions between the authors and the reviewers, a whole that is more than the sum of its parts. Therefore, the name hints at the ant colony as a model of self-organization in which all micro-contributions of the individuals add up to complex behaviour.
 A previous version of this paper can be found here \cite{10.5281/zenodo.3828087}, as a proposal submitted for the ETH Turin 2020 Hackathon.
 and it’s design and attempt of implementation are exposed in the following section.
+Here I expose the main traits/features of AR
+\begin{itemize}
+\item accountability: both for recognition and for security vs fraud abuse etc we need to be able to track back the identities of the contributors to a peer-review to make sure there are no conflict of interest. this means the platform acts like a version control system where commit are permanent and hashed 
+\item transparency of the records: all reviews should be open access to the community to prevent waste of knowledge and disrupt the secretive system of black boxes of peer reviews in journals that centralize all the reports 
+\item incentivisation: via symbolic and material recognition of the performed work. tokens and bounty
+\item inclusiveness via gamification: all the community is involved in the process - no selection process feeling of belonging -- quadratic voting and share of the stake
+\end{itemize}
 
-\subsubsection{Accountability} hash
-\subsubsection{Reward} bounty
-\subsubsection{Quadratic Voting} I don't see the point of introducing QF here. Is it already implemented or it's just in the idea?
-
-\subsubsection{Privacy/anonymity}. To protect the contributors privacy, we would like to implement on the ANT token a fast, non-interactive type of zero-knowledge privacy protocol to enable private transactions on Ethereum. Zero-knowledge proof is a mathematical cryptographic method that through values permutations allows one party (the prover) to prove to another (the verifier) the veracity of a statement, without having to reveal what the statement is. We will use ZK-SNARKs (which stands for “Zero-Knowledge Succinct Non-Interactive Argument of Knowledge”) via the open source libraries of AZTEC protocol. AZTEC, now TURBOPLONK bla bla (faster?) combines the confidentiality of the transactions (the value of the transaction is hidden, the amount of token (?) is not revealed thus preventing biases in the peer-review quadratic voting process = "I want to bet on this review because I want to win the bounty") with general-purpose computation (it's a Turing-complete Virtual Machine): this means transaction are not limited just to the local cryptocurrency (in our case ANT) but cross-asset trades are allowed (I can exchange ANT tokesn with other crypto-currencies).
-
-
+In the following sessions we describe the architecture of the system and its building blocks
 
 \subsection{Design}
+
+There are two possible scenarios depending if we save the role of the editor and we integrate an existing journal or if AntsReview becomes a platform completely decoupled from journals.
 
 \subsubsection{AnstReview process: scenario 1 (journal-dependent)}
 
@@ -142,11 +145,7 @@ and it’s design and attempt of implementation are exposed in the following sec
     \item Not all reviews will have the same quality and depth. However, each of them might bring up one or more relevant contribution for the sake of improving the manuscript. In order to redistribute the bounty in a fair manner across reviewers, reviews will be voted by the community with Quadratic Voting.
     \item In order to incentive 'fair play' also the review checkers who vote for the best quality reviews will share the final prize from the bounty. Since it's in their own interest to 'bet' on a good review, this gamed system will discourage internal dynamics prompt to favour specific members of the community beyond real personal merit. It will also fuel ethical behaviour.
 
-    \end{enumerate}
-
-peer-review is decoupled from journal
-or
-
+ \end{enumerate}
 
 \subsection{Implementation}
 
@@ -159,8 +158,7 @@ or
 In this section we provide an overview of how we implemented the system by focusing on its components.
 
 AntsReview [Fig.\ref{fig:contracts}] is a distributed peer-review system which synthesizes successful ideas from previous systems including The Bounty Network[ref], ERC20[ref], AZTEC Protocol[ref], IPFS[ref], Proof of Existence[ref], ...
-\newline The contribution of AntsReview is simply allowing the peer-review process, as a complex system, to emerge as a self-organised ecosystem of authors and peer-reviewers to enhance the complexity of a paper and its validation.
-\newline AntsReview represent a new platform to issue peer-reviews and validate scientific papers and a new system for anonymous and open contributions with an incentivization mechanism to reach an ideal state of equilibrium and create value.
+
 \newline The AntsReview Protocol is divided into stack of sub-protocols responsible for different functionality:
 
 \begin{enumerate}
@@ -224,7 +222,7 @@ The Anonymity of an agent in the system is achieved in two ways:
 \newline ZK-SNARKs (Zero-Knowledge Succinct Non-Interactive Argument of Knowledge) refers to a proof construction where one can prove possession of certain information, like a secret key, without revealing that information, and without any interaction between prover and verifier.
 \newline Zero-Knowledge proofs allow an actor (prover) to prove to another (verifier) that a statement is true, without revealing any information apart from the validity of the statement itself.
 \newline Future developements will investigate viable solutions, for scaling the system, like ZK-Rollups by AZTEC Protocol, one of the options being developed for a type of layer 2 construction that runs on top of Ethereum to improve scalability. This will enable to run smart contracts at scale with quasi-instant transactions while still being secured by Ethereum.
-
+\subsubsection{Privacy/anonymity}. To protect the contributors privacy, we would like to implement on the ANT token a fast, non-interactive type of zero-knowledge privacy protocol to enable private transactions on Ethereum. Zero-knowledge proof is a mathematical cryptographic method that through values permutations allows one party (the prover) to prove to another (the verifier) the veracity of a statement, without having to reveal what the statement is. We will use ZK-SNARKs (which stands for “Zero-Knowledge Succinct Non-Interactive Argument of Knowledge”) via the open source libraries of AZTEC protocol. AZTEC, now TURBOPLONK bla bla (faster?) combines the confidentiality of the transactions (the value of the transaction is hidden, the amount of token (?) is not revealed thus preventing biases in the peer-review quadratic voting process = "I want to bet on this review because I want to win the bounty") with general-purpose computation (it's a Turing-complete Virtual Machine): this means transaction are not limited just to the local cryptocurrency (in our case ANT) but cross-asset trades are allowed (I can exchange ANT tokesn with other crypto-currencies).
 \section{Discussions}
 \subsection{A new community-driven standard?}
 - a change is already happening: specially new born publishers are opening up review process (BioMed Central, ELife, Frontiers, PeerJ, F1000 Research) -- from 2020 also Nature declared that will do the same.
@@ -246,10 +244,10 @@ future of quality control and moderation: open participation model, community-dr
 \subsubsection{Perspectives for a Decentralized Autonomours Organization (DAO)}
 
 \section{Conclusion}
-In this paper we addressed a central problem within the quality control academic dissemination: the peer-review process. We showed how blockchain technology could provide an efficient and viable solution and open up possibile directions for a change in paradigm in scientific communication. We proposed an incentive mechanism that could solve the problems of lack of acknowledgment and trust during peer-review. We exposed the architecture of our project and our Proof of Concept (PoC) for which we adopted cutting-edge tools from the open source blockchain community.
+In this paper we addressed a crucial problem within scholarly academic communication: the peer-review process. We showed how blockchain technology could provide an efficient and viable solution and open up possibile directions for a change in paradigm in scientific communication. We proposed an incentive mechanism that could solve the problems of lack of acknowledgment and trust during peer-review. We exposed the architecture of our project and our Proof of Concept (PoC) for which we adopted cutting-edge tools from the open source blockchain community.
 
 \subsubsection{Supplementary material}
-Our open source code is available at the Github repository. A demo of the project is available at Youtube channel.
+TBD
 
 \subsubsection{CRediT Authorship Contribution Statement}
 TDB
