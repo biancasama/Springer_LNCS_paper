@@ -53,6 +53,7 @@ An increasing body of voices in the scientific community has started to speak up
 \paragraph{Decentralisation}Taking out the need of intermediaries, would make useless depending on highly profiting publishing companies for disseminating scientific work and managing the rules of the peer-review process;
 \paragraph{Immutability} of the system in which information can only be appended with tamper proof-time stamping,  but not subsequently modified, would secure the intellectual property and a fairer measure of the scientific contribution of the actors at play during the multiple versions of a paper;
 \paragraph{Transparency} (meaning that we have a viewable record of all the papers and peer-reviews), would also make editorial decisions (publish or not publish a study) more transparent and democratic. Finally, cryptographic hashing could allow for a double-blind process that reduces human biases in judgement by assigning hashed pseudonymous to universal researcher identifiers. From all these aspects taken together, a more democratic open peer-review  process could rise, in which merit and power (of access to information, of decision…) is more equally redistributed among the stakeholders (researchers, reviewers, taxpayers).
+\newline The paper is structured as follows. Sections 2 presents research background and related works. Section 3 explains the proposed Ethereum-based protocol illustrating the system architecture and the current status of implementation. In Sect. 4 we discuss the implication of our work. Section 5 contains the conclusions. Appendixes present the smart contracts. 
 
 \section{Background}
 \subsection{Peer-review: a flawed and outdated system}
@@ -102,8 +103,9 @@ Rubriq provides independent and standardized peer review that can be accepted an
 \subsection{Blockchain solution}
 
 \section{System concept}
-For the above mentioned reasons, we propose an incentive-based protocol called Ants-Review to reward open peer-reviews while preserving the anonymity of the reviewers. The name originates from the idea that the work behind a finished scientific paper resembles a complex organism such as an anthill, which emerges from the sum of many individualities: in it, all contributions (even if ‘micro’) are essential to the whole and are worth recognition.
-This project is intended to be open source and was developed during the ETH Turin 2020 Hackathon and it’s design and attempt of implementation are exposed in the following section.
+In this paper we propose Ants-Review, a new incentivisation mechanism built on a distributed platform that issues open peer-reviews to validate scientific papers while preserving the anonymity of its contributors and that . We imagine a final paper originating from the peer-review process as a complex system that emerges from the product of interactions between the authors and the reviewers, a whole that is more than the sum of its parts. Therefore, the name hints at the ant colony as a model of self-organization in which all micro-contributions of the individuals add up to complex behaviour.
+A previous version of this paper can be found here \cite{10.5281/zenodo.3828087}, as a proposal submitted for the ETH Turin 2020 Hackathon.
+and it’s design and attempt of implementation are exposed in the following section.
 
 \subsubsection{Accountability} hash
 \subsubsection{Reward} bounty
@@ -154,7 +156,7 @@ or
 \caption{AntsReview Smart Contracts}
 \label{fig:contracts}
 \end{figure}
-
+In this section we provide an overview of how we implemented the system by focusing on its components.
 
 AntsReview [Fig.\ref{fig:contracts}] is a distributed peer-review system which synthesizes successful ideas from previous systems including The Bounty Network[ref], ERC20[ref], AZTEC Protocol[ref], IPFS[ref], Proof of Existence[ref], ...
 \newline The contribution of AntsReview is simply allowing the peer-review process, as a complex system, to emerge as a self-organised ecosystem of authors and peer-reviewers to enhance the complexity of a paper and its validation.
