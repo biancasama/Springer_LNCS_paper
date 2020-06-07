@@ -51,38 +51,19 @@ Peer-review is a necessary and essential quality control step for scientific pub
 \section{Introduction}
 From its birth in 2008 as a distributed ledger for the peer-to-peer electronic cash system Bitcoin \cite{Bitcoin}, blockchain technologies (BCTs) have spread far beyond the sole cryptocurrency domain, in particular after the implementation of a general purpose smart contract functionality introduced by Ethereum \cite{Ethereum-Wood}.
 Besides a growing number of applications ranging from business, healthcare, music industry, government, identity to cite but a few, blockchain technology has recently started to catalyse the attention of the scientific community as well \cite{Bitcoin-Nature-focus,vanRossum2017-DigSci} with the promising potential of being a 'game changer' in outdated and broken scientific practices and leading towards Open Science \cite{AES}. In particular, a 'blockchainified science'\cite{BlockchainforScience} could 'reduce waste'\cite{ReducingWaste-Lancet}, by disclosing each step the research cycle to 'scientific self-correction' way before the final publication step and therefore help fixing the current reproducibility crisis in science. Finally, scholars have pointed out how the intrinsic characteristics of blockchain technology (decentralization, for which there are no trusted third parties; cryptographic hashing and timestamping, that create a digital footprint able to keep a traceable chronological record of research objects; immutability or append-only, for which data cannot be altered or retrieved) set the basis for a open science infrastructure \cite{ReviewBlockchain2019} where decisional processes are transparent and therefore more democratically accessible to all the stakeholders (researchers, reviewers, funders, taxpayers).
-A thorny issue in the academic system that can be tackled by blockchain concerns the status and accreditation of peer-review, the core process of scientific validation currently facing a crisis \cite{Gropp-PeerRevStress}. 
+A thorny issue in the academic system that can and should be tackled by blockchain concerns the status and accreditation of peer-review, the core process of scientific validation currently facing a crisis \cite{Gropp-PeerRevStress}. 
 In this paper we propose a solution to the problem of reviewers recognition based on the principles of token economy and in line with the values of Open Science.
 \newline The paper is structured as follows. Sections 2 presents research background and related works. Section 3 explains the proposed Ethereum-based protocol illustrating the system architecture and the current status of implementation. In Sect. 4 we discuss the implication of our work. Section 5 contains the conclusions. Appendixes present the smart contracts. 
 
 \section{Background}
-\subsection{Peer-review: a flawed and outdated system}
-peer review is a ﬂawed process,\cite{Smith2006}
-
-a study to evaluate the feasibility of an open peer review system.
-\cite{Walsh200-openpeerrev} Of  the  referees  approached,  76%agreed to sign their name. This figure com-agreed to sign their name.
-\cite{PeerRev-NatComm}
-open peer review does not compromise the process, at least when referees are able to protect their anonymity. However, it is worth noting that unlike recent survey results14, here only 8.1 of referees agreed to reveal their identity. Although certain beneﬁts of open science and open evaluation are incontrovertible21,22, our ﬁndings suggest that the veil of anonymity is key also for open peer review. It is probable that this reﬂects the need for protection from possible retaliation or other unforeseen implications of open peer review, p
-
-\cite{Gropp-PeerRevStress}
-authors have consistently reported that the purpose of peer review is for improving the quality of the published paper, determining the originality of the manuscript, determining the importance of the findings, detecting fraud, and detecting plagiarism.
-
-The idea of financially compensating individuals for reviewing manuscripts was suggested, but individuals who have experimented with this model urged caution, noting that it is expensive and does not necessarily produce the desired outcome.
-
-The question of how  or whether to incentivize reviews for articles or proposals is challenging. Budgets are tight and not expected to grow in the near term. Therefore, financial incentives come at the cost of either funding or publishing more research.
-Moreover, some journal editors who have thought about or experimented with providing financial rewards to reviewers urged caution because the efforts were expensive and did not seem to provide an adequate incentive to encourage individuals to review manuscripts.
-
-\cite{Kendall-peerrev}
-His study, done for Nature, found no evidence for lengthening delays2: the median review time — the time between submission and acceptance of a paper — has hovered at around 100 days for more than 30 years (see ‘Paper wait’)
-An analysis of all papers in PubMed up to 2015 with listed submission and acceptance dates suggests that the median time from submission to acceptance has hovered at around 100 days, although it has gone up at some journals.
-
-\cite{tragedy-reviewers} overburdened reviewer pool,we observe a progressive increase in journals without an increase in the number of reviewers.
-suggestions for improvements are lost
-
-An analysis of PubMed papers published in 2013 suggests that journals with the lowest and highest impact factors have the longest review times.
-
-He found that the mean review time had roughly doubled in the past decade, from 50–130 days to 150–250 days, depending on the journa
-
+\subsection{Peer-review: present problems and mild solutions}
+Peer review is still the only quality control mechanism devoted to evaluate scientific outcomes. The purpose of peer review is "improving the quality of the published paper, determining the originality of the manuscript, determining the importance of the findings, detecting fraud, and detecting plagiarism." \cite{Gropp-PeerRevStress}. However, the system is 'ﬂawed' and outdated \cite{Smith2006} and presents multifaceted issues, here reviewed.
+\paragraph{A slow multi-stage process.} The main issues affecting the effectiveness of peer-review is the delay between paper submission and journal acceptance for publication. In the traditional peer-review process the author(s) submit manuscript to the journal where an editorial team assesses if the paper meets meets the scopes of the journal and novelty criteria. If the editorial decision is to send the manuscript for review, the handling editor looks for potential reviewers. Editors keep searching for reviewers until they find two or three reviewers who agree to review the manuscript. The reviewers identity is usually only know to the editor but is hidden to the authors or the other reviewers themselves (single-blind review). Reviewers independently conduct their reviews by exposing in their reports strengths and weaknesses of the manuscript. The handling editor or the editorial team considers all the submitted reports and makes the final decision. If the decision is a major or minor revision, authors are invited to re-submit a corrected or improved version of the manuscript with a letter to the reviewers. The same reviewers might be contacted again and if they want they can follow up the peer-review process. This process can take multiple rounds and is a huge time investment both for authors and reviewers. An analysis of all papers published in PubMed for a time period of 30 years claims that the median review time is around 100 days\cite{Kendall-peerrev}. Another study, taken in 2013, calculated that approximately 30.5 million researcher hours was spent on reviewing papers.
+\paragraph{Social and cognitive biases.} Given the fact that anonymity is usually asymmetrically applied only for reviewers, many power related dynamics can influence the reviewers decision, such as gender or cultural discrimination, social prestige of the institution. To solve this problem some journals have implemented double-blind review process (identity of both authors and reviewers are masked) which seems to reduce the bias towards minorities.
+\paragraph{Fraud and misconduct.} Due to the 'publish or perish culture' pressures, unethical behaviour from reviewers has been occasionally reported, from abusive behaviour towards authors \cite{Smith2006,tragedy-reviewers} to identity fraud. Some studies have reported an improvement in the transparency and 'civility; of the review process when open reports are released (open peer review). 
+\paragraph{Peer reviews need to be...reviewed.} There is high variability in the reliability and depth of reviews and a recurrent question is: "Who watches the watchers?". 
+\paragraph{Need for more reviewers.} There is a disproportion between the progressive increase in journals and the number of experienced reviewers assigned which demands an expansion of the reviewer's pool including early career scientists \cite{tragedy-reviewers}.
+\paragraph{Lack of recognition.}
 
 \subsection{Related work}
 Credit for peer review is not a new thing: mostly journals handled it so far with virtual 'badges', certificates of performance, citation in annual editorials but none of these is standardized in a way that has a weight for funders world ranking bodies institutions like impact factor h-index.
@@ -191,7 +172,7 @@ AntsReviewRoles, to ensure integrity of the system, implements an access managem
 
 AntsReview has few tokens, each of which plays an integral role in the functioning and anonymity of the decentralized protocol.
 \newline Ant, is the primary protocol token and can be staked into an AntReview if you wish to provide the protocol with an additional security promise.
-\newline Ant is implemented by inheriting ERC20PresetMinterPauser.sol from OpenZeppelin Library with name: \emph{Ant} ans symbol: \emph{ANT}.
+\newline Ant (as shown below) is implemented by inheriting ERC20PresetMinterPauser.sol from OpenZeppelin Library with name: \emph{Ant} ans symbol: \emph{ANT}.
 \newline An AntReview, issued by an author will be seen as a poll where Anters (members of the AntsReview Community) can stake ether or tokens from DeFi services including Dai \cite{Dai}, Chai \cite{Chai}, ... with the possibility to accrue interest for the duration of an AntReview (1 year on average), via MakerDAO DSR (Dai Saving Rate) \cite{DSR} or Compound \cite{Compound} to cite a few.
 \newline An AntsReview DAO will be formed in the future to allow Ant stakers the ability to participates in a Decentralized Autonomous Organization which will be used to govern important aspects of the decentralized protocol, from smart contracts upgrades to more minor changes in settings across the protocol.
 \newline Hive. When an Anter deposits into an AntReview, they will instantly receive the Hive token which represents their deposit and the accrued interest it gains over time in the AntReview.
@@ -201,6 +182,7 @@ AntsReview has few tokens, each of which plays an integral role in the functioni
 \newline zkAnt, is an Ant token wrapped into AZTEC Protocol \cite{AZTEC} ZK-SNARKs, that will be extended to PLONK \cite{PLONK} Proof to collapse the gas costs of private transactions on mainnet.
 \newline zkAnt will be implemented via AZTEC 2.0 (still in development) that will allow to securely wrap the Ant Token into zkAnt, allowing private transactions on mainnet and preserving the anonymity of Peer Reviewers.
 \newline Finally, another concept under investigation is Quadratic Funding \cite{LiberalRadicalism}, used by Gitcoin \cite{Gitcoin} to match donations for Grants. This will allow to incentives prolific Peer-Reviewers and improve the stability of the system together with ideally a reward system to rank best Peer-Reviewers.
+
 
 \begin{lstlisting}[language=Solidity]
 /// SPDX-License-Identifier: GPL-3.0
@@ -268,17 +250,17 @@ future of quality control and moderation: open participation model, community-dr
 In this paper we addressed a crucial problem within scholarly academic communication: the peer-review process. We showed how blockchain technology could provide an efficient and viable solution and open up possible directions for a paradigm shift in scientific communication. We proposed an incentive mechanism that could solve the problems of lack of acknowledgment and trust during peer-review. We exposed the architecture of our project and our for which we adopted cutting-edge tools from the open source blockchain ecosystem.
 
 \subsubsection{Supplementary material}
-TBD
+Souce Code, DOI: 10.5281/ZENODO.3829162
+\newline Demo (PoC), DOI: 10.5281/ZENODO.3829183
 
 \subsubsection{CRediT Authorship Contribution Statement}
-TDB
+ Bianca Trovò: Conceptualization, Investigation, Writing - original draft, Writing - review \& editing. Nazzareno Massari: Project administration, Methodology, Validation, Software development, Visualization, Writing \& editing. Both authors equally contributed and supervised the project.
 
 \subsubsection{Declaration of Competing Interest}
 The authors declare no competing interests.
 
-\subsubsection{Acknowledgements} We would like to thank Matteo A. Tambussi and Keno Budde for internal review and useful comments.
+\subsubsection{Acknowledgements} We would like to thank Matteo A. Tambussi and Keno Budde for useful comments.
 
-\newpage
 
 % ---- Bibliography ----
 %
