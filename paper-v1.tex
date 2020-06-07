@@ -150,7 +150,7 @@ The startup Matryx.ai13 aims to transform the nature of research collaboration i
 
 \section{System concept}
 In this paper we propose Ants-Review, a new incentivisation mechanism built on a distributed platform that issues open peer-reviews to validate scientific papers while preserving the anonymity of its contributors and that . We imagine a final paper originating from the peer-review process as a complex system that emerges from the product of interactions between the authors and the reviewers, a whole that is more than the sum of its parts. Therefore, the name hints at the ant colony as a model of self-organization in which all micro-contributions of the individuals add up to complex behaviour.
-A previous version of this paper can be found here \cite{10.5281/zenodo.3828087}, as a proposal submitted for the ETH Turin 2020 Hackathon.
+A previous version of this paper can be found here \cite{AntsReview}, as a proposal submitted for the ETH Turin 2020 Hackathon.
 and it’s design and attempt of implementation are exposed in the following section.
 Here I expose the main traits/features of AR
 \begin{itemize}
@@ -217,31 +217,31 @@ In this section we provide an overview of how we implemented the system by focus
 AntsReview [\ref{appendix:b}] is the core of the smart contracts deployed on Ethereum Rinkeby's Testnet \cite{Rinkeby}
 \newline It implements a Bounty-like system where an issuer (author) is asked a series of actions, to ensure transparency and robustness, regarding the AntReview that he's creating:
 \begin{itemize}
-  \item to upload the file containing the requirements of the peer-review and the paper into IPFS.
+  \item to upload the file containing the requirements of the peer-review and the paper into IPFS\cite{IPFS}.
   \item to specify a deadline in the form of a unix timestamp after which the fulfillment will no longer be accepted.
   \item to send the amount of ether for the reward.
 \end{itemize}
 
-AntsReviewRoles[\ref{appendix:a}], to ensure integrity of the system, implements an access management, leveraging on AccessControl.sol by OpenZeppelin Library, through the creation of the Roles Issuer and Peer-Reviewer.
+AntsReviewRoles[\ref{appendix:a}], to ensure integrity of the system, implements an access management, leveraging on AccessControl.sol by OpenZeppelin Library\cite{OZ}, through the creation of the Roles Issuer and Peer-Reviewer.
 \newline It also integrates a circuit breaker design pattern via Pausable.sol by OpenZeppelin to allow the Pauser Role, that by default is the Owner of the Smart Contracts, to pause (or unpause) the functions in case of emergency.
 \newline In this way, only the Issuer (author) can create a new AntReview.
 \newline Once created, an AntReview is available to be fulfilled by Peer-Reviewers, uploading the peer-review on IPFS before the deadline.
 \newline The AntReview after being validated is then accepted by the Issuer and paid equally between Peer-Reviewers.
 \newline Also, the Issuer can cancel the AntReview at any time and withdraw the amount of ether staked.
-\newline One of the key aspects of the protocol is the concept of Proof of Existence, introduced by Stuart Haber \& W. Scott Stornetta with the paper "How to time-stamp a digital document" \bibliography{}
-\newline As the pioneers of blockchain an cited by Bitcoin whitepaper, they were in a mission to solve the problem of immutability of digital records that became reality with the Blockchain and Bitcoin as its first application.
-\newline In Ethereum the concept of immutability is achieved via the blockchain and proof of work consesus algorithm by a chain of timestamped block hashes that are secured by miners competing computations.
+\newline One of the key aspects of the protocol is the concept of Proof of Existence, introduced by Stuart Haber \& W. Scott Stornetta with the paper "How to time-stamp a digital document"\cite{TimeStamp-Haber}
+\newline As the pioneers of blockchain an cited by Bitcoin whitepaper, they were in a mission to solve the problem of immutability of digital records that became reality with the Blockchain and Bitcoin\cite{Bitcoin} as its first application.
+\newline In Ethereum \cite{Ethereum} the concept of immutability is achieved via the blockchain and proof of work consesus algorithm by a chain of timestamped block hashes that are secured by miners competing computations.
 \newline AntsReview is evaluating the advantages of storing the hashes of the peer-reviews into a Merkle Tree to achieve immutability and efficiency in verifying the data with a complexity of O(logn) for searching through the tree.
 \newline A Merkle tree is a particular type of binary tree, formed by a set of nodes with a large set of leaf nodes at the bottom of the tree containing representing the hash of the original data, a set of intermediate nodes where each node is the sum of the two children hashes, ending with a single root hash.
-\newline In order to verify if a specific hash is included into a Markle Tree, leveraging on MerkleProof.sol by OpenZeppelin Library, we need to provide a proof, generated from the leaf of interest, that represent the remification derived from the leaf, the root hash and finally the leaf we want to verify.
-\newline The paper and peer-review documents will be included into a Merkle Tree by hashing the data using keccak256, a cryptographic hashing algorithm available in Solidiy, an object-oriented programming language for writing smart contracts that run on the Ethereum Virtual Machine (EVM).
+\newline In order to verify if a specific hash is included into a Merkle Tree, leveraging on MerkleProof.sol by OpenZeppelin Library, we need to provide a proof, generated from the leaf of interest, that represent the remification derived from the leaf, the root hash and finally the leaf we want to verify.
+\newline The paper and peer-review documents will be included into a Merkle Tree by hashing the data using keccak256, a cryptographic hashing algorithm available in Solidity \cite{Solidity}, an object-oriented programming language for writing smart contracts that run on the Ethereum Virtual Machine (EVM).
 
-\subsubsection{Tokenomics}
+\subsubsection{Tokenomics
 
 AntsReview has few tokens, each of which plays an integral role in the functioning and anonymity of the decentralized protocol.
 \newline \textbf{Ant}, is the primary protocol token and can be staked into an AntReview if you wish to provide the protocol with an additional security promise.
 \newline Ant [\ref{appendix:c}] is implemented by inheriting ERC20PresetMinterPauser.sol from OpenZeppelin Library with name: \textbf{\emph{Ant}} ans symbol: \textbf{\emph{ANT}}.
-\newline An AntReview, issued by an author will be seen as a poll where Anters (members of the AntsReview Community) can stake ether or tokens from DeFi services including Dai, Chai, ... with the possibility to accrue interest for the duration of an AntReview (1 year on average), via MakerDAO DSR or Compound to cite a few.
+\newline An AntReview, issued by an author will be seen as a poll where Anters (members of the AntsReview Community) can stake ether or tokens from DeFi services including Dai, Chai \cite{Chai}, ... with the possibility to accrue interest for the duration of an AntReview (1 year on average), via MakerDAO DSR or Compound to cite a few.
 \newline An \textbf{AntsReview DAO} will be formed in the future to allow Ant stakers the ability to participates in a Decentralized Autonomous Organization which will be used to govern important aspects of the decentralized protocol, from smart contracts upgrades to more minor changes in settings across the protocol.
 \newline \textbf{Hive}. When an Anter deposits into an AntReview, they will instantly receive the Hive token which represents their deposit and the accrued interest it gains over time in the AntReview.
 \newline This token doesn't need to be locked in the network and it can be traded, sold, or held as the Anter desires.
@@ -658,6 +658,6 @@ The authors declare no competing interests.
 % References will then be sorted and formatted in the correct style.
 %
 \bibliographystyle{splncs04}
-\bibliography{references.bib}
+\bibliography{ref1-intro.bib, ref2-peerreview.bib, ref2-relatedwork.bib, ref3-system.bib}
 
 \end{document}
