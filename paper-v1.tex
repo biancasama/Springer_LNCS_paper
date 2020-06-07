@@ -57,20 +57,22 @@ Dr. Soenke Bartling is a German radiologist and founder of Blockchain for Scienc
 \item openness of access and data 
 \item 'blockchainefied science':  "a more flexible, grass-root and reputation-based governance of science."
 \end{itemize}
-reputation metrics -- "blockchain would make much larger parts of the research cycle open to scientific self-correction. This bears the potential to be a new approach to the current reproducibility crisis in science, and could ‘reduce waste and make more research results true’. Beyond that, blockchain could be used to reduce overhead and accelerate the scientific process and incentivise true innovation." https://docs.google.com/document/d/1Uhjb4K69l0bSx7UXYUStV_rjuPC7VGo0ERa-7xEsr58/edit#heading=h.z4w0uvttpvgt
+reputation metrics -- "blockchain would make much larger parts of the research cycle open to scientific self-correction. This bears the potential to be a new approach to the current reproducibility crisis in science, and could ‘reduce waste and make more research results true’. Beyond that, blockchain could be used to reduce overhead and accelerate the scientific process and incentivise true innovation."
 Decentralized
 Distributed 
-Immutable (≈’append only database’)
+Immutable (’append only database’)
 Transparent (provable to the external world)
 "One such system, the Ethereum blockchain, goes so far as to provide its own programming language to run distributed, unstoppable, and provable applications [27]. This includes smart contracts [28] which can be used to realize distributed, autonomous applications and organizations [29]." they propose permissioned public blockchain for science
 "Figure 3: Large parts of the research cycle can make use of blockchain (yellow arch); only the experiment/initial data collection itself cannot. From data collection onwards, the rest of the research circle would then become immutable, comprehensible, and externally provable. This would make larger parts of the research cycle open to scientific self-correction and may make more research results reproducible, true, and useful."
-\begin{itemize}
+
+\begin{itemize} 
 \item scientific ideas/data/lab notebooks via time-stamping and proof of existence - Blockchains provide a ‘notarization’ functionality.
 \item pre-registration in open science, now managed by open platforms like OSF 
 \item The recommendation to reduce waste in science which reads: ‘Public availability of raw data and complete scripts of statistical analysis could be required by journals and funding agencies sponsoring new research’ [5,49] could be realized through blockchain. 
 to prevent vs publication bias (reporting only positive results) or p-hacking or ex-post-facto hypothesizing (changing the hypothesis after having looked into the data)
 \item stress on scientific self-correction: from open data science to blockchain based science 
 \end{itemize}
+
 "Figure 5: In closed science, scientists just publish a description of their research data and results in their final publication (I). Currently, researchers can publish their research data in data repositories, but that leaves no trace of the data collection or handling process (II). Of course, the final repository could be a blockchain based, decentralized database (III). However, blockchain technology could take the whole process one step further: the whole data handling process could take place in a blockchain system and would therefore be provable and open to scientific self-correction (at will) (IV)." 
 Blockchain systems make it possible to publish research anonymously [70] or with a second online identity - and yet one could still get money or other research impact appreciation for it [71,72]
 Science reputation systems can be built using blockchain without a trusted third party. 
@@ -94,7 +96,7 @@ An increasing body of voices in the scientific community has started to speak up
 \paragraph{Immutability} of the system in which information can only be appended with tamper proof-time stamping,  but not subsequently modified, would secure the intellectual property and a fairer measure of the scientific contribution of the actors at play during the multiple versions of a paper;
 \paragraph{Transparency} (meaning that we have a viewable record of all the papers and peer-reviews), would also make editorial decisions (publish or not publish a study) more transparent and democratic. Finally, cryptographic hashing could allow for a double-blind process that reduces human biases in judgement by assigning hashed pseudonymous to universal researcher identifiers. From all these aspects taken together, a more democratic open peer-review  process could rise, in which merit and power (of access to information, of decision…) is more equally redistributed among the stakeholders (researchers, reviewers, taxpayers).
 
-\newline The paper is structured as follows. Sections 2 presents research background and related works. Section 3 explains the proposed Ethereum-based protocol illustrating the system architecture and the current status of implementation. In Sect. 4 we discuss the implication of our work. Section 5 contains the conclusions. Appendixes present the smart contracts. 
+ The paper is structured as follows. Sections 2 presents research background and related works. Section 3 explains the proposed Ethereum-based protocol illustrating the system architecture and the current status of implementation. In Sect. 4 we discuss the implication of our work. Section 5 contains the conclusions. Appendixes present the smart contracts. 
 
 \section{Background}
 \subsection{Peer-review: a flawed and outdated system}
@@ -204,7 +206,7 @@ There are two possible scenarios depending if we save the role of the editor and
 \end{figure}
 In this section we provide an overview of how we implemented the system by focusing on its components.
 
-\newline The AntsReview Protocol is divided into different modules responsible for the following functionalities as shown in the flow-chart [Fig. \ref{fig:contracts}]:
+The AntsReview Protocol is divided into different modules responsible for the following functionalities as shown in the flow-chart [Fig. \ref{fig:contracts}]:
 
 \begin{itemize}
 \item AntsReview - manage access management and the basic system.
@@ -222,7 +224,7 @@ AntsReview [\ref{appendix:b}] is the core of the smart contracts deployed on Eth
   \item to send the amount of ether for the reward.
 \end{itemize}
 
-AntsReviewRoles[\ref{appendix:a}], to ensure integrity of the system, implements an access management, leveraging on AccessControl.sol by OpenZeppelin Library\cite{OZ}, through the creation of the Roles Issuer and Peer-Reviewer.
+AntsReviewRoles[\ref{appendix:a}], to ensure integrity of the system, implements an access management, leveraging on AccessControl.sol by OpenZeppelin Library \cite{OZ}, through the creation of the Roles Issuer and Peer-Reviewer.
 \newline It also integrates a circuit breaker design pattern via Pausable.sol by OpenZeppelin to allow the Pauser Role, that by default is the Owner of the Smart Contracts, to pause (or unpause) the functions in case of emergency.
 \newline In this way, only the Issuer (author) can create a new AntReview.
 \newline Once created, an AntReview is available to be fulfilled by Peer-Reviewers, uploading the peer-review on IPFS before the deadline.
@@ -236,12 +238,12 @@ AntsReviewRoles[\ref{appendix:a}], to ensure integrity of the system, implements
 \newline In order to verify if a specific hash is included into a Merkle Tree, leveraging on MerkleProof.sol by OpenZeppelin Library, we need to provide a proof, generated from the leaf of interest, that represent the remification derived from the leaf, the root hash and finally the leaf we want to verify.
 \newline The paper and peer-review documents will be included into a Merkle Tree by hashing the data using keccak256, a cryptographic hashing algorithm available in Solidity \cite{Solidity}, an object-oriented programming language for writing smart contracts that run on the Ethereum Virtual Machine (EVM).
 
-\subsubsection{Tokenomics
+\subsubsection{Tokenomics}
 
 AntsReview has few tokens, each of which plays an integral role in the functioning and anonymity of the decentralized protocol.
 \newline \textbf{Ant}, is the primary protocol token and can be staked into an AntReview if you wish to provide the protocol with an additional security promise.
 \newline Ant [\ref{appendix:c}] is implemented by inheriting ERC20PresetMinterPauser.sol from OpenZeppelin Library with name: \textbf{\emph{Ant}} ans symbol: \textbf{\emph{ANT}}.
-\newline An AntReview, issued by an author will be seen as a poll where Anters (members of the AntsReview Community) can stake ether or tokens from DeFi services including Dai, Chai \cite{Chai}, ... with the possibility to accrue interest for the duration of an AntReview (1 year on average), via MakerDAO DSR or Compound to cite a few.
+\newline An AntReview, issued by an author will be seen as a poll where Anters (members of the AntsReview Community) can stake ether or tokens from DeFi services including Dai \cite{Dai}, Chai \cite{Chai}, ... with the possibility to accrue interest for the duration of an AntReview (1 year on average), via MakerDAO DSR \cite{DSR} or Compound to cite a few.
 \newline An \textbf{AntsReview DAO} will be formed in the future to allow Ant stakers the ability to participates in a Decentralized Autonomous Organization which will be used to govern important aspects of the decentralized protocol, from smart contracts upgrades to more minor changes in settings across the protocol.
 \newline \textbf{Hive}. When an Anter deposits into an AntReview, they will instantly receive the Hive token which represents their deposit and the accrued interest it gains over time in the AntReview.
 \newline This token doesn't need to be locked in the network and it can be traded, sold, or held as the Anter desires.
@@ -309,6 +311,7 @@ The authors declare no competing interests.
 \appendix
 
 \section{AntsReviewRoles.sol}
+
 \label{appendix:a}
 
 \begin{lstlisting}[language=Solidity]
@@ -412,6 +415,7 @@ The authors declare no competing interests.
 
 \newpage
 \section{AntsReview.sol}
+
 \label{appendix:b}
 
 \begin{lstlisting}[language=Solidity]
