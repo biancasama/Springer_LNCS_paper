@@ -98,39 +98,41 @@ There are two possible scenarios depending if AntsReview integrates an existing 
 \subsubsection{AnstReview process: scenario 2 (community-driven)}:
 
 \begin{enumerate}
-    \item The author submits a manuscript to the pre-print service or to an hypothetical AntsReview platform.
-    \item The paper is accepted by the community for revision in its whatever format.
-    \item The author issues a bounty (\emph{bounty issuance}) for the paper review. Fulfillment rules are set in a smart-contract.
-    \item The bounty prize could come by a community stake that participates in the peer-review process either as a reviewer or as a reviewer checker.
-    \item Reviews fulfilling the smart-contract requirements are validated by the AntsReview community of contributors.
-    \item When the reviews are accepted (\emph{bounty fulfillment}), reviewers awarded a token called \emph{ANT}.
-    \item Reviews will be voted by the community via Quadratic Voting.
-    \item In order to incentive 'fair play' also the review checkers who vote for the best quality reviews will share the final prize from the bounty. Since it is in their own interest to 'bet' on a good review, this gamed system will discourage internal dynamics prompt to favour specific members of the community beyond real personal merit and therefore will fuel ethical behaviour.
+\item The author submits a manuscript to the pre-print service or to an hypothetical AntsReview platform.
+\item The paper is accepted by the community for revision in its whatever format.
+\item The author issues a bounty (\emph{bounty issuance}) for the paper review. Fulfillment rules are set in a smart-contract.
+\item The bounty prize could come by a community stake that participates in the peer-review process either as a reviewer or as a reviewer checker.
+\item Reviews fulfilling the smart\-contract requirements are validated by the AntsReview community of contributors.
+\item When the reviews are accepted (\emph{bounty fulfillment}), reviewers awarded a token called \emph{ANT}.
+\item Reviews will be voted by the community via Quadratic Voting.
+\item In order to incentive 'fair play' also the review checkers who vote for the best quality reviews will share the final prize from the bounty. Since it is in their own interest to 'bet' on a good review, this gamed system will discourage internal dynamics prompt to favour specific members of the community beyond real personal merit and therefore will fuel ethical behaviour.
 
  \end{enumerate}
 
 \subsection{Implementation}
-In the following sections we describe the architecture of the system and its building blocks. AntsReview [Fig.\ref{fig:contracts}] is a distributed peer-review system which synthesizes successful ideas from previous systems including The Bounty Network \cite{Bounty}, ERC-20 \cite{ERC20}, AZTEC Protocol \cite{AZTEC}, IPFS \cite{IPFS}, Proof of Existence \cite{TimeStamp-Haber}, ...
+
 \begin{figure}
 \centering
 \includegraphics[scale=0.28]{AntsReview}
 \caption{AntsReview Smart Contracts}
 \label{fig:contracts}
 \end{figure}
+
+In the following sections we describe the architecture of the system and its building blocks. AntsReview is a distributed peer-review system which synthesizes successful ideas from previous systems including The Bounty Network \cite{Bounty}, ERC-20 \cite{ERC20}, AZTEC Protocol \cite{AZTEC}, IPFS \cite{IPFS}, Proof of Existence \cite{TimeStamp-Haber}, ...
+
 In this section we provide an overview of how we implemented the system by focusing on its components.
 
 The AntsReview Protocol is divided into different modules responsible for the following functionalities as shown in the flow-chart [Fig. \ref{fig:contracts}]:
 
 \begin{itemize}
-\item AntsReview - manage access management and the basic system.
-\item Tokenomics - manage system incentivization mechanism integrating ideas from DeFi and Quadratic Funding.
-\item Privacy - maintains the anonymity of the system via AZTEC Protocol.
+\item \emph{AntsReview}, which manages access management and the basic system.
+\item \emph{Tokenomics}, which manages the system of incentivization mechanism by integrating ideas from DeFi (Decentralized Finance) and Quadratic Voting.
+\item \emph{Privacy}, which maintains the anonymity of the system via AZTEC Protocol.
 \end{itemize}
 
 \subsubsection{AntsReview}
-
 AntsReview \cite{Ant} is the core of the smart contracts deployed on Ethereum Rinkeby's Testnet \cite{Rinkeby}
-\newline It implements a Bounty-like system where an issuer (author) is asked a series of actions, to ensure transparency and robustness, regarding the AntReview that he's creating:
+\newline It implements a bounty-like system where an issuer (author or editor) is asked a series of actions, to ensure transparency and robustness, regarding the AntReview that s/he is creating:
 \begin{itemize}
   \item to upload the file containing the requirements of the peer-review and the paper into IPFS\cite{IPFS}.
   \item to specify a deadline in the form of a unix timestamp after which the fulfillment will no longer be accepted.
@@ -139,33 +141,23 @@ AntsReview \cite{Ant} is the core of the smart contracts deployed on Ethereum Ri
 
 AntsReviewRoles, to ensure integrity of the system, implements an access management, leveraging on AccessControl.sol by OpenZeppelin Library \cite{OZ}, through the creation of the Roles Issuer and Peer-Reviewer.
 \newline It also integrates a circuit breaker design pattern via Pausable.sol by OpenZeppelin to allow the Pauser Role, that by default is the Owner of the Smart Contracts, to pause (or unpause) the functions in case of emergency.
-\newline In this way, only the Issuer (author) can create a new AntReview.
+\newline In this way, only the Issuer can create a new AntReview.
 \newline Once created, an AntReview is available to be fulfilled by Peer-Reviewers, uploading the peer-review on IPFS before the deadline.
-\newline The AntReview after being validated is then accepted by the Issuer and paid equally between Peer-Reviewers.
+\newline The AntReview after being validated is then accepted by the Issuer and paid between Peer-Reviewers.
 \newline Also, the Issuer can cancel the AntReview at any time and withdraw the amount of ether staked.
 \newline One of the key aspects of the protocol is the concept of Proof of Existence, introduced by Stuart Haber \& W. Scott Stornetta with the paper "How to time-stamp a digital document"\cite{TimeStamp-Haber}
 \newline As the pioneers of blockchain an cited by Bitcoin whitepaper, they were in a mission to solve the problem of immutability of digital records that became reality with the Blockchain and Bitcoin \cite{Bitcoin} as its first application.
-\newline In Ethereum \cite{Ethereum} the concept of immutability is achieved via the blockchain and proof of work consesus algorithm by a chain of timestamped block hashes that are secured by miners competing computations.
+\newline In Ethereum \cite{Ethereum} the concept of immutability is achieved via the blockchain and proof of work consensus algorithm by a chain of timestamped block hashes that are secured by miners competing computations.
 \newline AntsReview is evaluating the advantages of storing the hashes of the peer-reviews into a Merkle Tree \cite{BayerHaber1992} to achieve immutability and efficiency in verifying the data with a complexity of O(logn) for searching through the tree.
 \newline A Merkle tree is a particular type of binary tree, formed by a set of nodes with a large set of leaf nodes at the bottom of the tree containing representing the hash of the original data, a set of intermediate nodes where each node is the sum of the two children hashes, ending with a single root hash.
 \newline In order to verify if a specific hash is included into a Merkle Tree, leveraging on MerkleProof.sol by OpenZeppelin Library, we need to provide a proof, generated from the leaf of interest, that represent the ramification derived from the leaf, the root hash and finally the leaf we want to verify.
 \newline The paper and peer-review documents will be included into a Merkle Tree by hashing the data using keccak256, a cryptographic hashing algorithm available in Solidity \cite{Solidity}, an object-oriented programming language for writing smart contracts that run on the Ethereum Virtual Machine (EVM).
 
 \subsubsection{Tokenomics}
-
 AntsReview has few tokens, each of which plays an integral role in the functioning and anonymity of the decentralized protocol.
 \newline Ant, is the primary protocol token and can be staked into an AntReview if you wish to provide the protocol with an additional security promise.
 \newline Ant (as shown below) is implemented by inheriting ERC20PresetMinterPauser.sol from OpenZeppelin Library with name: \emph{Ant} ans symbol: \emph{ANT}.
 \newline An AntReview, issued by an author will be seen as a poll where Anters (members of the AntsReview Community) can stake ether or tokens from DeFi services including Dai \cite{Dai}, Chai \cite{Chai}, ... with the possibility to accrue interest for the duration of an AntReview (1 year on average), via MakerDAO DSR (Dai Saving Rate) \cite{DSR} or Compound \cite{Compound} to cite a few.
-\newline An AntsReview DAO will be formed in the future to allow Ant stakers the ability to participates in a Decentralized Autonomous Organization which will be used to govern important aspects of the decentralized protocol, from smart contracts upgrades to more minor changes in settings across the protocol.
-\newline Hive. When an Anter deposits into an AntReview, they will instantly receive the Hive token which represents their deposit and the accrued interest it gains over time in the AntReview.
-\newline This token doesn't need to be locked in the network and it can be traded, sold, or held as the Anter desires.
-\newline Hive will be implemented using a similar approach to Ant and Chai, a token that accrues interest from MakerDAO's DSR or Compound, with name: \emph{Hive} and symbol: \emph{HIVE}
-\newline Ideally, but is still under investigation, after the deadline of the AntReview is reached, the Hive token will be burned for Ant and wrapped into zkAnt to promote anonymity and sent equally to the peer-reviewers that fulfilled the AntReview.
-\newline zkAnt, is an Ant token wrapped into AZTEC Protocol \cite{AZTEC} ZK-SNARKs, that will be extended to PLONK \cite{PLONK} Proof to collapse the gas costs of private transactions on mainnet.
-\newline zkAnt will be implemented via AZTEC 2.0 (still in development) that will allow to securely wrap the Ant Token into zkAnt, allowing private transactions on mainnet and preserving the anonymity of Peer Reviewers.
-\newline Finally, another concept under investigation is Quadratic Funding \cite{LiberalRadicalism}, used by Gitcoin \cite{Gitcoin} to match donations for Grants. This will allow to incentives prolific Peer-Reviewers and improve the stability of the system together with ideally a reward system to rank best Peer-Reviewers.
-
 
 \begin{lstlisting}[language=Solidity]
 /// SPDX-License-Identifier: GPL-3.0
@@ -193,7 +185,6 @@ contract Ant is ERC20PresetMinterPauser {
 
 
 \subsubsection{Privacy}
-
 The Anonymity of an agent in the system is achieved in two ways:
 
 \begin{itemize}
@@ -210,24 +201,22 @@ The Anonymity of an agent in the system is achieved in two ways:
 \newline Future developments will investigate viable solutions, for scaling the system, like ZK-Rollups by AZTEC Protocol, one of the options being developed for a type of layer 2 construction that runs on top of Ethereum to improve scalability. This will enable to run smart contracts at scale with quasi-instant transactions while still being secured by Ethereum.
 
 \section{Discussions}
+\subsection{Possible developments}
+ An AntsReview DAO could be formed in the future to allow Ant stakers the ability to participates in a Decentralized Autonomous Organization which will be used to govern important aspects of the decentralized protocol, from smart contracts upgrades to more minor changes in settings across the protocol.
+\newline Hive. When an Anter deposits into an AntReview, they will instantly receive the Hive token which represents their deposit and the accrued interest it gains over time in the AntReview.
+\newline This token doesn't need to be locked in the network and it can be traded, sold, or held as the Anter desires.
+\newline Hive will be implemented using a similar approach to Ant and Chai, a token that accrues interest from MakerDAO's DSR or Compound, with name: \emph{Hive} and symbol: \emph{HIVE}
+\newline Ideally, but is still under investigation, after the deadline of the AntReview is reached, the Hive token will be burned for Ant and wrapped into zkAnt to promote anonymity and sent equally to the peer-reviewers that fulfilled the AntReview.
+\newline zkAnt, is an Ant token wrapped into AZTEC Protocol \cite{AZTEC} ZK-SNARKs, that will be extended to PLONK \cite{PLONK} Proof to collapse the gas costs of private transactions on mainnet.
+\newline zkAnt will be implemented via AZTEC 2.0 (still in development) that will allow to securely wrap the Ant Token into zkAnt, allowing private transactions on mainnet and preserving the anonymity of Peer Reviewers.
+\newline Finally, another concept under investigation is Quadratic Funding \cite{LiberalRadicalism}, used by Gitcoin \cite{Gitcoin} to match donations for Grants. This will allow to incentive prolific Peer-Reviewers and improve the stability of the system together with ideally a reward system to rank best Peer-Reviewers.
+
 \subsection{A new community-driven standard?}
-- a change is already happening: specially new born publishers are opening up review process (BioMed Central, ELife, Frontiers, PeerJ, F1000 Research) -- from 2020 also Nature declared that will do the same.
+A change is already happening in the publishing industry specially with new born publishers are opening up the review process (BioMed Central, ELife, Frontiers, PeerJ, F1000 Research). If also pre-print platforms integrate peer-review into their platforms, the dissociation of initial scientific dissemination and scientific validation will force publishing industry to adapt: how will they justify their added value?\cite{Tennant2017-F1000R}.
+We foresee that the future will evolve towards community-organized peer reviews: peer reviews will be more and more independent from publishers, researchers will be the ones seeking the papers to review with a reputation build within community and not journals.
+Peer reviews requires a standard: building smart-contracts for peer-reviews might set a first step in this direction and our work seems promising in this direction.
+Our protocol system is not the only one: other prototypes are proposing an endorsement system for peer-review based on token economics \cite{ScienceMiles,ResearchCoin,Sharples-Kudos,Pevo,I8X}. We hope that soon such systems will be running and the value of peer review as 'academic capital' recognized by research funders and hiring committees.
 
-- new business model? at some point pre-print platforms (dissemination) might want to integrate peer-review (validation) into their platforms - dissociation of initial scientific dissemination and scientific validation will force publishing industry to adapt: how will they justify their added value? as Tennant points out: branding archiving
-
-- peer reviews requires a standard: building smart-contracts for peer-reviews might set a first step in this direction
-
-- community-organized peer reviews: peer reviews will be more and more out of the hands of publishers, researchers will be the ones seeking the papers to review (like in Rubriq).
-
-future of quality control and moderation: open participation model, community-driven | certification and reputation: expansion of reviewer pool with fewer barriers to enter and more inclusion of young scientists, reputation build within community and not journals
-
-- portable peer review not only within a consortium of journals
-
--value of peer review as 'academic capital' recognized by research funders and hiring committees
-
--a bit off topic but: automated peer review (services such as StatReviewers) might fasten the formal aspects of the job allowing reviewers to focus on the content.
-
-\subsubsection{Perspectives for a Decentralized Autonomous Organization (DAO)}
 
 \section{Conclusion}
 In this paper we addressed a crucial problem within scholarly academic communication: the peer-review process. We showed how blockchain technology could provide an efficient and viable solution to open up possible directions for a paradigm shift in scientific communication. We proposed an incentive mechanism that could solve the problems of lack of acknowledgment and trust during peer-reviews. We exposed the architecture of our project for which we adopted cutting-edge tools from the open source blockchain ecosystem.
@@ -237,12 +226,12 @@ Source Code, DOI: 10.5281/ZENODO.3829162
 \newline Demo (PoC), DOI: 10.5281/ZENODO.3829183
 
 \subsubsection{CRediT Authorship Contribution Statement}
- Bianca Trovò: Conceptualization, Investigation, Writing - original draft, Writing - review \& editing. Nazzareno Massari: Project administration, Methodology, Validation, Software development, Visualization, Writing \& editing. Both authors equally contributed and supervised the project.
+ Bianca Trovò: Conceptualization, Investigation, Design, Writing - original draft, Writing - review \& editing. Nazzareno Massari: Project administration, Design, Software development, Visualization, Writing - review \& editing. Both authors equally contributed and supervised the project.
 
 \subsubsection{Declaration of Competing Interest}
 The authors declare no competing interests.
 
-\subsubsection{Acknowledgements} We would like to thank Matteo A. Tambussi and Keno Budde for useful comments.
+\subsubsection{Acknowledgements} We would like to thank Matteo A. Tambussi and Keno Budde for useful comments and discussions and Marcelo Colmenero for the Pixel Art.
 
 
 % ---- Bibliography ----
@@ -251,6 +240,6 @@ The authors declare no competing interests.
 % References will then be sorted and formatted in the correct style.
 %
 \bibliographystyle{splncs04}
-\bibliography{ref1-intro.bib, ref2-peerreview.bib, ref2-relatedwork.bib, ref3-system.bib}
+\bibliography{ref-antsrev.bib}
 
 \end{document}
