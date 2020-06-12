@@ -75,7 +75,7 @@ In this paper we propose Ants-Review, a new incentivisation mechanism built on a
 
 \subsection{Design}
 
-Here we describe the main features of AntsReview.
+Here we describe the main features of Ants-Review.
 \paragraph{Incentivisation and recognition.} A typical business model for open source software (OSS) movement is open-source bounty. Bounties are a prize or monetary reward given for completing a task before a deadline. Examples of such platforms that allow funders (bounty backers) to pay developers (bounty hunters) for open source contributions are Gitcoin \cite{Gitcoin} and The Bounties Network \cite{Bounty}. Incentives can be cryptographic tokens, unit of values registered on a blockchain network and that represent the quantity and quality of a service within a network. 
 \newline In the network of the scientific community reviewers provide a service and those who consume it (authors, journals)  should be able to retribute with tokens, an internal cryptocurrency that can be spent externally. The amount of tokens reflects material and symbolic recognition of the performed work that can be statistically quantified for author-level metrics measuring the productivity and impact of a researcher. 
 Thus, the system acts also as a reputation builder. 
@@ -84,14 +84,14 @@ Thus, the system acts also as a reputation builder.
 \paragraph{Transparency and re-usability of the records.} The peer-review history, including authors' replies and editors' recommendations, should be openly and permanently accessible to the community ('open report' of open peer-reviews) even before articles' publication in order to  make editorial decisions more democratic and prevent waste of knowledge. Following the example of models offered by journals peer-review consortia, such as the Neuroscience Peer Review Consortium and independent companies like ResearchSquare and Peerage of Science \cite{Peerage}, peer-reviews in Ants-Review will be transferable ('cascading' or 'portable peer-reviews').
 
 \paragraph{Accountability via pseudo-anonymity.} In order to counteract malicious behaviour (see 2.1) affecting the integrity of the reviews but also to righteously attribute the intellectual contributions making sure there are no conflict of interest, it's important to be able to track back the identities of the contributors to a peer-review report. This is possible if the platform acts like a version control system where commits are permanent and their hashes timestamped. InterPlanetary File System (IPFS) \cite{IPFS} is a decentralized content-addressable, peer-to-peer protocol which guarantees data immutability and unique file identification.
-\newline To prevent retaliation for negative peer-reviews and to promote the participation of early researchers who might feel intimidated to judge the scientific work of senior authors, the Ants-Review system still engages 
+\newline To prevent retaliation for negative peer-reviews and to promote the participation of early researchers who might feel intimidated to judge the scientific work of senior authors, the Ants-Review system still engages into maintaining the privacy of both authors and reviewers in a double-blind approach.
 
-\paragraph{Inclusiveness via gamification.} All the community is involved in the process of peer-reviewing since there is no selection process ('open participation', 'open interaction', 'open platform') and reviews evaluation are performed via Quadratic Voting.
+\paragraph{Inclusiveness via gamification.} As a final step we propose that all the community is involved in the process of peer-reviewing abolishing the editorial selection process ('open participation', 'open interaction', 'open platform' \cite{OPR-Ross-Hellauer}). In this way the pool of reviewer is enriched and allows younger researchers to get the appropriate training through interactive feedback. An interesting addition would be to introduce Quadratic Voting (QV) for the reviews' evaluation. 
 
 
-There are two possible scenarios depending if AntsReview integrates an existing journal or if AntsReview becomes a platform completely decoupled from journals.
+There are two possible scenarios depending if Ants-Review integrates an existing journal or if Ants-Review becomes a platform completely decoupled from journals.
 
-\subsubsection{AnstReview process: scenario 1 (journal-dependent)}
+\subsubsection{Ants-Review process: scenario 1 (journal-dependent)}
 
 \begin{enumerate}
     \item The author submits a manuscript to the journal.
@@ -104,14 +104,14 @@ There are two possible scenarios depending if AntsReview integrates an existing 
 
 \end{enumerate}
 
-\subsubsection{AnstReview process: scenario 2 (community-driven)}:
+\subsubsection{Ants-Review process: scenario 2 (community-driven)}:
 
 \begin{enumerate}
-\item The author submits a manuscript to the pre-print service or to an hypothetical AntsReview platform.
+\item The author submits a manuscript to the pre-print service or to an hypothetical Ants-Review platform.
 \item The paper is accepted by the community for revision in its whatever format.
 \item The author issues a bounty (\emph{bounty issuance}) for the paper review. Fulfillment rules are set in a smart-contract.
 \item The bounty prize could come by a community stake that participates in the peer-review process either as a reviewer or as a reviewer checker.
-\item Reviews fulfilling the smart\-contract requirements are validated by the AntsReview community of contributors.
+\item Reviews fulfilling the smart\-contract requirements are validated by the Ants-Review community of contributors.
 \item When the reviews are accepted (\emph{bounty fulfillment}), reviewers awarded a token called \emph{ANT}.
 \item Reviews will be voted by the community via Quadratic Voting.
 \item In order to incentive 'fair play' also the review checkers who vote for the best quality reviews will share the final prize from the bounty. Since it is in their own interest to 'bet' on a good review, this gamed system will discourage internal dynamics prompt to favour specific members of the community beyond real personal merit and therefore will fuel ethical behaviour.
