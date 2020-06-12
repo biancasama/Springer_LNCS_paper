@@ -53,7 +53,7 @@ From its birth in 2008 as a distributed ledger for the peer-to-peer electronic c
 Besides a growing number of applications ranging from business, healthcare, music industry, government, identity to cite but a few, blockchain technology has recently started to catalyse the attention of the scientific community as well \cite{Bitcoin-Nature-focus,vanRossum2017-DigSci} with the promising potential of being a 'game changer' in outdated and broken scientific practices and leading towards Open Science \cite{AES}. In particular, a 'blockchainified science'\cite{BlockchainforScience} could 'reduce waste'\cite{ReducingWaste-Lancet}, by disclosing each step the research cycle to 'scientific self-correction' way before the final publication step and therefore help fixing the current reproducibility crisis in science. Finally, scholars have pointed out how the intrinsic characteristics of blockchain technology (decentralization, for which there are no trusted third parties; cryptographic hashing and timestamping, that create a digital footprint able to keep a traceable chronological record of research objects; immutability or append-only, for which data cannot be altered or retrieved) set the basis for a open science infrastructure \cite{ReviewBlockchain2019} where decisional processes are transparent and therefore more democratically accessible to all the stakeholders (researchers, reviewers, funders, taxpayers).
 \newline A thorny issue in the academic system that can and should be tackled by blockchain concerns the status and accreditation of peer-review, the core process of scientific validation currently facing a crisis \cite{Gropp-PeerRevStress}. 
 In this paper we propose a solution to the problem of reviewers recognition based on the principles of token economy and in line with the values of Open Science.
-\newline The paper is structured as follows. Sections 2 presents research background and related works. Section 3 explains the proposed protocol on the Ethereum blockchain illustrating the system architecture and the current status of implementation. In Sect. 4 we discuss the implication of our work. Section 5 contains the conclusions.
+\newline The paper is structured as follows. Sections 2 presents research background and related work. Section 3 explains the proposed protocol on the Ethereum blockchain illustrating the system architecture and the current status of implementation. In Sect. 4 we discuss the implication of our work. Section 5 contains the conclusions.
 
 \section{Background}
 \subsection{Peer-review: present problems and mild solutions}
@@ -83,9 +83,10 @@ Thus, the system acts also as a reputation builder.
 
 \paragraph{Transparency and re-usability of the records.} The peer-review history, including authors' replies and editors' recommendations, should be openly and permanently accessible to the community ('open report' of open peer-reviews) even before articles' publication in order to  make editorial decisions more democratic and prevent waste of knowledge. Following the example of models offered by journals peer-review consortia, such as the Neuroscience Peer Review Consortium and independent companies like ResearchSquare and Peerage of Science \cite{Peerage}, peer-reviews in Ants-Review will be transferable ('cascading' or 'portable peer-reviews').
 
-\paragraph{Accountability via pseudo-anonymity.} In order to counteract malicious behaviour (see 2.1) affecting the integrity of the reviews but also to righteously attribute the intellectual contributions making sure there are no conflict of interest, it's important to be able to track back the identities of the contributors to a peer-review report. This is possible if the platform acts like a version control system where commits are permanent and their hashes timestamped. InterPlanetary File System (IPFS) \cite{IPFS} is a decentralized content-addressable, peer-to-peer protocol which guarantees data immutability and unique file identification. 
+\paragraph{Accountability via pseudo-anonymity.} In order to counteract malicious behaviour (see 2.1) affecting the integrity of the reviews but also to righteously attribute the intellectual contributions making sure there are no conflict of interest, it's important to be able to track back the identities of the contributors to a peer-review report. This is possible if the platform acts like a version control system where commits are permanent and their hashes timestamped. InterPlanetary File System (IPFS) \cite{IPFS} is a decentralized content-addressable, peer-to-peer protocol which guarantees data immutability and unique file identification.
+\newline To prevent retaliation for negative peer-reviews and to promote the participation of early researchers who might feel intimidated to judge the scientific work of senior authors, the Ants-Review system still engages 
 
-\item \emph{inclusiveness via gamification}: all the community is involved in the process of peer-reviewing since there is no selection process ('open participation', 'open interaction', 'open platform');
+\paragraph{Inclusiveness via gamification.} ll the community is involved in the process of peer-reviewing since there is no selection process ('open participation', 'open interaction', 'open platform');
 
 
 There are two possible scenarios depending if AntsReview integrates an existing journal or if AntsReview becomes a platform completely decoupled from journals.
@@ -122,59 +123,49 @@ There are two possible scenarios depending if AntsReview integrates an existing 
 \begin{figure}
 \centering
 \includegraphics[scale=0.28]{AntsReview}
-\caption{AntsReview Smart Contracts}
+\caption{Ants-Review Smart Contracts}
 \label{fig:contracts}
 \end{figure}
 
-In the following sections we describe the architecture of the system and its building blocks. Ants-Review is a distributed peer-review system which synthesizes successful ideas from previous systems including The Bounty Network \cite{Bounty}, ERC-20 \cite{ERC20}, AZTEC Protocol \cite{AZTEC}, IPFS \cite{IPFS}, Proof of Existence \cite{TimeStamp-Haber}, ...
-
-In this section we provide an overview of how we implemented the system by focusing on its components.
-
-The Ants-Review Protocol is divided into different modules responsible for the following functionalities as shown in the flow-chart [Fig. \ref{fig:contracts}]:
+In the following sections we describe the architecture of the system and its building blocks. 
+\newline The Ants-Review Protocol is divided into different modules responsible for the following functionalities as shown in the flow-chart [Fig. \ref{fig:contracts}]:
 
 \begin{itemize}
 \item \emph{AntsReview}, which manages access management and the core system.
 \item \emph{Tokenomics}, which manages the incentivization mechanism of the system.
-\item \emph{Privacy}, which maintains the anonymity of the system via AZTEC Protocol.
+\item \emph{Privacy}, which maintains the pseudo-anonymity of the system via AZTEC Protocol.
 \end{itemize}
 
 \subsubsection{AntsReview}
-AntsReview is the core of the smart contracts written in Solidity \cite{Solidity}, an object-oriented programming language for writing smart contracts that run on the Ethereum Virtual Machine (EVM),  deployed on Ethereum Rinkeby's Testnet \cite{Rinkeby}.
-\newline It implements a bounty-like system where an issuer (author or editor) is asked a series of actions, to ensure transparency and consistency, regarding the AntReview that he/she is creating:
+AntsReview is the core of the smart contracts written in Solidity \cite{Solidity}, an object-oriented programming language for writing smart contracts that runs on the Ethereum Virtual Machine (EVM), deployed on Ethereum Rinkeby's Testnet \cite{Rinkeby}.
+\newline It implements a bounty-like system (AntReview) where an issuer (author or editor) is asked a series of actions to ensure transparency and consistency for the AntReview that he/she is creating:
 \begin{itemize}
   \item to upload the file containing the requirements of the peer-review and the paper into IPFS\cite{IPFS}.
   \item to specify a deadline in the form of a unix timestamp after which the fulfillment will no longer be accepted.
   \item to send the amount of ether for the reward.
 \end{itemize}
 
-AntsReviewRoles, to ensure integrity of the system, implements an access management, leveraging on 'AccessControl.sol' by OpenZeppelin Solidity Library \cite{OZ}, through the creation of the Issuer and Peer-Reviewer Roles.
-\newline It also integrates a circuit breaker design pattern via Pausable.sol by OpenZeppelin to allow the Pauser Role, that by default is the Owner of the smart contracts, to pause (or unpause) the functions in case of a security emergency, like an attack to the smart contracts.
-\newline In this way, only the Issuer can create a new AntReview.
-\newline Once created, an AntReview is available to be fulfilled by Peer-Reviewers, uploading the peer-review on IPFS before the deadline.
-\newline The AntReview after being accepted by the Issuer is then paid between Peer-Reviewers.
-\newline Also, the Issuer can cancel the AntReview at any time and withdraw the amount of ether staked.
-\newline One of the key aspects of the protocol is the concept of Proof of Existence, introduced by Stuart Haber \& W. Scott Stornetta with the paper "How to time-stamp a digital document"\cite{TimeStamp-Haber}
-\newline As the pioneers of blockchain an cited by Bitcoin whitepaper, they were in a mission to solve the problem of immutability of digital records that became reality with the Blockchain and Bitcoin \cite{Bitcoin} as its first application.
-\newline In Ethereum \cite{Ethereum} the concept of immutability is achieved via the blockchain and the proof of work consensus algorithm by a chain of timestamped block merkle tree root hashes that are secured by miners competing computations.
-\newline AntsReview is considering the advantages of storing the hashes of the peer-reviews into a Merkle Tree \cite{BayerHaber1992} to achieve immutability and efficiency in verifying the data with a complexity of O(logn) for searching through the tree.
-\newline A Merkle tree is a particular type of binary tree, formed by a set of nodes with a large set of leaf nodes at the bottom of the tree representing the hash of the original data, a set of intermediate nodes where each node is the sum of the two children hashes, ending with a single root hash.
-\newline In order to verify if a specific hash is included into a Merkle Tree, leveraging on MerkleProof.sol by OpenZeppelin Library, we need to provide a proof, generated from the leaf of interest, that represent the ramification derived from the leaf, the root hash and finally the leaf we want to verify.
+AntsReviewRoles, to ensure integrity of the system, implements an access management, leveraging on \emph{AccessControl.sol} by OpenZeppelin Solidity Library \cite{OZ}, through the creation of the Issuer and Peer-Reviewer Roles.
+\newline It also integrates a circuit breaker design pattern via \emph{Pausable.sol} by OpenZeppelin to allow the Pauser Role, that by default is the Owner of the smart contracts, able to pause (or unpause) the functions in case of a security emergency, like an attack to the smart contracts. In this way, only the Issuer can create a new AntReview.
+\newline Once created, an AntReview is available to be fulfilled by Peer-Reviewers, uploading the peer-review on IPFS before the deadline.When the AntReview is accepted by the Issuer, the bounty is paid among Peer-Reviewers.On top of that, the Issuer can cancel the AntReview at any time and withdraw the amount of ether staked.
+\newline One of the key aspects of the protocol is the concept of Proof of Existence, introduced by Stuart Haber \& W. Scott Stornetta \cite{TimeStamp-Haber}. Pioneers of the blockchain, cited by the Bitcoin whitepaper\cite{Bitcoin}, they were on a mission to solve the problem of immutability of digital records that became reality with the Blockchain and Bitcoin as its first application. In Ethereum \cite{Ethereum} the concept of immutability is achieved via the blockchain and the proof of work consensus algorithm by a chain of timestamped block merkle tree root hashes that are secured by miners competing computations.
+\newline Ants-Review exploits the advantages of storing the hashes of the peer-reviews into a Merkle Tree \cite{BayerHaber1992} to achieve immutability and efficiency in verifying the data with a complexity of O(logn) for searching through the tree.
+\newline A Merkle tree is a particular type of binary tree, formed by a set of nodes with a large set of leaf nodes at the bottom of the tree representing the hash of the original data, a set of intermediate nodes where each node is the sum of the two children hashes, ending with a single root hash. In order to verify if a specific hash is included into a Merkle Tree by leveraging on \emph{MerkleProof.sol} (OpenZeppelin Library), we need to provide a proof, generated from the leaf of interest, that represents the ramification derived from the leaf, the root hash and, finally, the leaf we want to verify.
 \newline The paper and peer-review documents will be included into a Merkle Tree by hashing the data using keccak256, a cryptographic hashing algorithm available in Solidity.
 
 \subsubsection{Tokenomics}
 AntsReview integrates few tokens, each of which plays an integral role in the functioning and anonymity of the decentralized protocol.
 \newline Ant, is the primary protocol token and can be staked into an AntReview.
-\newline Ant [\ref{lst:code}] is implemented inheriting 'ERC20PresetMinterPauser.sol' from OpenZeppelin Library with name \emph{Ant} and symbol \emph{ANT}.
-\newline An AntReview, issued by an author will be seen as a poll, a container where Anters (members of the Ants-Review Community) can stake ether or ERC20 tokens from DeFi services including Dai \cite{Dai}, Chai \cite{Chai}, ... with the possibility to accrue interest for the duration of an AntReview (1 year on average), via MakerDAO DSR (Dai Saving Rate) \cite{DSR} or Compound \cite{Compound} to cite a few.
+\newline Ant [see \ref{lst:code}] is implemented by inheriting \emph{ERC20PresetMinterPauser.sol} from OpenZeppelin Library with name \emph{Ant} and symbol \emph{ANT}.
 
 \begin{lstlisting}[caption={Ant.sol},label={lst:code},language=Solidity]
 /// SPDX-License-Identifier: GPL-3.0
 pragma solidity 0.6.8;
 
-///@title AntsReview
+///@title Ants-Review
 ///@author Nazzareno Massari
 ///@notice Ant ERC20 Token
-///@dev All function calls are currently implemented without side effecs through TDD approach
+///@dev All function calls are currently implemented without side effects through TDD approach
 ///@dev OpenZeppelin library is used for secure contract development
 
 import "@openzeppelin/contracts/presets/ERC20PresetMinterPauser.sol";
@@ -191,25 +182,25 @@ contract Ant is ERC20PresetMinterPauser {
 }
 \end{lstlisting}
 
-
 \subsubsection{Privacy}
-The Anonymity of an agent in the system is achieved in two ways:
+The anonymity of an agent in the system is achieved in two ways:
 
 \begin{itemize}
-  \item PseudoAnonimity granted by an Ethereum's Externally Owned Accounts (EOA) address that can pseudo-obscure the identity of the agent.
-  \item Private Transactions allowed by AZTEC Protocol security layer via zkAnt. Future developments will allow to leverage on PLONK\cite{PLONK} Proofs to reduce gas costs and improve scalability.
+  \item via pseudo-anonimity granted through Ethereum's Externally Owned Accounts (EOA) addresses that can pseudo-obscure the identity of the agent.
+  \item via private transactions allowed by AZTEC Protocol security layer via zkAnt. Future developments will allow to leverage on PLONK\cite{PLONK}proofs, a universal ZK-SNARK construction, to reduce gas costs and improve scalability.
 \end{itemize}
 
- Externally Owned Accounts (EOA) in Ethereum are controlled by private keys, are 20 bytes long and have no code. An user can send messages from an externally owned account by creating and signing a transaction.
-\newline The limitation of such solution regarding the privacy of the protocol is due to the fact that blockchain and transactions are public so anyone can see the details of a transaction, browsing a block explorer like Etherscan, and also they're subjected to data mining to extract value and identify users in the blockchain.
-\newline To avoid that, AntsReview will implement zkAnt, an Ant token wrapped into AZTEC Protocol, where leveraging on zkSNARKS, and PLONK in the future, will allow private transactions in the system to maintain the privacy and anonimity of Peer-Reviewers.
+ Externally Owned Accounts (EOA) in Ethereum are controlled by private keys, are 20 bytes long and have no code. An user can send messages from an externally owned account by creating and signing a transaction. The limitation of this type of solution concerning the protocol's privacy is due to the fact that blockchain and transactions are public, therefore the details of transactions are visible to anyone by browsing a block explorer (like Etherscan), and are subjected to data mining that could extract value and identify users in the blockchain.
+\newline To avoid that, Ants-Review will implement zkAnt, an Ant token wrapped into AZTEC Protocol. In the future zkAnt could leverage on zkSNARKS and PLONK, allowing private transactions in the system to maintain the privacy and anonymity of Peer-Reviewers.
 \newline The AZTEC Protocol was conceived to enable privacy on public blockchains. It uses a series of zero-knowledge proofs (ZK-SNARKs) and homomorphic encryption to validate encrypted transactions.
 \newline ZK-SNARKs (Zero-Knowledge Succinct Non-Interactive Argument of Knowledge) \cite{ZKSNARKs} refers to a proof construction where one can prove possession of certain information, like a secret key, without revealing that information, and without any interaction between prover and verifier.
 \newline Zero-Knowledge \cite{ZeroKnoledge} proof is a mathematical cryptographic method that through value permutations allow one party (the prover) to prove to another (the verifier) the validity of a statement, without revealing the statement itself.
 \newline Future developments will investigate viable solutions, for scaling the system, like ZK-Rollups by AZTEC Protocol, one of the options being developed for a type of layer 2 construction that runs on top of Ethereum to improve scalability. This will enable to run smart contracts at scale with quasi-instant transactions while still being secured by Ethereum.
 
 \section{Discussions}
+In this session we discuss future developments not yet implemented and implications of AntsReview.
 \subsection{Possible developments}
+An AntReview, issued by an author would be seen as a poll, a container where Anters (members of the Ants-Review Community) can stake ether or ERC20 tokens from DeFi services including Dai \cite{Dai}, Chai \cite{Chai}, ... with the possibility to accrue interest for the duration of an AntReview (1 year on average), via MakerDAO DSR (Dai Saving Rate) \cite{DSR} or Compound \cite{Compound} to cite a few.
  An AntsReview DAO could be formed in the future to allow Ant stakers the ability to participates in a Decentralized Autonomous Organization which will be used to govern important aspects of the decentralized protocol, from smart contracts upgrades to more minor changes in settings across the protocol.
 \newline Hive. When Anters make a deposit into an AntReview, they will instantly receive the Hive token which represents their deposit and the accrued interest it gains over time in the AntReview.
 \newline This token doesn't need to be locked in the network and it can be traded, sold, or held as the Anter desires.
@@ -217,17 +208,18 @@ The Anonymity of an agent in the system is achieved in two ways:
 \newline Ideally, but is still under investigation, after the deadline of the AntReview is reached, the Hive token will be burned for Ant and wrapped into zkAnt to promote anonymity and sent between the peer-reviewers that fulfilled the AntReview.
 \newline zkAnt, is an Ant token wrapped into AZTEC Protocol \cite{AZTEC} ZK-SNARKs, that will be extended to PLONK \cite{PLONK} Proof to collapse the gas costs of private transactions on mainnet.
 \newline zkAnt will be implemented via AZTEC 2.0 (still in development) that will allow to securely wrap the Ant Token into zkAnt, allowing private transactions on mainnet and preserving the anonymity of Peer Reviewers.
-\newline Finally, another concept under investigation is Quadratic Funding \cite{LiberalRadicalism}, used by Gitcoin \cite{Gitcoin} to match donations for Grants. This will allow to incentive prolific Peer-Reviewers and improve the stability of the system together with ideally a reward system to rank best Peer-Reviewers.
+\newline Finally, another concept under investigation is Quadratic Funding \cite{LiberalRadicalism}, used by Gitcoin \cite{Gitcoin} to match donations for Grants. This will allow to incentivise prolific Peer-Reviewers and improve the stability of the system together with ideally a reward system to rank the best Peer-Reviewers.
+
+\subsection{Criticism}
+Some criticism towards giving a monetary reward to reviewers tackle the fact that an extrinsic motivation (such as a token system) might decrease the intrinsic motivation that drives researchers to perform scientific contributions. Some experimental studies seem indeed to suggest that reviewers are more interested in reputational forms of recognition \cite{Warne-RewRev}. However, we think that engaging the whole community towards the peer-review process and rewarding each actor in it could diminish these effects.
 
 \subsection{A new community-driven standard?}
-A change is already happening in the publishing industry specially with new born publishers are opening up the review process (BioMed Central, ELife, Frontiers, PeerJ, F1000 Research). If also pre-print platforms integrate peer-review into their platforms, the dissociation of initial scientific dissemination and scientific validation will force publishing industry to adapt: how will they justify their added value?\cite{Tennant2017-F1000R}.
-We foresee that the future will evolve towards community-organized peer reviews: peer reviews will be more and more independent from publishers, researchers will be the ones seeking the papers to review with a reputation build within community and not journals.
-Peer reviews requires a standard: building smart-contracts for peer-reviews might set a first step in this direction and our work seems promising in this direction.
-Our protocol system is not the only one: other prototypes are proposing an endorsement system for peer-review based on token economics \cite{ScienceMiles,ResearchCoin,Sharples-Kudos,Pevo,I8X}. We hope that soon such systems will be running and the value of peer review as 'academic capital' recognized by research funders and hiring committees.
-
+A change is already happening in the publishing industry, especially with new born publishers opening up the review process (BioMed Central, ELife, Frontiers, PeerJ, F1000 Research). As Tennant points out \cite{Tennant2017-F1000R}, if also pre-print platforms integrate peer-review into their platforms, the dissociation of initial scientific dissemination and scientific validation will force publishing industry to adapt in order to justify their added value.
+In our proposal we posed two possible integrations for Ants-Review, a simpler one which maintains part of the journals' power in the peer-review evaluation and more complex one that completely decouples the peer-review process from the publishers giving it back to the scientific community and applying concepts from mechanism design. This second option, which requires further implementations, is the one we aim at. Indeed, we foresee that the future will evolve towards community-organized peer reviews: peer reviews will be more and more independent from publishers, and researchers will be the ones seeking the papers to review with a reputation build within community and not journals.
+Peer reviews requires a standard: building smart-contracts for peer-reviews might set a first step in this direction and our work seems promising. We hope that soon the value of peer review as 'academic capital' will be recognized by research funders and hiring committees.
 
 \section{Conclusion}
-In this paper we addressed a crucial problem within scholarly academic communication: the peer-review process. We shown how blockchain technology could provide an efficient and viable solution to open up possible directions for a paradigm shift in scientific communication. We proposed an incentive mechanism that could solve the problems of lack of acknowledgment and trust during peer-reviews. We exposed the architecture of our project for which we adopted cutting-edge tools from the open source blockchain ecosystem.
+In this paper we addressed a crucial problem within scholarly academic communication: the peer-review process. We've shown how blockchain technology could provide an efficient and viable solution to open up possible directions for a paradigm shift in scientific communication. We proposed an incentive mechanism that could solve the problems of lack of acknowledgment and trust during peer-reviews. We exposed the architecture of our project for which we adopted cutting-edge tools from the open source blockchain ecosystem.
 
 \subsubsection{Supplementary material}
 Source Code, DOI: 10.5281/ZENODO.3829162
