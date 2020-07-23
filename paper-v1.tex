@@ -7,8 +7,6 @@
 \usepackage{graphicx}
 \graphicspath{ {./img/} }
 
-\input{solidity-highlighting.tex}
-
 % copy the file from this repo
 % Used for displaying a sample figure. If possible, figure files should
 % be included in EPS format.
@@ -43,7 +41,7 @@ Independent Blockchain Engineer, London, UK \\
 \maketitle              % typeset the header of the contribution
 %
 \begin{abstract}
-Peer-review is a necessary and essential quality control step for scientific publications but lacks proper  incentives. Indeed, the process, which is very costly in terms of time and intellectual investment, not only is not remunerated by the journals but it is also not openly recognized by the academic community as a relevant scientific output for a researcher. Therefore, scientific dissemination is affected in the timeliness, quality and fairness. Here, to solve this issue, we propose a blockchain-based incentive system that rewards scientists for peer-reviewing other scientists’ work and that builds up a reputational metric. We designed a protocol of smart contracts called Ants-Review that allows authors or editors to issue a bounty call for peer-reviewing pseudo-anonymously but in an open report a scientific manuscript. If requirements are met, peer-reviews will be accepted and payed by the Issuer proportionally to their quality and  constructiveness, judged by the editor or the community via Quadratic Voting (QV). To promote ethical behaviour and inclusiveness the system could implement a gamified mechanism that allows the whole community to evaluate the peer-reviews, vote for the best ones and share the incentives with the referees. 
+Peer-review is a necessary and essential quality control step for scientific publications but lacks proper  incentives. Indeed, the process, which is very costly in terms of time and intellectual investment, not only is not remunerated by the journals but it is also not openly recognized by the academic community as a relevant scientific output for a researcher. Therefore, scientific dissemination is affected in the timeliness, quality and fairness. Here, to solve this issue, we propose a blockchain-based incentive system that rewards scientists for peer-reviewing other scientists’ work and that builds up a reputational metric. We designed a protocol of smart contracts called Ants-Review that allows authors or editors to issue a bounty call for peer-reviewing pseudo-anonymously but in an open report a scientific manuscript. If requirements are met, peer-reviews will be accepted and payed by the Issuer proportionally to their quality and  constructiveness, judged by the editor or the community via Quadratic Voting (QV). To promote ethical behaviour and inclusiveness the system could implement a gamified mechanism that allows the whole community to evaluate the peer-reviews, vote for the best ones and share the incentives with the referees.
 \keywords{Blockchain  \and Open Science \and Peer-review \and Incentivization.}
 \end{abstract}
 %
@@ -51,7 +49,7 @@ Peer-review is a necessary and essential quality control step for scientific pub
 \section{Introduction}
 From its birth in 2008 as a distributed ledger for the peer-to-peer electronic cash system Bitcoin \cite{Bitcoin}, blockchain technologies (BCTs) have spread far beyond the sole cryptocurrency domain, in particular after the implementation of a general purpose smart contract functionality introduced by Ethereum \cite{Ethereum}.
 Besides a growing number of applications ranging from business, healthcare, music industry, government, identity to cite but a few, blockchain technology has recently started to catalyse the attention of the scientific community as well \cite{Bitcoin-Nature-focus,vanRossum2017-DigSci} with the promising potential of being a 'game changer' in outdated and broken scientific practices and leading towards Open Science \cite{AES}. In particular, a 'blockchainified science'\cite{BlockchainforScience} could 'reduce waste'\cite{ReducingWaste-Lancet}, by disclosing each step the research cycle to 'scientific self-correction' way before the final publication step and therefore help fixing the current reproducibility crisis in science. Finally, scholars have pointed out how the intrinsic characteristics of blockchain technology (decentralization, for which there are no trusted third parties; cryptographic hashing and timestamping, that create a digital footprint able to keep a traceable chronological record of research objects; immutability or append-only, for which data cannot be altered or retrieved) set the basis for a open science infrastructure \cite{ReviewBlockchain2019} where decisional processes are transparent and therefore more democratically accessible to all the stakeholders (researchers, reviewers, funders, taxpayers).
-\newline A thorny issue in the academic system that can and should be tackled by blockchain concerns the status and accreditation of peer-review, the core process of scientific validation currently facing a crisis \cite{Gropp-PeerRevStress}. 
+\newline A thorny issue in the academic system that can and should be tackled by blockchain concerns the status and accreditation of peer-review, the core process of scientific validation currently facing a crisis \cite{Gropp-PeerRevStress}.
 In this paper we propose a solution to the problem of reviewers recognition based on the principles of token economy and in line with the values of Open Science.
 \newline The paper is structured as follows. Sections 2 presents research background and related work. Section 3 explains the proposed protocol on the Ethereum blockchain illustrating the system architecture and the current status of implementation. In Sect. 4 we discuss the implication of our work. Section 5 contains the conclusions.
 
@@ -62,7 +60,7 @@ Peer review is still the only quality control mechanism devoted to evaluate scie
 \paragraph{Lack of recognition.} Peer-reviewing is an invisible activity purely conducted on voluntary basis, neither paid by the journals or officially credited via standard scientific metrics (such as the ones that establish the 'impact factor' of an author). Thus, it does not lead to advancements in career or help securing grants. Researchers are motivated in doing peer-review for a sense of belonging and a desire to 'give back' to the community. A major consequence of not promoting incentives for the quality (and quantity) of peer-reviews is to either slow down publication of potentially good research which awaits for validation or let bad science being published through sloppy and uncritical reviews.
 \paragraph{Fraud and misconduct.} Due to the 'publish or perish culture' pressures, unethical behaviour from reviewers has been occasionally reported, from abusive behaviour towards authors \cite{Smith2006,tragedy-reviewers} to identity fraud. Some studies have reported an improvement in the transparency and 'civility; of the review process when open reports are released according to the standards of open peer review.
 \paragraph{Social and cognitive biases.} Given the fact that anonymity is usually asymmetrically applied only for reviewers, many power related dynamics can influence the reviewers decision, such as gender or cultural discrimination, social prestige of the institution. To solve this problem some journals have implemented double-blind review process (identity of both authors and reviewers are masked) which seems to reduce the bias towards minorities.
-\paragraph{Peer reviews need to be...reviewed.} There is high variability in the reliability and depth of reviews and a recurrent question is: "Who watches the watchers?". 
+\paragraph{Peer reviews need to be...reviewed.} There is high variability in the reliability and depth of reviews and a recurrent question is: "Who watches the watchers?".
 \paragraph{Need for more reviewers.} There is a disproportion between the progressive increase in journals publications and the number of experienced reviewers selected for the task which demands an expansion of the reviewer's pool including early career scientists. \cite{tragedy-reviewers}.
 
 \subsection{Related work} Some mild attempts to credit peer review has been handled without much success by journals via attribution of virtual 'badges', certificates of performance, citation in annual editorials.
@@ -70,15 +68,15 @@ Peer review is still the only quality control mechanism devoted to evaluate scie
 
 \section{System concept}
 In this paper we propose Ants-Review, a new incentivisation mechanism built on a distributed platform that issues open peer-reviews to validate scientific papers while preserving the anonymity of its contributors. We imagine a final paper originating from the peer-review process as a complex system that emerges from the interactions between the authors and the reviewers, a whole that is more than the sum of its parts. Therefore, the name evokes an ant colony as a self-organising organism in which all micro-contributions of the individuals emerge into complex behaviour.
-\newline A previous version of this paper can be found here \cite{AntsReview}. 
+\newline A previous version of this paper can be found here \cite{AntsReview}.
 \newline Its design and implementation are exposed in the following section.
 
 \subsection{Design}
 
 Here we describe the main features of Ants-Review.
-\paragraph{Incentivisation and recognition.} A typical business model for open source software (OSS) movement is open-source bounty. Bounties are a prize or monetary reward given for completing a task before a deadline \cite{BountyGit}. Examples of such platforms that allow funders (bounty backers) to pay developers (bounty hunters) for open source contributions are Gitcoin \cite{Gitcoin} and The Bounties Network \cite{Bounty}. Incentives can be cryptographic tokens, unit of values registered on a blockchain network and that represent the quantity and quality of a service within a network. 
-\newline In the network of the scientific community reviewers provide a service and those who consume it (authors, journals)  should be able to retribute with tokens, an internal cryptocurrency that can be spent externally. The amount of tokens reflects material and symbolic recognition of the performed work that can be statistically quantified for author-level metrics measuring the productivity and impact of a researcher. 
-Thus, the system acts also as a reputation builder. 
+\paragraph{Incentivisation and recognition.} A typical business model for open source software (OSS) movement is open-source bounty. Bounties are a prize or monetary reward given for completing a task before a deadline \cite{BountyGit}. Examples of such platforms that allow funders (bounty backers) to pay developers (bounty hunters) for open source contributions are Gitcoin \cite{Gitcoin} and The Bounties Network \cite{Bounty}. Incentives can be cryptographic tokens, unit of values registered on a blockchain network and that represent the quantity and quality of a service within a network.
+\newline In the network of the scientific community reviewers provide a service and those who consume it (authors, journals)  should be able to retribute with tokens, an internal cryptocurrency that can be spent externally. The amount of tokens reflects material and symbolic recognition of the performed work that can be statistically quantified for author-level metrics measuring the productivity and impact of a researcher.
+Thus, the system acts also as a reputation builder.
 \newline Moreover, to encourage commitment, reviewers who contribute consistently to multiple rounds of reviews exchange to the same manuscript can have their tokens accrue interest over time (see Implementation).
 
 \paragraph{Transparency and re-usability of the records.} The peer-review history, including authors' replies and editors' recommendations, should be openly and permanently accessible to the community ('open report' of open peer-reviews) even before articles' publication in order to  make editorial decisions more democratic and prevent waste of knowledge. Following the example of models offered by journals peer-review consortia, such as the Neuroscience Peer Review Consortium \cite{NeuroPeerCons} and independent companies like ResearchSquare \cite{ResSqu} and Peerage of Science \cite{Peerage}, peer-reviews in Ants-Review will be transferable ('cascading' or 'portable peer-reviews').
@@ -105,7 +103,7 @@ There are two possible scenarios depending if Ants-Review integrates an existing
 \label{fig:contracts}
 \end{figure}
 
-In the following sections we describe the architecture of the system and its building blocks. 
+In the following sections we describe the architecture of the system and its building blocks.
 \newline The Ants-Review Protocol is divided into different modules responsible for the following functionalities as shown in the flow-chart [Fig. \ref{fig:contracts}]:
 
 \begin{itemize}
@@ -134,32 +132,7 @@ AntsReviewRoles, to ensure integrity of the system, implements an access managem
 \subsubsection{Tokenomics}
 AntsReview integrates few tokens, each of which plays an integral role in the functioning and anonymity of the decentralized protocol.
 \newline ANTS, is the primary protocol token and can be staked into an AntReview.
-\newline ANTS [see \ref{lst:code}] is implemented by inheriting \emph{ERC20PresetMinterPauser.sol} from OpenZeppelin Library with name \emph{Ants-Review} and symbol \emph{ANTS}.
-
-\begin{lstlisting}[caption={ANTS.sol},label={lst:code},language=Solidity]
-/// SPDX-License-Identifier: GPL-3.0
-pragma solidity 0.6.8;
-
-///@title Ants-Review
-///@author Nazzareno Massari
-///@notice Ants-Review ERC20 Token
-///@dev All function calls are currently implemented without side effects through TDD approach
-///@dev OpenZeppelin library is used for secure contract development
-
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/presets/ERC20PresetMinterPauser.sol";
-
-
-contract ANTS is Ownable, ERC20PresetMinterPauser {
-
-  constructor()
-  ERC20PresetMinterPauser("Ants-Review", "ANTS")
-  public {
-
-  }
-
-}
-\end{lstlisting}
+\newline ANTS is implemented by inheriting \emph{ERC20PresetMinterPauser.sol} from OpenZeppelin Library with name \emph{Ants-Review} and symbol \emph{ANTS}.
 
 \subsubsection{Privacy}
 The anonymity of an agent in the system is achieved in two ways:
