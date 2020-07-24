@@ -105,9 +105,10 @@ There are two possible scenarios depending if Ants-Review integrates an existing
 \small
 \textbf{AntsReview} is the core contract of the protocol, it implements a bounty system with the functions listed.
 \textbf{AntsReviewRoles} is the module inherited by AntsReview, that manages the access control of the protocol, adding and removing issuers and peer-reviewers.
-\textbf{ANTS} is the native token used in the protocol that inherits the \textbf{ERC20PresetMinterPauser} contract from OpenZeppelin, it is linked to AntsReview and to AZTEC Protocol to be wrapped into \emph{zkANTS} to implement private \emph{ANTS} transactions on Ethereum.
+\textbf{ANTS} is the native token used in the protocol that inherits the \textbf{ERC20PresetMinterPauser} contract from OpenZeppelin. It's linked to AntsReview and to AZTEC Protocol to be wrapped into \emph{zkANTS} to implement private \emph{ANTS} transactions on Ethereum.
 \textbf{IPFS} represents the integration with IPFS to upload the paper, requirements and peer-reviews and store the hash as \emph{proof of existence} into AntsReview.
-\textbf{De-Fi} represents the integration with De-Fi services like \emph{Dai} and \emph{Chai}, to be used as token in the protocol. (\textbf{OpenZeppelin}) is the library used by the protocol for secure contract development, with the modules listed.
+\textbf{De-Fi} represents the integration with De-Fi services like \emph{Dai} and \emph{Chai}, to be used as tokens in the protocol.
+\textbf{OpenZeppelin} is the library used by the protocol for secure contract development, with the modules listed.
 \end{figure}
 
 In the following sections we describe the architecture of the system and its building blocks.
