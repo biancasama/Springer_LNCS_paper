@@ -119,7 +119,7 @@ In the following sections we describe the architecture of the system and its bui
 
 \subsubsection{AntsReview}
 AntsReview (See Figure \ref{fig:contracts}) is the core of the smart contracts written in Solidity \cite{Solidity}, an object-oriented programming language for writing smart contracts that runs on the Ethereum Virtual Machine (EVM), deployed on Ethereum Rinkeby's Testnet \cite{Rinkeby}.
-\newline It implements a bounty-like system (AntReview) where Alice (issuer, author or editor) can issue an AntReview with the function \emph{issueAntReview()}, where is asked a series of actions to ensure transparency and consistency for the AntReview that she is creating:
+\newline It implements a bounty-like system where Alice (issuer, author or editor) can issue an AntReview with the function \emph{issueAntReview()}, where is asked a series of actions to ensure transparency and consistency for the AntReview that she is creating:
 \begin{itemize}
   \item to upload the file containing the requirements of the peer-review and the paper into IPFS\cite{IPFS}, a peer-to-peer hypermedia protocol for storing data in a distributed file system, and specify the IPFS Hash to be stored in the Ethereum Blockchain as \emph{proof of existence}, a notarization process by wich a document hash is timestamped into the block of Ethereum where the transaction take place, that allow manual verification of the existence of the document.
   \item to specify a deadline in the form of a unix timestamp after which the fulfillment will no longer be accepted.
