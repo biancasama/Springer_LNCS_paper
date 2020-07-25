@@ -123,7 +123,7 @@ AntsReview (See Figure \ref{fig:contracts}) is the core of the smart contracts w
 \begin{itemize}
   \item to upload the file containing the requirements of the peer-review and the paper into IPFS\cite{IPFS}, a peer-to-peer hypermedia protocol for storing data in a distributed file system over the internet, and specify the IPFS Hash to be stored in the Ethereum Blockchain as \emph{proof of existence}, a notarization process by wich a document hash is timestamped into the block of Ethereum where the transaction take place, that allow manual verification of the existence of the document.
   \item to specify a deadline in the form of a unix timestamp after which the fulfillment will no longer be accepted.
-  \item to specify the amount of Ether for the reward, to be stored in the contract balance.
+  \item to specify the amount of Ether for the reward, to be trasfered from Alice to the contract.
 \end{itemize}
 
 \newline Bob (peer-reviewer) after downloading the file with Alice's paper and requirements, leveraging on the content-addressing feature of IPFS that allows anyone to find the document using an IPFS explorer, can submit a peer-review, before the deadline, by fulfilling the AntReview created by Alice, with the function \emph{fulfillAntReview()}, specifying the AntReview Identifier as well as the IPFS Hash of the peer-review uploaded on IPFS.
@@ -135,7 +135,7 @@ AntsReviewRoles, to ensure integrity of the system, implements an access managem
 \newline One of the key aspects of the protocol is the concept of Proof of Existence, introduced by Stuart Haber \& W. Scott Stornetta \cite{TimeStamp-Haber}. Pioneers of the blockchain, cited by the Bitcoin whitepaper\cite{Bitcoin}, they were on a mission to solve the problem of immutability of digital records that became reality with the Blockchain and Bitcoin as its first application. In Ethereum \cite{Ethereum} the concept of immutability is achieved via the blockchain and the proof of work consensus algorithm by a chain of timestamped block merkle tree root hashes that are secured by miners competing computations.
 \newline Ants-Review is evaluating the advantages of storing the hashes of the peer-reviews into a Merkle Tree \cite{BayerHaber1992} to achieve immutability and efficiency in verifying the data with a complexity of O(logn) for searching through the tree.
 \newline A Merkle tree is a particular type of binary tree, formed by a set of nodes with a large set of leaf nodes at the bottom of the tree representing the hash of the original data, a set of intermediate nodes where each node is the sum of the two children hashes, ending with a single root hash. In order to verify if a specific hash is included into a Merkle Tree by leveraging on \emph{MerkleProof.sol} (OpenZeppelin Library), we need to provide a proof, generated from the leaf of interest, that represents the ramification derived from the leaf, the root hash and, finally, the leaf we want to verify.
-\newline The paper and peer-review documents will be included into a Merkle Tree by hashing the data using keccak256, a cryptographic hashing algorithm available in Solidity.
+\newline The paper and peer-review documents will be included into a Merkle Tree by hashing the data using \emph{keccak256}, a cryptographic hashing algorithm available in Solidity.
 
 \subsubsection{Tokenomics}
 AntsReview integrates few tokens, each of which plays an integral role in the functioning and anonymity of the decentralized protocol.
