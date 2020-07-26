@@ -105,21 +105,21 @@ In the following sections we describe the architecture of the system and its bui
 
 \begin{itemize}
 \item \emph{AntsReview}, which manages access management and the core system.
-\item \emph{Tokenomics}, which manages the incentivization mechanism of the system.
+\item \emph{Tokenomics}, which manages the incentive mechanism of the system.
 \item \emph{Privacy}, which maintains the pseudo-anonymity of the system via AZTEC Protocol.
 \end{itemize}
 
 \subsubsection{AntsReview}
-AntsReview (See Figure \ref{fig:contracts}) is the core of the smart contracts written in \emph{Solidity}\footnote[6]{\emph{Solidity}.\textsc{URL:}https://solidity.readthedocs.io.}, an object-oriented programming language for writing smart contracts that runs on the Ethereum Virtual Machine, deployed on Ethereum Rinkeby's Testnet\footnote[7]{\emph{Rinkeby Testnet}.\textsc{URL:}https://rinkeby.etherscan.io.}. It implements a bounty-like system where Alice (issuer, author or editor) can issue an AntReview with the function \emph{issueAntReview()}, where is asked a series of actions to ensure transparency and consistency for the AntReview that she is creating:
+AntsReview (See Figure \ref{fig:contracts}) is the core of the smart contracts written in \emph{Solidity}\footnote[6]{\emph{Solidity}.\textsc{URL:}https://solidity.readthedocs.io.}, an object-oriented programming language for writing smart contracts that runs on the Ethereum Virtual Machine, deployed on Ethereum Rinkeby's Testnet\footnote[7]{\emph{Rinkeby Testnet}.\textsc{URL:}https://rinkeby.etherscan.io.}. It implements a bounty-like system where Alice (issuer) can issue an AntReview with the function \emph{issueAntReview()}, where is asked a series of actions to ensure transparency and consistency for the AntReview that she is creating:
 \begin{itemize}
   \item to upload the file containing the requirements of the peer-review and the paper into IPFS\cite{IPFS}, a peer-to-peer hypermedia protocol for storing data in a distributed file system over the internet, and specify the IPFS Hash to be stored in the Ethereum Blockchain as \emph{proof of existence}, a notarization process by wich a document hash is timestamped into the block of Ethereum where the transaction take place, that allow manual verification of the existence of the document.
   \item to specify a deadline in the form of a unix timestamp after which the fulfillment will no longer be accepted.
   \item to specify the amount of Ether for the reward that will be transfered from Alice to the contract.
 \end{itemize}
 
-\newline Bob (peer-reviewer) after downloading the file with Alice's paper and requirements, by leveraging on the content-addressing feature of IPFS that allows anyone to find the document using an IPFS explorer, can submit a peer-review, before the deadline, by fulfilling the AntReview created by Alice, with the function \emph{fulfillAntReview()}, specifying the AntReview Identifier as well as the IPFS Hash of the peer-review uploaded on IPFS.
-\newline Alice can accept the peer-review submitted by Bob with the function \emph{acceptAntReview()}, specifying the AntReview Identifier as well as the peer-review identifier, that will transfer the reward specified for the AntReview from the contract to Bob.
-\newline If Alice doen't receive any peer-review, she can cancel the AntReview with the function \emph{cancelAntReview()}, specifying the AntReview Identifier, and the contract will transfer the reward for the AntReview back to Alice.
+Bob (peer-reviewer) after downloading the file with Alice's paper and requirements, by leveraging on the content-addressing feature of IPFS that allows anyone to find the document using an IPFS explorer, can submit a peer-review, before the deadline, by fulfilling the AntReview created by Alice, with the function \emph{fulfillAntReview()}, specifying the AntReview Identifier as well as the IPFS Hash of the peer-review uploaded on IPFS.
+Alice can accept the peer-review submitted by Bob with the function \emph{acceptAntReview()}, specifying the AntReview Identifier as well as the peer-review identifier, that will transfer the reward specified for the AntReview from the contract to Bob.
+If Alice doen't receive any peer-review, she can cancel the AntReview with the function \emph{cancelAntReview()}, specifying the AntReview Identifier, and the contract will transfer the reward for the AntReview back to Alice.
 
 AntsReviewRoles, to ensure integrity of the system, implements an access management, leveraging on \emph{AccessControl.sol} by OpenZeppelin Solidity Library\footnote[8]{\emph{OpenZeppelin Library}.\textsc{URL:}https://openzeppelin.com.}, through the creation of the Issuer and Peer-Reviewer Roles.
 \newline It also integrates a circuit breaker design pattern via \emph{Pausable.sol} by OpenZeppelin to allow the Pauser Role, that by default is the Owner of the smart contracts, able to pause (or unpause) the functions in case of a security emergency, such as an attack to the smart contracts. In this way, only the Issuer can create a new AntReview.
