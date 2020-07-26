@@ -130,7 +130,7 @@ Access management of the Ants-Review protocol is defined and controlled by AntsR
 
 \subsubsection{Tokenomics}
 AntsReview integrates a few \emph{ERC20}\footnote[9]{\emph{EIP 20}.\textsc{URL:}\url{https://eips.ethereum.org/EIPS/eip-20}.} tokens, each of which plays an integral role in the functioning and anonymity of the decentralized protocol.
-\newline ANTS (See Figure \ref{fig:contracts}\textbf{c}), is the primary protocol ERC20 token and can be staked into an AntReview.
+\newline ANTS (See Figure \ref{fig:contracts} \textbf{c}), is the primary protocol ERC20 token and can be staked into an AntReview.
 \newline ANTS is implemented by inheriting \emph{ERC20PresetMinterPauser.sol} from OpenZeppelin Library with name \emph{Ants-Review} and symbol \emph{ANTS}.
 \newline zkANTS (See Figure \ref{fig:contracts} \textbf{d}), is a wrapper of ANTS that will be used inside the protocol to allow private transactions among the agents, preserving their anonymity as well as the amount of the AntReview reward and the contributions by the Anters (members of Ants-Review Community).
 \newline zkANTS will be implemented via AZTEC Protocol \cite{AZTEC}, that uses a cryptographic engine \emph{ACE.sol}, a contract responsible for validating the set of AZTEC zero-knowledge proofs and performing any transfer instructions involving AZTEC notes, minted into a zkAsset, that can be converted into ERC20 tokens. In order to implement a zkAsset called zkANTS, \emph{zkAsset.sol}, a contract implementation of a confidential token, that follows the EIP-1724 standard \footnote[10]{\emph{EIP  1724}.\textsc{URL:}\url{https://github.com/ethereum/EIPs/issues/1724.}} will be used as template to build an AZTEC-compatible asset.
