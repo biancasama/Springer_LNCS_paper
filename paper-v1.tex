@@ -101,13 +101,13 @@ Thus, the system acts also as a reputation builder.
 \end{figure}
 
 In the following sections we describe the architecture of the system and its building blocks.
-\newline The Ants-Review Protocol is divided into different modules responsible for the following functionalities, as shown in the flow-chart (See Figure \ref{fig:contracts}):
-\emph{AntsReview}, which manages access management and the core system (See Figure \ref{fig:contracts} \textbf{a,b,f,h}).
-\emph{Tokenomics}, which manages the incentive mechanism of the system (See Figure \ref{fig:contracts} \textbf{c,d,e,h}).
-\emph{Privacy}, which maintains the anonymity of the system via AZTEC Protocol (See Figure \ref{fig:contracts} \textbf{d}).
+\newline The Ants-Review Protocol is divided into different modules responsible for the following functionalities, as shown in the flow-chart (see Figure \ref{fig:contracts}):
+\emph{AntsReview}, which manages access management and the core system (see Figure \ref{fig:contracts}, a-b; f; h).
+\emph{Tokenomics}, which manages the incentive mechanism of the system (see Figure \ref{fig:contracts}, c-e; h}).
+\emph{Privacy}, which maintains the anonymity of the system via AZTEC Protocol (see Figure  \ref{fig:contracts}, d).
 
 \subsubsection{AntsReview}
-AntsReview (See Figure \ref{fig:contracts} \textbf{a}) is the core of the smart contracts written in \emph{Solidity}\footnote[6]{\emph{Solidity}.\textsc{URL:}https://solidity.readthedocs.io.}, an object-oriented programming language for writing smart contracts that runs on the Ethereum Virtual Machine, deployed on Ethereum Rinkeby's Testnet\footnote[7]{\emph{Rinkeby Testnet}.\textsc{URL:}https://rinkeby.etherscan.io.}. It implements a bounty-like system where Alice (issuer) can issue an AntReview with the function \emph{issueAntReview()}, where she have to complete a series of required tasks that are essential to creating a transparent and openly accessible AntReview:
+AntsReview (see Figure \ref{fig:contracts}a) is the core of the smart contracts written in \emph{Solidity}\footnote[6]{\emph{Solidity}.\textsc{URL:}https://solidity.readthedocs.io.}, an object-oriented programming language for writing smart contracts that runs on the Ethereum Virtual Machine, deployed on Ethereum Rinkeby's Testnet\footnote[7]{\emph{Rinkeby Testnet}.\textsc{URL:}https://rinkeby.etherscan.io.}. It implements a bounty-like system where Alice (issuer) can issue an AntReview with the function \emph{issueAntReview()}, where she have to complete a series of required tasks that are essential to creating a transparent and openly accessible AntReview:
  1. To upload the file containing the requirements of the peer-review and the paper into IPFS\cite{IPFS} and specify the IPFS Hash to be stored in the Ethereum Blockchain as \emph{proof of existence}, a notarization process by wich a document hash is timestamped into the block of Ethereum where the transaction take place, that allow manual verification of the existence of the document.
  2. To specify a deadline in the form of a unix timestamp after which the fulfillment will no longer be accepted.
  3. To specify the amount of Ether for the reward that will be transferred from Alice to the contract.
@@ -122,9 +122,9 @@ Access management of the Ants-Review protocol is defined and controlled by AntsR
 
 \subsubsection{Tokenomics}
 AntsReview integrates a few \emph{ERC20}\footnote[9]{\emph{EIP 20}.\textsc{URL:}\url{https://eips.ethereum.org/EIPS/eip-20}.} tokens, each of which plays an integral role in the functioning and anonymity of the decentralized protocol.
-\newline ANTS (See Figure \ref{fig:contracts} \textbf{c}), is the primary protocol ERC20 token and can be staked into an AntReview.
+\newline ANTS (see Figure \ref{fig:contracts}, c), is the primary protocol ERC20 token and can be staked into an AntReview.
 \newline ANTS is implemented by inheriting \emph{ERC20PresetMinterPauser.sol} from OpenZeppelin Library with name \emph{Ants-Review} and symbol \emph{ANTS}.
-\newline zkANTS (See Figure \ref{fig:contracts} \textbf{d}), is a wrapper of ANTS that will be used inside the protocol to allow private transactions among the agents, preserving their anonymity as well as the amount of the AntReview reward and the contributions by the Anters (members of Ants-Review Community).
+\newline zkANTS (see Figure \ref{fig:contracts}, d), is a wrapper of ANTS that will be used inside the protocol to allow private transactions among the agents, preserving their anonymity as well as the amount of the AntReview reward and the contributions by the Anters (members of Ants-Review Community).
 \newline zkANTS will be implemented via AZTEC Protocol \cite{AZTEC}, that uses a cryptographic engine \emph{ACE.sol}, a contract responsible for validating the set of AZTEC zero-knowledge proofs and performing any transfer instructions involving AZTEC notes, minted into a zkAsset, that can be converted into ERC20 tokens. In order to implement a zkAsset called zkANTS, \emph{zkAsset.sol}, a contract implementation of a confidential token, that follows the EIP-1724 standard \footnote[10]{\emph{EIP  1724}.\textsc{URL:}\url{https://github.com/ethereum/EIPs/issues/1724.}} will be used as template to build an AZTEC-compatible asset.
 \newline To optimize and scale transactions, AZTEC Protocol ZK-SNARKs, will be extended in the future to PLONK \cite{PLONK} to collapse the gas costs of private transactions.
 
