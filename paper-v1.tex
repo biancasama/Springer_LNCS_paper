@@ -23,8 +23,8 @@
 % If the paper title is too long for the running head, you can set
 % an abbreviated paper title here
 %
-\author{Bianca Trovò\inst{1,2}\orcidID{0000-0002-6776-2304}\thanks{Correspondent author: bianca.trovo@alumni.unitn.it} \and
-Nazzareno Massari\inst{3,4}\orcidID{0000-0002-6638-2174}}
+\author{Bianca Trovò\inst{1,2}\orcidID{0000-0002-6776-2304}\thanks{Corresponding author}\and
+Nazzareno Massari\inst{3,4}\orcidID{0000-0002-6638-2174}\thanks{Corresponding author}}
 %
 \authorrunning{B. Trovò et N. Massari}
 % First names are abbreviated in the running head.
@@ -41,17 +41,16 @@ Independent Blockchain Engineer, London, UK \\
 \maketitle              % typeset the header of the contribution
 %
 \begin{abstract}
-Peer-review is a necessary and essential quality control step for scientific publications but lacks proper  incentives. Indeed, the process, which is very costly in terms of time and intellectual investment, not only is not remunerated by the journals but it is also not openly recognized by the academic community as a relevant scientific output for a researcher. Therefore, scientific dissemination is affected in the timeliness, quality and fairness. Here, to solve this issue, we propose a blockchain-based incentive system that rewards scientists for peer-reviewing other scientists’ work and that builds up a reputational metric. We designed a protocol of smart contracts called Ants-Review that allows authors or editors to issue a bounty call for peer-reviewing pseudo-anonymously but in an open report a scientific manuscript. If requirements are met, peer-reviews will be accepted and payed by the Issuer proportionally to their quality and  constructiveness, judged by the editor or the community via Quadratic Voting (QV). To promote ethical behaviour and inclusiveness the system could implement a gamified mechanism that allows the whole community to evaluate the peer-reviews, vote for the best ones and share the incentives with the referees.
+Peer-review is a necessary and essential quality control step for scientific publications but lacks proper  incentives. Indeed, the process, which is very costly in terms of time and intellectual investment, not only is not remunerated by the journals but it is also not openly recognized by the academic community as a relevant scientific output for a researcher. Therefore, scientific dissemination is affected in the timeliness, quality and fairness. Here, to solve this issue, we propose a blockchain-based incentive system that rewards scientists for peer-reviewing other scientists’ work and that builds up a reputational metric. We designed a protocol of smart contracts called Ants-Review that allows authors or editors to issue a bounty for open anonymous peer-reviews. If requirements are met, peer-reviews will be accepted and payed by the issuer proportionally to their quality and  constructiveness. To promote ethical behaviour and inclusiveness the system could implement a gamified mechanism that allows the whole community to evaluate the peer-reviews, vote for the best ones and share the incentives with the referees.
 \keywords{Blockchain  \and Open Science \and Peer-review \and Incentivization.}
 \end{abstract}
 %
 %
 \section{Introduction}
 From its birth in 2008 as a distributed ledger for the peer-to-peer electronic cash system Bitcoin \cite{BitcoinSatoshi}, blockchain technologies (BCTs) have spread far beyond the sole cryptocurrency domain, in particular after the implementation of a general purpose smart contract functionality introduced by Ethereum \cite{Ethereum}.
-Besides a growing number of applications ranging from business, healthcare, music industry, government, identity to cite but a few, blockchain technology has recently started to catalyse the attention of the scientific community as well \cite{Bitcoin-Nature-focus,vanRossum2017-DigSci} with the promising potential of being a 'game changer' in outdated and broken scientific practices and leading towards Open Science \cite{AES}. Indeed, scholars have pointed out how the intrinsic characteristics of blockchain technology set the basis for a open science infrastructure \cite{ReviewBlockchain2019} where decisional processes are transparent and therefore more democratically accessible to all the stakeholders (researchers, reviewers, funders, taxpayers). Those are: \emph{decentralization}, for which there are no trusted third parties; \emph{cryptographic hashing} and \emph{timestamping}, that create a digital footprint able to keep a traceable chronological record of research objects; \emph{immutability} or \emph{append-only}, for which data cannot be altered or retrieved. In particular, a 'blockchainified science'\cite{BlockchainforScience} could 'reduce waste'\cite{ReducingWaste-Lancet}, by disclosing each step in the research cycle to 'scientific self-correction' way before the final publication step and therefore help fixing the current reproducibility crisis in science.
+Besides a growing number of applications ranging from business, healthcare, music industry, government, identity to cite but a few, blockchain technology has recently started to catalyse the attention of the scientific community as well \cite{Bitcoin-Nature-focus,vanRossum2017-DigSci} with the promising potential of being a 'game changer' in outdated and broken scientific practices and leading towards Open Science \cite{AES}. Indeed, scholars have pointed out how the intrinsic characteristics of blockchain technology set the basis for a open science infrastructure \cite{ReviewBlockchain2019} where decisional processes are transparent and therefore more democratically accessible to all the stakeholders (researchers, reviewers, funders, taxpayers). Those are: \emph{consensus algorithm}, a deterministic computational trust that allows \emph{decentralization}, for which there are no trusted third parties; \emph{cryptographic hashing} and \emph{timestamping}, that create a digital footprint able to keep a traceable chronological record of research objects; \emph{immutability} or \emph{append-only}, for which data cannot be altered or retrieved. In particular, a 'blockchainified science'\cite{BlockchainforScience} could 'reduce waste'\cite{ReducingWaste-Lancet}, by disclosing each step in the research cycle to 'scientific self-correction' way before the final publication step and therefore help fixing the current reproducibility crisis in science.
 \newline A thorny issue in the academic system that can and should be tackled by blockchain concerns the status and accreditation of peer-review, the core process of scientific validation currently facing a crisis \cite{Gropp-PeerRevStress}.
 In this paper we propose a solution to the problem of reviewers recognition based on the principles of token economy and in line with the values of Open Science.
-\newline The paper is structured as follows. Sections 2 presents research background and related work. Section 3 explains the proposed protocol on the Ethereum blockchain illustrating the system architecture and the current status of implementation. In Section 4 we discuss the implication of our work. Section 5 contains the conclusions.
 
 \section{Background}
 \subsection{Peer-review: present problems and mild solutions}
@@ -64,11 +63,11 @@ Peer review is still the only quality control mechanism devoted to evaluate scie
 \paragraph{Need for more reviewers.} There is a disproportion between the progressive increase in journals publications and the number of experienced reviewers selected for the task which demands an expansion of the reviewer's pool including early career scientists. \cite{tragedy-reviewers}.
 
 \subsection{Related work} Some mild attempts to credit peer review have been handled without much success by journals via attribution of virtual 'badges', certificates of performance, citation in annual editorials.
-\newline It's also worth mentioning \emph{Publons}\footnote[1]{\emph{Publons}.\textsc{URL:} https://publons.com/about/home.}, a service integrated with ORCID (researcher identifier) that provides peer-review metric; \emph{Peerage of Science}\footnote[2]{\emph{Peerage of Science}.\textsc{URL:} https://www.peerageofscience.org.} and \emph{ResearchSquare}\footnote[3]{\emph{ResearchSquare}.\textsc{URL:}https://www.researchsquare.com.}, a journal-independent free service for scientific peer review and publishing that provides also a peer-review of the reviews. Spearpoint\cite{ResearchCoin} proposes \emph{r-coin} (for ‘ReviewCoin’ or ‘ResearchCoin’), a cryptocurrency that researchers earn for undertaking peer-reviews and that can used to pay for publication fees. \emph{ScienceMiles} \cite{ScienceMiles} is a cryptocurrency for incentivizing peer-reviews through a blockchain-based platform and an open peer-review process. Avital \cite{AvitalToken} suggests a token-based peer-review payment system. \emph{INFINITCODEX (I8X)} \cite{I8X}, is a platform that promotes cooperative user behaviour through dynamic research papers that undergo  continuous peer review process. The system implements cryptoeconomical incentives for building reputation in the community of users. \newline Other proposals to improve the peer-review system have instead focused on features such as decentralization, security \cite{Pevo,CryptSubmit,MarsChain}.
+\newline It's also worth mentioning \emph{Publons}\footnote[1]{\emph{Publons}.\textsc{URL:} https://publons.com/about/home.}, a service integrated with ORCID (researcher identifier) that provides peer-review metric; \emph{Peerage of Science}\footnote[2]{\emph{Peerage of Science}.\textsc{URL:} https://www.peerageofscience.org.} and \emph{ResearchSquare}\footnote[3]{\emph{ResearchSquare}.\textsc{URL:}https://www.researchsquare.com.}, a journal-independent free service for scientific peer review and publishing that provides also a peer-review of the reviews. Spearpoint\cite{ResearchCoin} proposes \emph{r-coin} (for ‘ReviewCoin’ or ‘ResearchCoin’), a cryptocurrency that researchers earn for undertaking peer-reviews and that can used to pay for publication fees. \emph{ScienceMiles} \cite{ScienceMiles} is a cryptocurrency for incentivizing peer-reviews through a blockchain-based platform and an open peer-review process. Avital \cite{AvitalToken} suggests a token-based peer-review payment system. \emph{INFINITCODEX (I8X)} \cite{I8X}, is a platform that promotes cooperative user behaviour through dynamic research papers that undergo  continuous peer review process. The system implements cryptoeconomical incentives for building reputation in the community of users. \newline Other proposals to improve the peer-review system have instead focused on features such as decentralization \cite{DecentralSc2,DecentralSc1}, security \cite{Pevo,CryptSubmit,MarsChain}.
 
 \section{System concept}
 In this paper we propose Ants-Review, a new incentivisation mechanism built on a distributed platform that issues open peer-reviews to validate scientific papers while preserving the anonymity of its contributors. We imagine a final paper originating from the peer-review process as a complex system that emerges from the interactions between the authors and the reviewers, a whole that is more than the sum of its parts. Therefore, the name evokes an ant colony as a self-organising organism in which all micro-contributions of the individuals emerge into complex behaviour.
-\newline A previous version of this paper can be found here \cite{AntsReview}.
+\newline The original proposal behind this paper can be found here \cite{AntsReview}.
 \newline Its design and implementation are exposed in the following section.
 
 \subsection{Design}
@@ -91,13 +90,14 @@ Thus, the system acts also as a reputation builder.
 \begin{figure}
 \centering
 \includegraphics[scale=0.28]{AntsReview}
+\small{
 \caption{Exagones represent the protocol's smart contracts. Ellipse represents the smart contract inherited by AntsReview. Clouds represent integrations into the protocol. Rectangles represent smart contracts' libraries.
 \textbf{a} Core contract of the protocol implementing a bounty system with the functions listed.
 \textbf{b} Module inherited by AntsReview: it manages the access control of the protocol by adding and removing issuers and peer-reviewers.
 \textbf{c} Native token used in the protocol that inherits the \textbf{d} contract from \emph{OpenZeppelin}. It is linked to (\textbf{a}) and to (\textbf{e}), wrapped into \emph{zkANTS} to implement private \emph{ANTS} transactions on Ethereum.
 \textbf{f} Integration with IPFS to upload papers, requirements and peer-reviews and store the hash as \emph{PoE} into AntsReview.
 \textbf{g} Integration with De-Fi services like \emph{Dai} and \emph{Chai}, to be used as tokens in the protocol.
-\textbf{h} Library used by the protocol for secure contract development with the modules listed.}
+\textbf{h} Library used by the protocol for secure contract development with the modules listed.}}
 \label{fig:contracts}
 \end{figure}
 
@@ -110,9 +110,11 @@ In the following sections we describe the architecture of the system and its bui
 \subsubsection{AntsReview.}
 AntsReview (see Figure \ref{fig:contracts} (\textbf{a}) is the core of the smart contracts written in \emph{Solidity}\footnote[6]{\emph{Solidity}.\textsc{URL:}https://solidity.readthedocs.io.}, an object-oriented programming language for writing smart contracts that runs on the Ethereum Virtual Machine, deployed on Ethereum Rinkeby's Testnet\footnote[7]{\emph{Rinkeby Testnet}.\textsc{URL:}https://rinkeby.etherscan.io.}. AntsReview implements a bounty-like system where Alice (issuer) can issue an AntReview with the function \emph{issueAntReview()}.
 \newline In order to create a transparent and openly accessible AntReview, Alice has to complete a series of required tasks:
- \newline 1. \emph{upload of the file} containing the requirements of the peer-review and the paper to be reviewed into IPFS and specification of the IPFS hash to be stored in the Ethereum blockchain as PoE;
- \newline 2. \emph{specification of a deadline} in the form of a unix timestamp after which the fulfillment will no longer be accepted;
- \newline 3. \emph{specification of the amount of Ether} for the reward that will be transferred from Alice to the contract.
+ \begin{itemize}
+     \item \emph{upload of the file} containing the requirements of the peer-review and the paper to be reviewed into IPFS and specification of the IPFS hash to be stored in the Ethereum blockchain as PoE;
+     \item \emph{specification of a deadline} in the form of a unix timestamp after which the fulfillment will no longer be accepted;
+     \item \emph{specification of the amount of Ether} for the reward that will be transferred from Alice to the contract.
+\end{itemize}
  \newline Bob (peer-reviewer) downloads the file with Alice's paper and requirements by leveraging on the content-addressing feature of IPFS, that allows anyone to find the document using an IPFS explorer; subsequently, Bob can submit a peer-review before the deadline by fulfilling the AntReview created by Alice, with the function \emph{fulfillAntReview()}, by specifying the AntReview of interest as well as the IPFS Hash of the peer-review uploaded on IPFS.
 Alice can accept the peer-review submitted by Bob with the function \emph{acceptAntReview()}, by specifying the AntReview as well as the peer-review of interest, that will transfer the reward specified for the AntReview from the contract to Bob.
 If Alice does not receive any peer-review, she can cancel the AntReview with the function \emph{cancelAntReview()}, by specifying the AntReview of interest, and the contract will transfer the reward for the AntReview back to Alice.
@@ -154,14 +156,13 @@ Peer reviews requires a standard: building smart-contracts for peer-reviews migh
 \section{Conclusion}
 In this paper we addressed a crucial problem within scholarly academic communication: the peer-review process. We've shown how blockchain technology could provide an efficient and viable solution to open up possible directions for a paradigm shift in scientific communication. We proposed an incentive mechanism that could solve the problems of lack of acknowledgment and trust during peer-reviews. We exposed the architecture of our project for which we adopted cutting-edge tools from the open source blockchain ecosystem.
 
+\small{
 \subsubsection{Supplementary material}
-Source Code, DOI: 10.5281/zenodo.3953999
-\newline Proof of Concept (PoC) DApp, \url{antsreview.on.fleek.co}
-\newline Demo (PoC), DOI: 10.5281/zenodo.3964466
+Source code, DOI: 10.5281/zenodo.3953999; Proof of Concept (PoC) DApp, antsreview.on.fleek.co; Demo (PoC), DOI: 10.5281/zenodo.3964466.
 
 \subsubsection{Declaration of Competing Interest}
 The authors declare no competing interests.
-\small{
+
 \subsubsection{Acknowledgements} We would like to thank Matteo A. Tambussi and Keno Budde for useful comments and discussions; Evan C. Harris for internal review; Marcelo Colmenero for the pixel art in Figure 1.}
 
 
@@ -171,6 +172,6 @@ The authors declare no competing interests.
 % References will then be sorted and formatted in the correct style.
 %
 \bibliographystyle{splncs04}
-\bibliography{ref1-intro.bib,ref2-peerreview.bib,ref2-relatedwork.bib, ref3-system.bib,ref4-discuss.bib, ref5-extra.bib}
+\bibliography{ref1-intro.bib,ref2-peerreview.bib,ref2-related.bib, ref3-system.bib,ref4-discuss.bib, ref5-extra.bib}
 
 \end{document}
