@@ -91,12 +91,13 @@ Thus, the system acts also as a reputation builder.
 \begin{figure}
 \centering
 \includegraphics[scale=0.28]{AntsReview}
-\caption{\textbf{a} The core contract of the protocol, it implements a bounty system with the functions listed.
-\textbf{b} The module inherited by AntsReview, that manages the access control of the protocol, adding and removing issuers and peer-reviewers.
-\textbf{c} The native token used in the protocol that inherits the \textbf{d} contract from OpenZeppelin. It's linked to \textbf{a} and to \textbf{e}, to be wrapped into \emph{zkANTS} to implement private \emph{ANTS} transactions on Ethereum.
-\textbf{f} Represents the integration with IPFS to upload the paper, requirements and peer-reviews and store the hash as \emph{proof of existence} into AntsReview.
-\textbf{g} Represents the integration with De-Fi services like \emph{Dai} and \emph{Chai}, to be used as tokens in the protocol.
-\textbf{h} The library used by the protocol for secure contract development, with the modules listed.}
+\caption{Exagones represent the protocol's smart contracts. Ellipse represents the smart contract inherited by AntsReview. Clouds represent integrations into the protocol. Rectangles represent smart contracts' libraries.
+\textbf{a)} Core contract of the protocol implementing a bounty system with the functions listed.
+\textbf{b)} Module inherited by AntsReview: it manages the access control of the protocol by adding and removing issuers and peer-reviewers.
+\textbf{c)} Native token used in the protocol that inherits the \textbf{d)} contract from \emph{OpenZeppelin}. It is linked to \textbf{a)} and to \textbf{e)}, wrapped into \emph{zkANTS} to implement private \emph{ANTS} transactions on Ethereum.
+\textbf{f)} Integration with IPFS to upload papers, requirements and peer-reviews and store the hash as \emph{PoE} into AntsReview.
+\textbf{g)} Integration with De-Fi services like \emph{Dai} and \emph{Chai}, to be used as tokens in the protocol.
+\textbf{h)} Library used by the protocol for secure contract development with the modules listed.}
 \label{fig:contracts}
 \end{figure}
 
@@ -114,7 +115,7 @@ AntsReview (see Figure \ref{fig:contracts}a) is the core of the smart contracts 
  \newline 3. \emph{specification of the amount of Ether} for the reward that will be transferred from Alice to the contract.
  \newline Bob (peer-reviewer) downloads the file with Alice's paper and requirements by leveraging on the content-addressing feature of IPFS, that allows anyone to find the document using an IPFS explorer; subsequently, Bob can submit a peer-review before the deadline by fulfilling the AntReview created by Alice, with the function \emph{fulfillAntReview()}, by specifying the AntReview of interest as well as the IPFS Hash of the peer-review uploaded on IPFS.
 Alice can accept the peer-review submitted by Bob with the function \emph{acceptAntReview()}, by specifying the AntReview as well as the peer-review of interest, that will transfer the reward specified for the AntReview from the contract to Bob.
-If Alice doen't receive any peer-review, she can cancel the AntReview with the function \emph{cancelAntReview()}, by specifying the AntReview of interest, and the contract will transfer the reward for the AntReview back to Alice.
+If Alice does not receive any peer-review, she can cancel the AntReview with the function \emph{cancelAntReview()}, by specifying the AntReview of interest, and the contract will transfer the reward for the AntReview back to Alice.
 
 Access management of the Ants-Review protocol is defined and controlled by AntsReviewRoles (See Figure \ref{fig:contracts} \textbf{b}). It's implemented by leveraging on \emph{AccessControl.sol} by OpenZeppelin Solidity Library\footnote[8]{\emph{OpenZeppelin Library}.\textsc{URL:}https://openzeppelin.com.}, through the creation of the Issuer and Peer-Reviewer Roles.
 \newline It also integrates a circuit breaker design pattern via \emph{Pausable.sol} by OpenZeppelin to allow the Pauser Role, that by default is the Owner of the smart contracts, able to pause (or unpause) the functions in case of a security emergency, such as an attack to the smart contracts. In this way, only the Issuer can create a new AntReview.
@@ -159,8 +160,11 @@ Peer reviews requires a standard: building smart-contracts for peer-reviews migh
 In this paper we addressed a crucial problem within scholarly academic communication: the peer-review process. We've shown how blockchain technology could provide an efficient and viable solution to open up possible directions for a paradigm shift in scientific communication. We proposed an incentive mechanism that could solve the problems of lack of acknowledgment and trust during peer-reviews. We exposed the architecture of our project for which we adopted cutting-edge tools from the open source blockchain ecosystem.
 
 \subsubsection{Supplementary material}
-Source Code, DOI: 10.5281/ZENODO.3829162
-\newline Demo (PoC), DOI: 10.5281/ZENODO.3829183
+Source Code, DOI: 10.5281/zenodo.3953999
+\newline Proof of Concept (PoC) DApp, \url{antsreview.on.fleek.co}
+\newline Demo (PoC), DOI: 10.5281/zenodo.3964466
+
+
 
 \subsubsection{CRediT Authorship Contribution Statement}
  Bianca Trovò: Conceptualization, Investigation, Design, Writing - original draft, Writing - review \& editing. Nazzareno Massari: Project administration, Design, Software development, Visualization, Writing - review \& editing. Both authors equally contributed and supervised the project.
