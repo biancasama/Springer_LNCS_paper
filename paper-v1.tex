@@ -94,7 +94,9 @@ Thus, the system acts also as a reputation builder.
 \caption{Exagones represent the protocol's smart contracts. Ellipse represents the smart contract inherited by AntsReview. Clouds represent integrations into the protocol. Rectangles represent smart contracts' libraries.
 \textbf{a} Core contract of the protocol implementing a bounty system with the functions listed.
 \textbf{b} Module inherited by AntsReview: it manages the access control of the protocol by adding and removing issuers and peer-reviewers.
-\textbf{c} Native token used in the protocol that inherits the \textbf{d} contract from \emph{OpenZeppelin}. It is linked to (\textbf{a}) and to (\textbf{e}), wrapped into \emph{zkANTS} to implement private \emph{ANTS} transactions on Ethereum.
+\textbf{c} Native token used in the protocol. It is linked to (\textbf{a}), (\textbf{e}) and to (\textbf{d}).
+\textbf{d} Faucet to distribute \emph{ANTS} on Kovan Testnet for testing purposes. 
+\textbf{e} Integration with Aztec Protocol to wrap (\textbf{c}) into \emph{zkANTS} to implement private \emph{ANTS} transactions on Ethereum.
 \textbf{f} Integration with IPFS to upload papers, requirements and peer-reviews and store the hash as \emph{PoE} into AntsReview.
 \textbf{g} Integration with De-Fi services like \emph{Dai} and \emph{Chai}, to be used as tokens in the protocol.
 \textbf{h} Library used by the protocol for secure contract development with the modules listed.}}
