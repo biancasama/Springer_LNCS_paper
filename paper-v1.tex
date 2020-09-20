@@ -107,7 +107,7 @@ In the following sections we describe the architecture of the system and its bui
 \newline The Ants-Review Protocol is divided into different modules responsible for the following functionalities, as shown in the flow-chart (see Figure \ref{fig:contracts}):
 \emph{AntsReview}, which manages access management and the core system (see Figure \ref{fig:contracts}, (\textbf{a, b, f, h})).
 \emph{Privacy}, which maintains the anonymity of the system via AZTEC Protocol (see Figure  \ref{fig:contracts}, (\textbf{d})).
-\emph{Tokenomics}, which manages the incentive mechanism of the system (see Figure \ref{fig:contracts}, (\textbf{c, e, h})}).
+\emph{Tokenomics}, which manages the incentive mechanism of the system (see Figure \ref{fig:contracts}, (\textbf{c, e, h})).
 
 \subsubsection{AntsReview.}
 AntsReview (see Figure \ref{fig:contracts} (\textbf{a}) is the core of the smart contracts written in \emph{Solidity}\footnote[7]{\emph{Solidity}.\textsc{URL:}https://solidity.readthedocs.io.}, a contract-oriented programming language for writing smart contracts that runs on the Ethereum Virtual Machine, deployed on Ethereum Kovan Testnet\footnote[8]{\emph{Kovan Testnet}.\textsc{URL:}https://kovan.etherscan.io/.}. AntsReview implements a bounty-like system (based on the \emph{StandardBounties} contract\footnote[9]{\emph{StandardBounties.sol}.\textsc{URL:}https://github.com/Bounties-Network/StandardBounties/blob/master/contracts/StandardBounties.sol.}) where Alice (issuer) can issue an AntReview with the function \emph{issueAntReview()}.
