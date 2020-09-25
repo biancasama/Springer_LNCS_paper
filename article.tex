@@ -90,7 +90,6 @@ The Ants-Review Protocol is divided into different modules responsible for the f
 \begin{figure}
 \centering
 \includegraphics[scale=0.28]{AntsReview}
-\small{
 \caption{Exagones represent the protocol's smart contracts. Ellipse represents the smart contract inherited by AntsReview. Clouds represent integrations into the protocol. Rectangles represent smart contracts' libraries.
 \textbf{a} Core contract of the protocol implementing a bounty system with the functions listed.
 \textbf{b} Module inherited by AntsReview: it manages the access control of the protocol by adding and removing issuers and peer-reviewers.
@@ -99,7 +98,7 @@ The Ants-Review Protocol is divided into different modules responsible for the f
 \textbf{e} Integration with Aztec Protocol to wrap (\textbf{c}) into \emph{zkANTS} to implement private \emph{ANTS} transactions on Ethereum.
 \textbf{f} Integration with IPFS to upload papers, requirements and peer reviews and store the hash as \emph{PoE} into AntsReview (\textbf{a}).
 \textbf{g} Integration with ERC20 tokens like \emph{Dai}, and De-Fi services like MakerDAO DSR to be used in the protocol.
-\textbf{h} Library used by the protocol for secure contract development with the modules listed.}}
+\textbf{h} Library used by the protocol for secure contract development with the modules listed.}
 \label{fig:contracts}
 \end{figure}
 
@@ -117,7 +116,7 @@ Bob (peer-reviewer) can download the files relative to Alice's paper and the req
 Ted (approver) can accept the peer review submitted by Bob with the function \emph{acceptAntReview()}, by specifying the amount of ANTS that will be transferred as reward from the contract to Bob.
 If Alice's AntReview does not receive any peer review and the deadline expires, Anters can get a refund with the function \emph{refund()} for their contributions. In order to avoid residual balance, Alice can withdraw ANTS from the AntReview's balance, if the deadline expires, with the function \emph{withdrawAntReview()}, and the contract will transfer the amount specified to Alice and update the balance.
 \\
-Access management of the Ants-Review protocol is defined and controlled by \emph{AntsReviewRoles} (see Figure \ref{fig:contracts} (\textbf{b})), implemented by leveraging on \emph{AccessControl.sol} by OpenZeppelin Library\footnote[10]{\emph{OpenZeppelin Library}.\textsc{URL:} https://openzeppelin.com.} that is used to define the Issuer and Peer-Reviewer Roles. AntsReviewRoles also integrates a circuit breaker design pattern via \emph{Pausable.sol} by OpenZeppelin to allow the Pauser Role, granted by default to the owner of the smart contracts, to pause (or unpause) all the functions in case of a security emergency, such as an attack to the smart contracts.
+Access management of the Ants-Review protocol is defined and controlled by \emph{AntsReviewRoles} (see Figure \ref{fig:contracts} (\textbf{b})), implemented by leveraging on \emph{AccessControl.sol} by OpenZeppelin Library\footnote[10]{\emph{OpenZeppelin Library}.\textsc{URL:} https://openzeppelin.com} that is used to define the Issuer and Peer-Reviewer Roles. AntsReviewRoles also integrates a circuit breaker design pattern via \emph{Pausable.sol} by OpenZeppelin to allow the Pauser Role, granted by default to the owner of the smart contracts, to pause (or unpause) all the functions in case of a security emergency, such as an attack to the smart contracts.
 
 \subsubsection{Privacy.}
 The anonymity of an agent in the system is achieved in two ways: via pseudo-anonymity, granted through Ethereum's EOAs that can pseudo-obscure the identity of the agent, and via private transactions allowed by AZTEC \cite{AZTEC} Protocol's security layer.
@@ -128,7 +127,7 @@ a universal zk-SNARK construction that reduces gas costs and improves scalabilit
 
 \subsubsection{Tokenomics.}
 Ants-Review integrates a few \emph{ERC20}\footnote[12]{\emph{EIP 20}. https://eips.ethereum.org/EIPS/eip-20} tokens, each of whom plays an integral role in the functioning and anonymity of the decentralized protocol. ANTS (see Figure \ref{fig:contracts}, (\textbf{c})) is the primary protocol token and can be staked into an AntReview. It's implemented by inheriting \emph{ERC20.sol} from OpenZeppelin Library with name \emph{Ants-Review} and symbol \emph{ANTS}.
-A Faucet (see Figure \ref{fig:contracts}, (\text{d}) is implemented to distribute ANTS token on Kovan Testnet for testing purposes. zkANTS (see Figure \ref{fig:contracts}, (\textbf{e})) is a wrapper of ANTS that will be used inside the protocol to allow for private transactions among the agents of the protocol, preserving their anonymity as well as the amount of the AntReview reward and the contributions by the Anters. It will be implemented via AZTEC Protocol \cite{AZTEC}, that uses a cryptographic engine, \emph{ACE.sol}, a contract responsible for validating the set of AZTEC zero-knowledge proofs and performing any transfer instructions involving AZTEC notes, minted into a zkAsset, that can be converted into ERC20 tokens. In order to implement a zkAsset called zkANTS, \emph{zkAsset.sol}, a contract implementation of a confidential token that follows the EIP-1724 standard \footnote[13]{\emph{EIP  1724}. https://github.com/ethereum/EIPs/issues/1724} will be used as a template to build an AZTEC-compatible asset.
+A Faucet (see Figure \ref{fig:contracts}, (\textbf{d})) is implemented to distribute ANTS token on Kovan Testnet for testing purposes. zkANTS (see Figure \ref{fig:contracts}, (\textbf{e})) is a wrapper of ANTS that will be used inside the protocol to allow for private transactions among the agents of the protocol, preserving their anonymity as well as the amount of the AntReview reward and the contributions by the Anters. It will be implemented via AZTEC Protocol \cite{AZTEC}, that uses a cryptographic engine, \emph{ACE.sol}, a contract responsible for validating the set of AZTEC zero-knowledge proofs and performing any transfer instructions involving AZTEC notes, minted into a zkAsset, that can be converted into ERC20 tokens. In order to implement a zkAsset called zkANTS, \emph{zkAsset.sol}, a contract implementation of a confidential token that follows the EIP-1724 standard \footnote[13]{\emph{EIP  1724}. https://github.com/ethereum/EIPs/issues/1724} will be used as a template to build an AZTEC-compatible asset.
 \\
 \\ The current state of the art of Ants-Review is represented by version 0.2.0 (MVP) live on Ethereum Kovan Testnet (see Supplementary Material).
 
@@ -141,7 +140,7 @@ A Decentralized Autonomous Organization (DAO) \cite{Wang-DAO,DAOContr} could be 
 \newline Finally, a protocol upgrade inspired by \emph{Discover}\footnote[17]{\emph{Discover.sol}. https://github.com/dap-ps/discover/blob/master/contracts/Discover.sol}, a Web3 browser by \emph{Status}\footnote[18]{\emph{Status}. https://status.im/} and still under investigation would allow Anters to validate peer reviews via an upvote/downvote system that will consent the protocol to automatically pay out the reward to the reviewers based on the votes associated with their peer reviews.
 
 \subsection{A new community-driven standard?}
-As Tennant points out \cite{Tennant2017-F1000R}, a change is already happening in the publishing industry, especially with new born publishers opening up the review process (\emph{BioMed Central}, \emph{ELife}, \emph{Frontiers}, \emph{PeerJ}, \emph{F1000 Research}). Recently, pre-print servers, such as \emph{arXiv} and \emph{biorXiv}, started integrating peer-review services into their platforms: \emph{PREreview}\footnote[19]{\emph{PREreview.} https://www.prereview.org}, \emph{PeerCommunityIn}\footnote[20]{\emph{PeerCommunityIn} https://peercommunityin.org}, \emph{Review Commons}\footnote[21]{\emph{Review Commons.} \textsc{URL:} https://www.reviewcommons.org}, \emph{PrePrint Review}\footnote[22]{\emph{PrePrint Review.} https://elifesci.org/preprint-review} and the previously mentioned \emph{Peerage of Science}. This dissociation of initial scientific dissemination and scientific validation will force the publishing industry to adapt in order to keep up with the higher quality scientific process offered by those alternative peer review platforms and justify their added value (\emph{ibidem}). In our proposal we also decoupled the peer review process from the publishers giving it back to the scientific community and applying incentives from tokenomics. We foresee that the future will evolve towards community-driven peer reviews: peer reviews will be more and more independent from publishers \cite{DecoupJ}, and researchers will be the ones seeking the papers to review to build reputation within the community and not journals.
+As Tennant points out \cite{Tennant2017-F1000R}, a change is already happening in the publishing industry, especially with new born publishers opening up the review process (\emph{BioMed Central}, \emph{ELife}, \emph{Frontiers}, \emph{PeerJ}, \emph{F1000 Research}). Recently, pre-print servers, such as \emph{arXiv} and \emph{biorXiv}, started integrating peer-review services into their platforms: \emph{PREreview}\footnote[19]{\emph{PREreview.} https://www.prereview.org}, \emph{PeerCommunityIn}\footnote[20]{\emph{PeerCommunityIn} https://peercommunityin.org}, \emph{Review Commons}\footnote[21]{\emph{Review Commons.} \textsc{URL:} https://www.reviewcommons.org}, \emph{PrePrint Review}\footnote[22]{\emph{PrePrint Review.} https://elifesci.org/preprint-review} and the previously mentioned \emph{Peerage of Science}. This dissociation of initial scientific dissemination and scientific validation will force the publishing industry to adapt in order to keep up with the higher quality scientific process offered by those alternative peer review platforms and justify their added value. In our proposal we also decoupled the peer review process from the publishers giving it back to the scientific community and applying incentives from tokenomics. We foresee that the future will evolve towards community-driven peer reviews: peer reviews will be more and more independent from publishers \cite{DecoupJ}, and researchers will be the ones seeking the papers to review to build reputation within the community and not journals.
 \newline Enlarging the pool of reviewers to potentially an entire scientific community and accelerating the whole process requires a standard for peer reviews \cite{UPR}: for example some aspects might be taken over by AI assistants (such as the \emph{Artificial Intelligence Review Assistant (AIRA)\cite{AIRA}} leaving to the reviewers the sole task of evaluating the content of a paper. Building smart contracts for peer reviews might accelerate this novel process of standardization. We hope that soon the value of peer review as a public good will be recognized by research funders and hiring committees.
 
 \section{Conclusion}
@@ -155,7 +154,7 @@ Source code, DOI: 10.5281/zenodo.3971044;
 \subsubsection{Declaration of Competing Interest}
 The authors declare no competing interests.
 
-\subsubsection{Acknowledgements} We would like to thank Matteo A. Tambussi, Andy Tudhope, Mark Beylin, Evan C. Harris and the four external anonymous peer reviewers for useful comments and revisions; Mitrasish Mukherjee for contributions on the interface. The project was born during ETH Turin hackathon (April 24-26th 2020) and further developed in the Kernel Gitcoin program (July 7th - August 31st 2020).}
+\subsubsection{Acknowledgements} We would like to thank Matteo A. Tambussi, Andy Tudhope, Mark Beylin, Evan C. Harris and the four external anonymous peer reviewers for useful comments and revisions; Mitrasish Mukherjee for contributions on the interface.
 
 
 % ---- Bibliography ----
@@ -164,6 +163,6 @@ The authors declare no competing interests.
 % References will then be sorted and formatted in the correct style.
 %
 \bibliographystyle{splncs04}
-\bibliography{ref1-intro.bib,ref2-peerreview.bib,ref2-related.bib, ref3-system.bib,ref4-discuss.bib, ref5-extra.bib}
+\bibliography{references.bib}
 
 \end{document}
