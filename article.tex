@@ -18,32 +18,29 @@
 
 \begin{document}
 %
-\title{Ants-Review: a Protocol for Open Anonymous Peer Reviews}
+\title{Ants-Review: an Ethereum-Based Protocol for Peer Reviews}
 %
 %\titlerunning{Abbreviated paper title}
 % If the paper title is too long for the running head, you can set
 % an abbreviated paper title here
 %
-\author{Bianca Trovò\inst{1,2}\orcidID{0000-0002-6776-2304}\thanks{Corresponding author}\and
-Nazzareno Massari\inst{3,4}\orcidID{0000-0002-6638-2174}\thanks{Corresponding author}}
+\author{Bianca Trovò\inst{1}\orcidID{0000-0002-6776-2304}\thanks{Corresponding author}\and
+Nazzareno Massari\inst{2}\orcidID{0000-0002-6638-2174}\thanks{Corresponding author}}
 %
 \authorrunning{B. Trovò et N. Massari}
 % First names are abbreviated in the running head.
 % If there are more than two authors, 'et al.' is used.
 %
-\institute{Sorbonne Université, Faculté des Sciences et Ingénierie, 75005 Paris, France \and
-Neurospin research center, CEA/SAC/DSV/I2BM, 91191 Gif-sur-Yvette, France
+\institute{Sorbonne Université, Faculté des Sciences et Ingénierie, Paris, France
 \email{bianca.trovo@alumni.unitn.it}\\
-\and
-Alma Mater Politecnico di Torino, 10129 Turin, Italy\and
-Blockchain Engineer, London, UK \\
+\and Smart Contract Engineer, London, United Kingdom \\
 \email{nazzareno@nazzarenomassari.com}}
 %
 \maketitle              % typeset the header of the contribution
 %
 \begin{abstract}
 Peer-review is a necessary and essential quality control step for scientific publications but lacks proper  incentives. Indeed, the process, which is very costly in terms of time and intellectual investment, not only is not remunerated by the journals but it is also not openly recognized by the academic community as a relevant scientific output for a researcher. Therefore, scientific dissemination is affected in timeliness, quality and fairness. Here, to solve this issue, we propose a blockchain-based incentive system that rewards scientists for peer-reviewing other scientists’ work and that builds up trust and reputation. We designed a protocol of smart contracts called Ants-Review that allows authors to issue a bounty for open anonymous peer-reviews on Ethereum. If requirements are met, peer reviews will be accepted and paid by the approver proportionally to their assessed quality. To promote ethical behaviour and inclusiveness the system implements a gamified mechanism that allows the whole community to evaluate the peer-reviews and vote for the best ones.
-\keywords{Blockchain \and Ethereum \and Peer-review \and Incentivization.}
+\keywords{Blockchain \and Ethereum \and Peer-review \and Incentivization}
 \end{abstract}
 %
 %
@@ -87,7 +84,7 @@ The Ants-Review Protocol is divided into different modules responsible for the f
 \emph{Privacy}, which maintains the anonymity of the system via AZTEC Protocol (see Figure  \ref{fig:contracts}, (\textbf{e}));
 \emph{Tokenomics}, which manages the incentive mechanism of the system (see Figure \ref{fig:contracts}, (\textbf{c, d, e, h})). \newline Agents in the platform are: issuers, peer reviewers, approvers and contributors (Anters, members of the Ants-Review Community).
 
-\begin{figure}
+\begin{figure}[htp]
 \centering
 \includegraphics[scale=0.28]{AntsReview}
 \caption{Exagones represent the protocol's smart contracts. Ellipse represents the smart contract inherited by AntsReview. Clouds represent integrations into the protocol. Rectangles represent smart contracts' libraries.
